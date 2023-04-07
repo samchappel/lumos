@@ -78,6 +78,7 @@ class TMZ(enum.Enum):
     CST = 'cst'
     MST = 'mst'
     PST = 'pst'
+    AKST = 'akst'
 
 class Location(db.Model, SerializerMixin):
     __tablename__ = 'locations'
