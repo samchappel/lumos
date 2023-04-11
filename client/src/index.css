@@ -56,3 +56,80 @@ code {
   height: 300px;
   margin: 0 auto;
 }
+
+#form-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+label {
+  font-family: "Titillium Web", sans-serif;
+  color: #d9c4b4;
+}
+
+input {
+  height: 30px;
+  width: 90%;
+  margin: 3px;
+  border: 1px solid #10abd8;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
+
+button, [type="submit"] {
+  cursor: pointer;
+  color: black;
+  font-family: "Titillium Web", sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #d4d4cc;
+}
+
+button:hover, [type="submit"]:hover {
+  opacity: 0.8;
+}
+
+form {
+  margin: 10px auto;
+  width: 400px; 
+  display: flex;
+  flex-direction: column;
+  color: #cad0cf;
+  border: 1px solid #bbc0c6;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  color: #335364;
+  background-color: #88837e;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background-color: #53565a;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
