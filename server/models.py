@@ -3,13 +3,11 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
-from sqlalchemy import CheckConstraint
-import enum
+from sqlalchemy import CheckConstraint, Date, Enum
+from enum import Enum as PyEnum
 import re
 
 from config import bcrypt, db
-
-db = SQLAlchemy()
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -29,9 +27,9 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ('-user_favorites', '-photos', '-comments')
 
-     @hybrid_property
+    @hybrid_property
     def password_hash(self):
-        raise Exception('Password hashes may not be viewed.')
+        raise AttributeError('Password hashes may not be viewed.')
 
     @password_hash.setter
     def password_hash(self, password):
@@ -73,7 +71,7 @@ class User(db.Model, SerializerMixin):
     def __repr__(self):
         return f'USER: ID: {self.id}, Name {self.name}, Email: {self.email}, Admin: {self.admin}'
 
-class TMZ(enum.Enum):
+class Tmz(PyEnum):
     EST = 'est'
     CST = 'cst'
     MST = 'mst'
@@ -84,12 +82,14 @@ class Location(db.Model, SerializerMixin):
     __tablename__ = 'locations'
 
     id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.String)
     name = db.Column(db.String)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    timezone = Column(Enum(Tmz), default=TMZ.EST)
+    timezone = db.Column(Enum(Tmz), default=Tmz.EST)
     city = db.Column(db.String)
     state = db.Column(db.String)
+    park_type = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -118,18 +118,18 @@ class Photo(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    image_url = db.Column(db.String)
+    image = db.Column(db.String)
     location = db.Column(db.String)
     city = db.Column(db.String)
     state = db.Column(db.String)
     caption = db.Column(db.String)
     date = db.Column(Date)
-    timezone = Column(Enum(Tmz), default=TMZ.EST)
-    time = db.Column(db.String)
+    timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
+    comments = db.relationship('Comment', back_populates='photos')
 
-    serialize_rules = ('-user',)
+    serialize_rules = ('-user', '-comments')
 
 
 class Comment(db.Model, SerializerMixin):
@@ -143,9 +143,9 @@ class Comment(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user = db.relationship('User', back_populates='comments')
-    photo = db.relationship('Photo', back_populates='comments')
+    photos = db.relationship('Photo', back_populates='comments')
 
-    serialize_rules = ('-user', '-photo')
+    serialize_rules = ('-user', '-photos')
 
 
 
