@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import EditComments from './EditComments';
+import AddComment from './AddComment';
 
 function Comments({ photoId, userId }) {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [commentToEdit, setCommentToEdit] = useState(null);
+  const [showCommentForm, setShowCommentForm] = useState(false);
 
   useEffect(() => {
     fetchComments();
@@ -68,6 +70,12 @@ function Comments({ photoId, userId }) {
       });
   };
 
+  const handleAddComment = (newComment) => {
+    const updatedComments = [...comments, newComment];
+    setComments(updatedComments);
+    setShowCommentForm(false);
+  };
+
   return (
     <div>
       {error && <p>{error}</p>}
@@ -83,6 +91,11 @@ function Comments({ photoId, userId }) {
           )}
         </div>
       ))}
+      {showCommentForm ? (
+        <AddComment photoId={photoId} userId={userId} onAddComment={handleAddComment} onCancel={() => setShowCommentForm(false)} setComments={setComments}/>
+      ) : (
+        <button onClick={() => setShowCommentForm(true)}>Add Comment</button>
+      )}
       {commentToEdit && (
         <EditComments
           comment={commentToEdit}
