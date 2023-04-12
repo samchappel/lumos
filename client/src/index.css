@@ -117,7 +117,8 @@ form {
 }
 
 .modal-content {
-  color: #335364;
+  color: #342c2c;
+  text-align: center;
   background-color: #88837e;
   padding: 20px;
   border-radius: 5px;
@@ -128,8 +129,12 @@ form {
   position: absolute;
   top: 0px;
   right: 10px;
-  background-color: #53565a;
+  background-color: #d4d4cc;
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #342c2c;
 }
