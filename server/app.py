@@ -4,9 +4,15 @@ from flask_restful import Api, Resource
 from flask_login import current_user, login_required
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Photo, db
-from config import db, api, app, CORS, migrate, bcrypt
+# from config import db, api, app, CORS, migrate, bcrypt
 from enum import Enum
 from datetime import datetime
+
+from flask_login import LoginManager
+
+from config import app, api, db, migrate, bcrypt, CORS, login_manager
+
+login_manager.init_app(app)
 
 
 
@@ -154,6 +160,19 @@ api.add_resource(Photos, '/photos')
 
 
 class PhotoByID(Resource):
+    def get(self, id):
+        photo = Photo.query.filter_by(id=id).first()
+        if not photo:
+            raise NotFound
+
+        photo_dict = photo.to_dict()
+
+        response = make_response(
+            photo_dict,
+            200
+        )
+
+        return response
     @login_required
     def patch(self, id):
         photo = Photo.query.filter_by(id=id).first()
