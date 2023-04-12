@@ -4,6 +4,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 from sqlalchemy import CheckConstraint, Date, Enum
+from flask_login import LoginManager
 from enum import Enum as PyEnum
 import re
 
@@ -77,6 +78,7 @@ class Tmz(PyEnum):
     MST = 'mst'
     PST = 'pst'
     AKST = 'akst'
+    SST = 'sst'
 
 class Location(db.Model, SerializerMixin):
     __tablename__ = 'locations'
