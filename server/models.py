@@ -147,8 +147,6 @@ class Comment(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='comments')
     photos = db.relationship('Photo', back_populates='comments')
 
-    serialize_rules = ('-user', '-photos')
-
-
+    serialize_rules = ('-photos',)
 
 

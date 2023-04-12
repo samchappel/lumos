@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Navigation from './Navigation'
 import Home from './Home';
@@ -11,15 +11,17 @@ import Gallery from './Gallery'
 import './index.css';
 
 function App() {
+  const [page, setPage] = useState("/")
   const [locations, setLocations] = useState([]);
   const [error, setError] = useState(null);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchUser()
-},[])
+  }, []);
 
   const fetchLocations = () => {
     fetch('/locations')
@@ -54,24 +56,25 @@ function App() {
   )
 
   const updateUser = (user) => setUser(user)
-  if(!user) return (
-    <>
-      <Header />
-      <Navigation/>
-      <Authentication updateUser={updateUser}/>
-    </>
-  )
 
+  const handleLogout = () => {
+    fetch('/logout', { method: 'DELETE' })
+      .then(() => {
+        setIsLoggedIn(false);
+        navigate('/login');
+      })
+      .catch(error => console.error('Error logging out:', error));
+  };
 
   return (
     <div className="App">
       <Header />
-      <Navigation updateUser={updateUser}/>
+      <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Authentication />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/" element={<Home locations={locations} setLocations={setLocations} />} />
+        <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/favorites" element={<Favorites user={user} />} />
+        <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
         <Route path="/add" element={<NewPhotoForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<p>Page not found</p>} />
@@ -79,7 +82,6 @@ function App() {
     </div>
   );
 }
-
 
 function WrappedApp() {
   return (

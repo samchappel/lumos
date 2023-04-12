@@ -79,11 +79,14 @@ api.add_resource(LocationByID, '/locations/<int:id>')
 class UserFavorites(Resource):
     @login_required
     def get(self):
+        print("get method called")
         favorite_list = [user_favorite.to_dict() for user_favorite in current_user.user_favorites]
+        print(current_user.id)
         response = make_response(
             favorite_list,
             200
         )
+        print(current_user.id)
         return response
 
     @login_required
@@ -178,19 +181,6 @@ api.add_resource(Photos, '/photos')
 
 
 class PhotoByID(Resource):
-    def get(self, id):
-        photo = Photo.query.filter_by(id=id).first()
-        if not photo:
-            raise NotFound
-
-        photo_dict = photo.to_dict()
-
-        response = make_response(
-            photo_dict,
-            200
-        )
-
-        return response
     @login_required
     def patch(self, id):
         photo = Photo.query.filter_by(id=id).first()
@@ -272,10 +262,9 @@ class CommentByID(Resource):
         if not comment:
             raise NotFound
         
-        for attr in request.form:
-            setattr(comment, attr, request.form[attr])
+        form_json = request.get_json()
+        comment.comment = form_json['comment']
 
-        db.session.add(comment)
         db.session.commit()
 
         comment_dict = comment.to_dict()
