@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -6,6 +6,10 @@ import * as Yup from 'yup';
 const Authentication = ({ updateUser }) => {
   const navigate = useNavigate();
   const [signUp, setSignUp] = useState(false);
+
+  useEffect(() => {
+    navigate('/login');
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -41,12 +45,17 @@ const Authentication = ({ updateUser }) => {
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
       try {
         setSignUp(false);
-        const response = await fetch('/login', {
+        const response = await fetch(signUp?'/signup':'/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password,
+            first_name: values.firstName,
+            last_name: values.lastName
+          }),
         });
     console.log(response)
         if (response.ok) {
