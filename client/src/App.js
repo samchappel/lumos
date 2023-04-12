@@ -5,18 +5,24 @@ import Navigation from './Navigation'
 import Home from './Home';
 import NewPhotoForm from './NewPhotoForm';
 import Profile from './Profile';
-import LogIn from './LogIn';
+import Authentication from './Authentication';
 import Favorites from './Favorites'
 import Gallery from './Gallery'
 import './index.css';
 
 function App() {
-  const [locations, setLocations] = useState([])
-  const [error, setError] = useState(null)
+  const [locations, setLocations] = useState([]);
+  const [error, setError] = useState(null);
   const location = useLocation();
-
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   useEffect(() => {
-    fetch('http://localhost:5555/locations')
+    fetchUser()
+},[])
+
+  const fetchLocations = () => {
+    fetch('/locations')
     .then(response => {
       if (!response.ok) {
         throw new Error(`Error fetching data: ${response.status}`);
@@ -28,18 +34,42 @@ function App() {
       console.error('Error fetching data:', error)
       setError(error.message)
     });
-  }, [])
+  }
 
-  const shouldDisplayNavigation = location.pathname !== "/login";
+  const fetchUser = () => (
+    fetch('/authorized')
+    .then(response => {
+      if(response.ok){
+        setIsLoggedIn(true);
+        response.json()
+        .then(data => {
+          setUser(data)
+          fetchLocations()
+        })
+      } else {
+        setIsLoggedIn(false)
+        setUser(null)
+      }
+    })
+  )
+
+  const updateUser = (user) => setUser(user)
+  if(!user) return (
+    <>
+      <Header />
+      <Navigation/>
+      <Authentication updateUser={updateUser}/>
+    </>
+  )
+
 
   return (
     <div className="App">
       <Header />
-      {shouldDisplayNavigation && <Navigation />}
-      {error && <p>{error}</p>}
+      <Navigation updateUser={updateUser}/>
       <Routes>
-        <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Authentication />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/add" element={<NewPhotoForm />} />

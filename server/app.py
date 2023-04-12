@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 from flask_login import current_user, login_required
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Photo, db
-# from config import db, api, app, CORS, migrate, bcrypt
+from config import db, api, app, CORS, migrate, bcrypt
 from enum import Enum
 from datetime import datetime
 
@@ -25,6 +25,24 @@ class Users(Resource):
         )
 
         return response
+
+    def post(self):
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+
+        if User.query.filter_by(email=email).first():
+            return {'error': 'Email already in use'}, 409
+
+        new_user = User(email=email, password=password, first_name=first_name, last_name=last_name)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return new_user.to_dict(), 201
+    
 
 api.add_resource(Users, '/users')
 
@@ -304,34 +322,36 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 
 
 class Login(Resource):
-
     def post(self):
-        user = User.query.filter(User.email == request.get_json()['email']).first()
-        session['user_id'] = user.id
-        user_dict = user.to_dict()
-        response = make_response(
-            user_dict,
-            200,
-        )
-        return response
+        try:
+            user = User.query.filter_by(email=request.get_json()['email']).first()
+            if user.authenticate(request.get_json()['password']):
+                session['user_id'] = user.id
+                response = make_response(
+                    user.to_dict(),
+                    200
+                )
+                return response
+        except:
+            abort(401, "Incorrect Email or Password")
 
-api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Login, '/login')
 
 
 class AuthorizedSession(Resource):
     def get(self):
+        try:
+            user = User.query.filter_by(id=session['user_id']).first()
+            response = make_response(
+                user.to_dict(),
+        
+                200
+            )
+            return response
+        except:
+            abort(401, "Unauthorized")
 
-        if session.get('user_id'):
-            
-            user = User.query.filter(User.id == session['user_id']).first()
-            
-            return user.to_dict(), 200
-            
-        else:
-            raise Unauthorized
-
-
-api.add_resource(AuthorizedSession, '/authorized', endpoint='authorized')
+api.add_resource(AuthorizedSession, '/authorized')
 
 
 class Logout(Resource):
