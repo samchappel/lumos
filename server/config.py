@@ -41,5 +41,5 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'your-secret-key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

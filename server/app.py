@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 from flask_login import current_user, login_required
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Photo, db
-from config import db, api, app, CORS, migrate, bcrypt
+from config import db, api, app, CORS, migrate, bcrypt, load_user
 from enum import Enum
 from datetime import datetime
 
@@ -97,7 +97,7 @@ class UserFavorites(Resource):
             return make_response({'message': 'Location ID not provided.'}, 400)
 
         new_favorite = UserFavorite(
-            user_id=current_user.id,
+            user_id=session['user_id'],
             location_id=location_id
         )
 
@@ -238,7 +238,7 @@ class Comments(Resource):
         form_json = request.get_json()
         new_comment = Comment(
             comment=form_json['comment'],
-            user_id=current_user.id,
+            user_id=session['user_id'],
             photo_id=photo_id,
             created_at=datetime.utcnow()
         )
