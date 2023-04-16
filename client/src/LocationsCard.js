@@ -5,12 +5,12 @@ function LocationsCard({ location }) {
   const { name, city, state, image, id, latitude, longitude, timezone } = location;
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
-  const endUrl = "&date=today";
+//   const endUrl = "&date=today";
 
   const [sunriseData, setSunriseData] = useState(null);
 
   useEffect(() => {
-    fetch(`${baseUrl}lat=${latitude}&lng=${longitude}&timezone=${timezone}${endUrl}`)
+    fetch(`${baseUrl}lat=${latitude}&lng=${longitude}`)
       .then(response => response.json())
       .then(data => setSunriseData(data))
       .catch(error => console.error('Error fetching sunrise data:', error));
@@ -25,8 +25,7 @@ function LocationsCard({ location }) {
       </div>
       <div className="center">
         <h3 className="name">{name}</h3>
-        <h4>{city}</h4>
-        <h4>{state}</h4>
+        <h4>{city}, {state}</h4>
         {sunriseData && (
           <>
             <p>Sunrise: {sunriseData.results.sunrise}</p>

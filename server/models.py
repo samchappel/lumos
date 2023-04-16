@@ -72,13 +72,13 @@ class User(db.Model, SerializerMixin):
     def __repr__(self):
         return f'USER: ID: {self.id}, Name {self.name}, Email: {self.email}, Admin: {self.admin}'
 
-class Tmz(PyEnum):
-    EST = 'est'
-    CST = 'cst'
-    MST = 'mst'
-    PST = 'pst'
-    AKST = 'akst'
-    SST = 'sst'
+# class Tmz(PyEnum):
+#     EST = 'est'
+#     CST = 'cst'
+#     MST = 'mst'
+#     PST = 'pst'
+#     AKST = 'akst'
+#     SST = 'sst'
 
 class Location(db.Model, SerializerMixin):
     __tablename__ = 'locations'
@@ -88,7 +88,7 @@ class Location(db.Model, SerializerMixin):
     name = db.Column(db.String)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    timezone = db.Column(Enum(Tmz), default=Tmz.EST)
+    # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
     city = db.Column(db.String)
     state = db.Column(db.String)
     park_type = db.Column(db.String)
@@ -126,7 +126,7 @@ class Photo(db.Model, SerializerMixin):
     state = db.Column(db.String)
     caption = db.Column(db.String)
     date = db.Column(Date)
-    timezone = db.Column(Enum(Tmz), default=Tmz.EST)
+    # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
     comments = db.relationship('Comment', back_populates='photos')
