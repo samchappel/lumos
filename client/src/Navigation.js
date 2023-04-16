@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
+function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
   const navigate = useNavigate();
 
   return (
