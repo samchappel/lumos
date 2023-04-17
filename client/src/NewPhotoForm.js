@@ -1,37 +1,38 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function NewPhotoForm({ addPhotoToGallery }) {
-  const [image, setImage] = useState('');
   const [location, setLocation] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [caption, setCaption] = useState('');
   const [date, setDate] = useState('');
-//   const [timezone, setTimezone] = useState('');
 
   const navigate = useNavigate();
+
+  const imageInputRef = useRef(); // Add a ref for the file input
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const photoData = {
-      image: image,
-      location: location,
-      city: city,
-      state: state,
-      date: date,
-    //   timezone: timezone,
-      caption: caption 
-    };
+    const imageFile = imageInputRef.current.files[0]; // Get the selected file
+    if (!imageFile) {
+      console.error('No image file selected');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    formData.append('location', location);
+    formData.append('city', city);
+    formData.append('state', state);
+    formData.append('caption', caption);
+    formData.append('date', date);
 
     try {
       const response = await fetch('/photos', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(photoData)
+        body: formData
       });
 
       if (response.ok) {
@@ -47,10 +48,10 @@ function NewPhotoForm({ addPhotoToGallery }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <label>
         Image:
-        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+        <input type="file" ref={imageInputRef} />
       </label>
       <label>
         Location:
