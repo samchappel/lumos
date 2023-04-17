@@ -20,6 +20,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [photos, setPhotos] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,6 +70,10 @@ function App() {
       .catch(error => console.error('Error logging out:', error));
   };
 
+  const addPhotoToGallery = (newPhoto) => {
+    setPhotos([newPhoto, ...photos]);
+  };
+
   return (
     <div className="App">
       <Header />
@@ -79,7 +84,7 @@ function App() {
         <Route path="/profile" element={<Profile />} /><Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/favorites" element={<Favorites user={user} />} />
         <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
-        <Route path="/add" element={<NewPhotoForm />} />
+        <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<p>Page not found</p>} />
         </Routes>
