@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 function Results() {
   const [sunData, setSunData] = useState(null);
   const [qualityData, setQualityData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
   const { latitude, longitude } = useParams();
 
   useEffect(() => {
@@ -29,6 +30,25 @@ function Results() {
           setQualityData(data);
         })
         .catch(error => console.error('Error fetching quality data:', error));
+
+      // Fetch weather data
+      fetch(`https://api.weather.gov/points/${latitude},${longitude}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          const forecastUrl = data.properties.forecast;
+          const hourlyForecastUrl = data.properties.forecastHourly;
+          Promise.all([
+            fetch(forecastUrl).then(response => response.json()),
+            fetch(hourlyForecastUrl).then(response => response.json())
+          ])
+          .then(([forecastData, hourlyForecastData]) => {
+            console.log(forecastData.properties.periods);
+            console.log(hourlyForecastData.properties.periods);
+            setWeatherData({ forecast: forecastData.properties.periods, hourlyForecast: hourlyForecastData.properties.periods });
+          });
+        })
+        .catch(error => console.error('Error fetching weather data:', error));
     }
     console.log('Latitude:', latitude);
     console.log('Longitude:', longitude);
@@ -61,8 +81,29 @@ function Results() {
       ) : (
         <p>Loading quality predictions data...</p>
       )}
+      {weatherData ? (
+        <div>
+          <h2>Current Weather</h2>
+          <p>Temperature: {weatherData.forecast[0].temperature}</p>
+          <p>Feels Like: {weatherData.forecast[0].temperatureHeatIndex}</p>
+          <p>Weather: {weatherData.forecast[0].shortForecast}</p>
+          <p>Description: {weatherData.forecast[0].detailedForecast}</p>
+          <h2>Hourly Weather</h2>
+          {weatherData.hourlyForecast.map((hourlyData, index) => (
+            <div key={index}>
+              <p>Time: {new Date(hourlyData.startTime).toLocaleTimeString()}</p>
+              <p>Temperature: {hourlyData.temperature}</p>
+              <p>Feels Like: {hourlyData.temperatureHeatIndex}</p>
+              <p>Weather: {hourlyData.shortForecast}</p>
+              <p>Description: {hourlyData.detailedForecast}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
     </div>
   );
 }
 
-export default Results;
+  export default Results;
