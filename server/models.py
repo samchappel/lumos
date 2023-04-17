@@ -10,6 +10,11 @@ import re
 
 from config import bcrypt, db
 
+from datetime import datetime
+
+date_str = '2023-04-17'
+date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 

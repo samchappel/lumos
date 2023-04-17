@@ -1,19 +1,21 @@
 
-from flask import  request, make_response, session, abort, jsonify, Flask
+from flask import  request, make_response, session, abort, jsonify, Flask, send_from_directory
 from flask_restful import Api, Resource
 from flask_login import current_user, login_required
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Photo, db
 from config import db, api, app, CORS, migrate, bcrypt, load_user
 from enum import Enum
 from datetime import datetime
+from werkzeug.utils import secure_filename
+import os
 
 from flask_login import LoginManager
 
 from config import app, api, db, migrate, bcrypt, CORS, login_manager
 
 login_manager.init_app(app)
-
 
 
 class Users(Resource):
@@ -144,6 +146,15 @@ class UserFavoritesByID(Resource):
 api.add_resource(UserFavoritesByID, '/userfavorites/<int:id>')
 
 
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 class Photos(Resource):
     def get(self):
         photo_list = [photo.to_dict() for photo in Photo.query.all()]
@@ -155,14 +166,27 @@ class Photos(Resource):
         return response
 
     def post(self):
-        form_json = request.get_json()
+        image = request.files.get('image')
+        if not image or not allowed_file(image.filename):
+            return make_response({'message': 'No file or unsupported file type'}, 400)
+
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        # The image_url below assumes the images are served from the /uploads folder.
+        # You may need to adjust this based on your server configuration.
+        image = f'/uploads/{filename}'
+
+        form_data = request.form
+        date_str = request.form.get('date')
+        date = datetime.strptime(date_str, '%Y-%m-%d').date()
         new_photo = Photo(
-            image_url=form_json['image_url'],
-            location=form_json['location'],
-            city=form_json['city'],
-            state=form_json['state'],
-            date=form_json['date'],
-            timezone=form_json['timezone']
+            image=image,
+            location=form_data['location'],
+            city=form_data['city'],
+            state=form_data['state'],
+            caption=form_data['caption'],
+            date=date
         )
 
         db.session.add(new_photo)
