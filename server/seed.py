@@ -7,31 +7,32 @@ from datetime import datetime
 
 print('creating users')
 users_list = [
-    {"email": "packD@climber.com", "password": "@samDAbest", "first_name": "Sam", "last_name": "Chappel"},
-    {"email": "stove_top@climber.com", "password": "@fireGripper", "first_name": "Steve", "last_name": "Passarelli"},
-    {"email": "chalky@climber.com", "password": "@sentDat", "first_name": "Ari", "last_name": "Marz"},
-    {"email": "kyle@boulderingisdumb.com", "password": "@Top0ut", "first_name": "Kyle", "last_name": "Wehrung"},
-    {"email": "nick@rockymoves.com", "password": "@CragHopper", "first_name": "Nick", "last_name": "Johnson"},
-    {"email": "emiley@holdtight.com", "password": "@PalmquistPower", "first_name": "Emiley", "last_name": "Palmquist"},
-    {"email": "topher@nottopher.com", "password": "@LudlowLedge", "first_name": "Topher", "last_name": "Ludlow"},
-    {"email": "terrence@dynojumps.com", "password": "@ChungChampion", "first_name": "Terrence", "last_name": "Chung"},
-    {"email": "kyle@schneidersend.com", "password": "@SendItSchneider", "first_name": "Kyle", "last_name": "Schneider"},
-    {"email": "bianca@routeplanning.com", "password": "@AspinAdvice", "first_name": "Bianca", "last_name": "Aspin"},
-    {"email": "diana@mountaindancer.com", "password": "@LinUpTheWall", "first_name": "Diana", "last_name": "Lin"},
-    {"email": "patty@stronggrip.com", "password": "@EatAssBro", "first_name": "Patty", "last_name": "Hughes"},
-    {"email": "brett@bearhugholds.com", "password": "@DeBearStrength", "first_name": "Brett", "last_name": "de Bear"},
-    {"email": "lynn@itgoesboys.com", "password": "@TheNoseInADay", "first_name": "Lynn", "last_name": "Hill"},
-    {"email": "chris@sharmafan.com", "password": "@KingLines", "first_name": "Chris", "last_name": "Sharma"},
-    {"email": "tommy@crushingprojects.com", "password": "@DawnWall", "first_name": "Tommy", "last_name": "Caldwell"},
-    {"email": "alex@nohandsneeded.com", "password": "@FreeSolo", "first_name": "Alex", "last_name": "Honnold"},
-    {"email": "adam@silentroars.com", "password": "@Silence9c", "first_name": "Adam", "last_name": "Ondra"},
+    {"email": "packD@climber.com", "password": "@samDAbest", "first_name": "Sam", "last_name": "Chappel"}, #1
+    {"email": "chalky@climber.com", "password": "@sentDat", "first_name": "Ari", "last_name": "Marz"}, #2
+    {"email": "arnee@filmpotato.com", "password": "@filmp0tat0", "first_name": "Renee", "last_name": "Wall"}, #3
+    {"email": "kyle@boulderingisdumb.com", "password": "@Top0ut", "first_name": "Kyle", "last_name": "Wehrung"}, #4
+    {"email": "nick@rockymoves.com", "password": "@CragHopper", "first_name": "Nick", "last_name": "Johnson"},#5
+    {"email": "emiley@holdtight.com", "password": "@PalmquistPower", "first_name": "Emiley", "last_name": "Palmquist"}, #6
+    {"email": "topher@nottopher.com", "password": "@LudlowLedge", "first_name": "Topher", "last_name": "Ludlow"}, #7
+    {"email": "terrence@dynojumps.com", "password": "@ChungChampion", "first_name": "Terrence", "last_name": "Chung"}, #8
+    {"email": "kyle@schneidersend.com", "password": "@SendItSchneider", "first_name": "Kyle", "last_name": "Schneider"}, #9
+    {"email": "bianca@routeplanning.com", "password": "@AspinAdvice", "first_name": "Bianca", "last_name": "Aspin"}, #10
+    {"email": "diana@mountaindancer.com", "password": "@LinUpTheWall", "first_name": "Diana", "last_name": "Lin"}, #11
+    {"email": "patty@stronggrip.com", "password": "@EatAssBro", "first_name": "Patty", "last_name": "Hughes"}, #12
+    {"email": "stove_top@climber.com", "password": "@fireGripper", "first_name": "Steve", "last_name": "Passarelli"}, #13
+    {"email": "brett@bearhugholds.com", "password": "@DeBearStrength", "first_name": "Brett", "last_name": "de Bear"}, #14
+    {"email": "lynn@itgoesboys.com", "password": "@TheNoseInADay", "first_name": "Lynn", "last_name": "Hill"}, #15
+    {"email": "chris@sharmafan.com", "password": "@KingLines", "first_name": "Chris", "last_name": "Sharma"}, #16
+    {"email": "tommy@crushingprojects.com", "password": "@DawnWall", "first_name": "Tommy", "last_name": "Caldwell"}, #17
+    {"email": "alex@nohandsneeded.com", "password": "@FreeSolo", "first_name": "Alex", "last_name": "Honnold"}, #18
+    {"email": "adam@silentroars.com", "password": "@Silence9c", "first_name": "Adam", "last_name": "Ondra"}, #19
     {"email": "sasha@inspirationontherocks.com", "password": "@VerticalWorld", "first_name": "Sasha", "last_name": "DiGiulian"},
-    {"email": "margo@breakingbarriers.com", "password": "@Grade15", "first_name": "Margo", "last_name": "Hayes"},
-    {"email": "ethan@sendtrain.com", "password": "@BatHangAlways", "first_name": "Ethan", "last_name": "Pringle"},
-    {"email": "alex@precisiongerman.com", "password": "@FastClimb", "first_name": "Alexander", "last_name": "Megos"},
-    {"email": "brooke@climbingprodigy.com", "password": "@ClimbYoung", "first_name": "Brooke", "last_name": "Raboutou"},
-    {"email": "nina@highballqueen.com", "password": "@ToppingOutHigh", "first_name": "Nina", "last_name": "Williams"},
-    {"email": "alex@boulderingbeast.com", "password": "@StrongClimbs", "first_name": "Alex", "last_name": "Puccio"}
+    {"email": "margo@breakingbarriers.com", "password": "@Grade15", "first_name": "Margo", "last_name": "Hayes"}, #20
+    {"email": "ethan@sendtrain.com", "password": "@BatHangAlways", "first_name": "Ethan", "last_name": "Pringle"}, #21
+    {"email": "alex@precisiongerman.com", "password": "@FastClimb", "first_name": "Alexander", "last_name": "Megos"}, #22
+    {"email": "brooke@climbingprodigy.com", "password": "@ClimbYoung", "first_name": "Brooke", "last_name": "Raboutou"}, #23
+    {"email": "nina@highballqueen.com", "password": "@ToppingOutHigh", "first_name": "Nina", "last_name": "Williams"}, #24
+    {"email": "alex@boulderingbeast.com", "password": "@StrongClimbs", "first_name": "Alex", "last_name": "Puccio"} #25
 ]
 print('users created')
 
@@ -223,11 +224,34 @@ print('user_favorites committed')
 
 print('creating photos')
 photos_list = [
-    {"user_id": 1, "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBQVFBgVFBUZGBgYGBgaGBkbGx0bGxkYGBgZGhoYGBobIC0kGyApIBoYJTclKS4wNDQ0GiM5PzkyPi0yNDABCwsLEA8QHRISHjUpJCkyMjIyNTIyMjIyMjIyMjIyMjIyMjI0MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIALcBEwMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAADBAECBQAGB//EAEEQAAEDAgQCBggFAwIFBQAAAAEAAhEDIQQSMUFRYQUTInGBkQYUMlKhscHRFULh8PFTYpIjghYzQ3KiByST0tP/xAAaAQADAQEBAQAAAAAAAAAAAAABAgMABAUG/8QALxEAAgECBgECBgEEAwAAAAAAAAECAxESEyExQVEEYXEFFBUikaHwMsHh8SNSgf/aAAwDAQACEQMRAD8A8IWqMiJlUhiKkPKANjERzVcBXaxByDGPAOmwKXQi9UqGmUqdxnFpaFAxEDApDCitYUHIaMQIo8FIockdrbozWnZLKbLwpxYkKK40k+Ke6llElK6hRUVwIdUVbqOS0MkKhaUmYy2RFbinVHgqPw5Oy0BTKkkjZLmvgZ0I21EBTgKAwrTpuvdFLGlB1Wt0FeNFrRmK+mVwbC1K2HCoMIeCdVVbUjLxpJ6CTaUrnUk4WRsoFPchbGZ0uBLq1ZrE05g2VRSCa5KzTAARoppsBN/FGNNS1iVoZPXUo+pNh2RwCXAvYJ000MsQikh5Sb3B53EQFSYtCOKar1KySRnOTF30I+amnSTDKd90dg5ISm0h6dNN3Ea42VGMK0q1MNEECeKTqCEsZXQ9SOF3ZTI5cq9YVybCyeZHsuKBV20hwTDArhiOYwZEdxN+HXMYmy06KzKCoqmmpF0fu+0A1ijq06KCk4ZLjQ7osR6tELBCZ6krn01sVxVTsmJ5EywA96synKK2hC0pI0Iy3QMbFMU6gjQKgpFHoYWTdRm421OmnivoCqMk2RaNBo5ozMPzsj0qZg27rLnnPSyOyEdbsA+kDsEuKV0y9jhqua1BOyGdmKnDDjK4MHBMvYpZQnVHHpqxba6AabBwVnMi6bbSAHNBqscdUqldhd0hRzAbrurlHFIyi06Kq5JElqJOwnkhmhwC1S4aT8FV9IHdZVWtxZUovYyhh9lcYYha7KYGgVXUh3oOszKgkYz6S5lJbBwsqvqyOfGwPl3e5lmiq9Wdlpvwqq+kVlVTM6TM17SELQrRdhXFCODPBUU4k3Cd9DPe+UB7SVv08E0e0F1TCNGinnxT0GfjyktWee6kqFtGiVypnk/lkZdKQjlh1XoBghFgCqno8btI7ioLy4tnR8rKKtcxmUyjsatGnghMCfkr9Q2YPxT58WJktCNNFY0HVODAHaIUOwThslzYvkOCS4FjT4QoqUyRoiuokIjWujVPfkXfRiTKIlWFPktFlNWOHlI6qvqNGnpoJUQBsE20MN48VHq5RW0SpVJRety1NNaFC0bDXVdFlYshELVBuxZMVqUpvorMoE9ybYE0xvBTnWaVjWW5m+qcFJouGy1ZbpHwUE7KOfJ7oFzHbTJNwj+rxt4rRc1vEBS1rSCAnddvg10ZrcOFLqNk+6iAEs6mdZTRm5cmuhL1eSrPpRoLpp1bLbLdcKw3CtilvYneIkGHxRGsTjHM5BQ9rNh8UHNvSxk0gDWq1lBYSqCiVsCe7HxnOhDcydFcUyF08LrYbbGx33BCiAuqOA4eJj5qz3d/cDCy62HeT7Lb8Jkd5TKN3qxXK2wV+Ma0aieE/KyzKmNkyALcZcdeAgfFN0+j6nKe8k+Mhc3AO1MzsYaAI4HX4K0cCJSlJmX60/3Y/wBh+65azcAeXiSuTZsCeCXYWg1zdSfFN03niVRtTv8AFHYf7SueWu6OhTS2ZLajuPxUuBOqsGngfJWazkskkI53JY5w9m6ucU4atHkVEcldoRwxe6EdR8AvWgdWqc7O5E6scPguOFB0T2ivQTHL3Ksy8URsbEIbuj3KG4N/BJJQfI0aklugzWSitYIS/UPH5SuaXc1GUb7Msp9l3Ur2Q6lJxTNEncJkObFzClKcovsZyM9jIFyrB8BabaLHaEKHYVqnmpv7kLmISZUG6C+odpT76QGwQwzkE0XHexsQjc7KzWkDWFoAclR7CeCdTvwByBU6WbVwH771WthXbGUOtTKG2mQrQhzclKoyXUyNVBYNr937siOedwocAeKvH1JSmKuMIclMigP1ReqYOariiiDcnqKsJ2TVJpVOtAsAuJnkpzjfgrTq25DuYDqVRzGbz8kJzDtJQXsdvKmqV+R35FuAzsk/wUGo2dAPL7oWV2wUtY7eU+Uo8ifMOXBR7tjChrimgxu4UOtoISSktrFYye7YLqzwXK0nn5FcpWZbGhdlYe6UdlYcFSlQKO2lyHyXQ1E4VWm/9FmP70VtRVbQ8PL7ogw/9yRqIVUkRmHNRmHNFGHdyPipNIjUJo4exJVJdA2vV8ynq+SkUimtFiqrJFmPOxKu1x4oYY5TlPAKUqaZaPkPkYbUPJXa8e6lQD7vxVw8+6fNQnQ6KKvF7jJa08kN+Fa7Vx81VtQ80QVP3Clgkth8yL5BnBM4geJkoQpVGm0xsmsx/YQ3Zth8E8L8/sSU0c3EuFnNnxUuqsOrD4KGsdOjVIpu2EdyOGP8YuNnBzRpm7j/ACpyk3uiMa7h8EWmSP4hTloOpi3VclPUmE81zd2meRVmluoiOc/QpHUZsfoZnUDkrDDt3haZJi2TyP3QnZxu0dw+6DqS7Ap+gmKDOCg4Vh2+KbLXHcfALuqKGdJcjPC9zPdQpjirNYzmnXU+aG6iOSdV292wYVwLim3i4eSnK3Z3nH2RPV+YVhT5jyWdS/IUBIHFLuDeJ+f0TT2N5eSAQNgUYsLF30xwPh/CFlHuu/fgmHA8ChPceaom2I5JA5HuHz/RcqTyPmuWsDMQZjCjtaqMqM99v+QV24mn/UZ/m37rYn0Bx9SzWdyu1vIKBXp/1Gf5D7orHtd7LmnuIPySup2gYGVDeQVgxXDVFSo1t3Oa3vIHzWVbozpvkqGKQxDZ0hRccoqMJOgzCT3JqEZVnHdWAqd9gY7vmuIRV1knzMTZTBZRw+asAPd+KvC6EH5MTZTOa4bsaVIe3+mPMqFwSOvH+M2VIuHs/pjz/RXbWaPyAIUrpSutE2XIN6x/Y1T6wPcb5IMrpQzoAy2MCu3+m39+Ct17T/02+YS0rrJXWibKY4DTP5G/5D5SrhrNMo/y+xWeVUpcyPYcp/y5oCm0flb5lUNJmoa0HkfokSVBfzQxrsOXIcNM7GEJ1N27v35JfPzUghBSXY6TDkf3BdbiCgEqJC2KPYbSGBl/ZCo4s4oMqpctij2zWkXcWKjnM4HyCqSFxT5kfUOGRxqNGjUN7xwXOKG4hFVEHBIp4LlEhSmzRcuR5lnRx91Fb0e73Ven0tT5/D7o46Xp63hfTunU6POVal2DZhag0Lh3EhFYKzfZc7zUO6Xp8SgP6cp7Bx8h9VN+POW8f0UXlUkt2OtxOI3ynv8A5UsDSZqUaZO5yCfO6SZ03T3BnvB+Kv8AjDNmnxICR+FLiNvbQdebSW7b9x71ehM9S3yt5aI9OqxnsU2t7mgfJZX4w33f/IfZU/HKe4I8QVKfw+Ut7/kpH4hRXBu+vqPX1g/jVP8Au+H3VHdNUuDvh91L6V6D/UaPR6H8QUfiK84em6X93w+64dNUufw+6H0n0G+oUej0f4iF34iF51vTFHifh91YdL0efw+6H0n0YPqFE3/xIcVH4mOPxWIOlaHE+X6qPxOhz8kPpK6ZvqFHo3PxVvvDzC78Wb7w8wsQdJYfj8FdvSGH4/Bb6SumD6hS9DX/ABdnvt8wrfizPfHmFkjHYbj8FduLw3H4IfSl0zfP0/Q0/wAVb748wpHSTT+YeYSLa+FP5vgmGPoe8IQfwpdMZedS9AXTPS/VUXPa5uciGB2hdYabgTJSfox06+uxzapb1jLnKCAWncTrBsY4t4rG9J3NfXHVwQxjWkzFzmcTrYDNHgVm4Wsym9tR4dDHNc/KAXZJ7Y5AtzCDGq7qfwim6Li93rflehyVPOcaqaX2mr6ZekZY1jaFcBwc4VAwtc4EAZQeAnNI/Vb3QnTLKtNsVWPe1rBULbduLmCAQCZi0L5P6j/qvYHAsZVyOdpIDi3MLWsCZNgvT/8Ap7SYK1cuIGVmSbwczxbS/sfNNW+F08lRW61vZXfuLT8x5rctnxwj37sWOKGcbzS7nUj/ANRvkfsqmnTOjx8fsvOXw5Le/wCD0V5lPi35GDj+aqcegCgwmGuBPDfyUnAd3mPuj8lTW4y8qL2Rc9IngqnpE8FB6Ndw+IUfhz+BW+VpBz/Qk9IHgUN2PPAon4a/gVB6OfwKy8ekb5h9AfXuRXIn4c/gVybIpA+Yf/UZZ0NhrTTbew9oTA2hwk2K+c+k/SeHe9zcMzJALCZfFVrrHOHwWObeBfUqvpJ04MVUzPLqTmAtDMxLWObcOacoIcTEmx7MQbLArVHVbvzdZGZz3Gc/NxiZ5kn4r2qUZWvJs8Oo4ydopfg9x6M5q7xTxDGNaWNcHh+R8OAyDq3u7WYkXA4cQvXt9F8N/TceZe/6Pj4L490PjeqqNeMhgggvZmAcCDmAJHDXUSYX0TC+mOI6smaFQtu5xLWxyawOa6OEySd9lOvGs39j/dg050or7o3fsbo9EsPwf/mUHG+juHpsc/LVMA2bmeRbXK3tHwWTj/SzGMaHF2FbJAAa5jzcgaNqPO/BZXTXT9ZzXU6mKY9juy5jWU3Ng8hT8ZJtHEJIUvJv90tPcaVahxD9DXoyyliKrm1Q6G5WMB6xlxc5tmkki2cDQAG5XuPweiWZOraG2sLTHEi58V839C+lsNhpdVDXPObJlptLg4u1a8kBoLYMG3/bHa9o702whIYOsc58thuRpBDg09pzxHtSCDeJCh5UK7l9l7FaE6ajqlf2Gj6KYU3NMn/fU+jlen6N4UaUge9zj8SZXk8Vi8BVc7O/G/ls97XauII7TnaATeBtPBvoXpHo3CVAafrBc9jpLmgNAaWnKWiA519bgXvdLKhXw3xSv1b/ACCPkU8WyPWN6KpCwpM/xB+YSHSOJweHMVGtB1htMuPjlaQPFIn06pvpMdTZFR2TMH2YJIDg10ieRIFudk1/xthsz8+YMGRrHBjjncQTUMagNtqATeJXMvH8hK8k2vR6l35EHpFpMXFfA4oFoFTsyYYyq0kWtDB2u66P/wAFYYi3WD/eZ8nBK1PT6g2oGsbnY5tMgey8Oe17spB1M5BA0kmSvRN6Ypuq02U4e17apLhEMNPJ2XXse3pG3elm/Ip2w3S33uJeEtZJN+x4LHdGdU8tbgsS8AkBxeztCYkZKbte9eh6F6Aw1alndhqlNwJBbULwbAXEAAi/AaFMelXpKyhS7NZuZ7wyabmOewBwL3EEOAAaHTMagSNR4+m4Vn1BXxtRrW1XMY5zi9tRkOcHtAfZsBt4j/UZxXbB1a1K8m4+qbu//CDUYy0SZ7Kv6HYZ0hrSy1iCZB43JB7iFmn0DvauY5sE/ApWn6VDDU6lNlQVG0jQNB5cC6sx4a+o2zTka0O4SAQ2xiL0vSw1A3/3Apu9bef+W4g4Uh4a1xEidDqNuEmEY+ZG+GTt29R2qUt46jI9BR/XP+A+6DX9CKg/5dVj+IeCz4tn6LJwvpvXbhH5mvqVCw5agIAZFNjHOJy3OYPfabngnKnpk6nhK7A95rMytY8hsZYpsLtpcHF5Ai8KqfnJ/wBV9bf5EcKL4sWf6PYhtvVM0bsrCDzAcZ8wl+kOj69OmXNwtQPsGl1RpbJ49nYAmJGizsL6V9IvcyoHADM9wzDKzK6LZbZgBGUkEjLMwXSx0h09i6tnVchygSAALC8DQEnXf2RouuEq6klK1ubXJ5MGrq5nQ8ZGMY8vhvWVMhgODZcWuIgS6e0Y1txTY6NLm3deDDbuO/tc7aLNd0xXbY1SSN4A11JtHkiU/SOu32w1452nWfZEfBejCUSNR3M3pfoGpSAez2X+2DByOtBl2xza8+5avoLhaUVBXxDaTnFuUOE5sodeZgk5iANZHNP0/SOhUaW1GFmdrmnsyO0CNWzx1+Vl5ik10A6TqDEDj3idklWN1aLsLGXaufUanoadevHjTP8A9145tZjsYzCMqtcyo1mWtoC57czBlzSJkNgmZOiJ0N6TVaVJ9GqDVpPYWFjnFrmteC05H6gEOgDQRaLk+SrsPWSdZEOiCCYNuEHyhcVFV7yU5e2iLyjSsml+z6XU9Ca21dnk8fVI1fQnEg2ex3OT9Ur0X6Z1aIDcjHNmX3ymZ7QGzRe3C/EBe/odNYdzQXVabCRJa6oyRpqZjcea4KnleVTfDXsdEaFF/wCzyOH9DMQYzVg3kHOkHjaQtOn6M4llmYypEd48i9T6XdM0XYWoyhiWischYWOzGWvDozNsJyETO4G4B85jfS6rUoUmuY9lZjmue9oDg5zIDXNyHsyZlveNE1OfkVrNtLW2q/ZpRpwva/5YfpnF18M5rKlas4ueGgN1uYaTcNvycecImG6SqvnLjHWIbcUCJdGUB9So3MTmbpOo4r5tjw973lzhJcXEF0ak3vfSNdAh0Kr29lr3NktJyk6sMgnuMkLvVL7bO1/ZHO563Tf5PrPq3SnvVf8A48N/+i5fPq/T+MLiXV3uNrzEwIBtyhcp5cuofgXNj3L8mA14Li69veOYzxmB+wjUqhLHS6JImfzAatB8QYTdPBscCabXPFv7RbU5pAlLswJqBzm9lojKHGZJAm+35R/uC74yTVgtOCL0sr6fZYA5hmxuWDUkF0uOhkaAHQKrcQeR4tH8QlcPTdnDQYdmy8QDMHTUL2tWmKcNzB0CQ5uUtOoi45HQRqo1bJhjTc1d6La552tiajwP9N1tAA4CeNhrb4oBw1d0wx8GLZXGYECxF7WXoTUbu4zyP6ItHER7M87Ez3xZJjaDlR2bPKMrGn7VME2MOzNIcJhxiCdT8IhV9ZLWtc1sGTLomXAiIJFogWXrMQw1Oy4tGti1s3aRPaGsFDpdCgNyh/Z90zprBgCbyU2aramVJ30MjC4hzu24vzDIXbyWkgACJkzsDF1t9FupubUqVQ4EscGNyQWS0doTGdxLW6e7A1TBa6m2BeBZozHkBHkkn4RkMzMa7i6DcgX7nafuUY1rmdBL+4phmuLA1rH9kAdpuXiBq6DoUl05gnMAqF7TmdBA9prg1puYg2tIkSDxBOnSwop1HVLZQ2QySYMgNLp1tmPgtXBVqb6dVrmkwzO0gXa8vY2Z2B0IGxNpXVTp3pyqX9jlnNRqKCXueXo0qb2y4vc9t4sMwMQP8swiZ0vsJwbi5hzse5zSQIkEB1yCIgic3meUeppONstOR3T9ZhBxVAvsczYI9h+VwjUCTfu7lw476NHe4dHmMU2s6BJaC2CCDpMwcoJGyaZQim1ol5aDILcsS8EhskG41mNlo/hLT7ZqDnnLh33Eqo6Li7Kjx/3R5SRonzI2sJGnJNtCOEwfWO7ZyEtBzEQc5g5QBtqNDEDgrOwtSwBcZ26wQJ7iI81qNpmzYYTxAj5O17k0zCGSA5gcNWljg+I1Ac6D3pZTT1DCi7b3MPC9HvAkBwbJlrXPIcIvEOvwTjcK1wdLXAEjNm6zQADLDozabz7RhaL8HVyuhxmDEEAmNtTfWAOayX1qjB23HMDJmxzEWEDWIJ8VoNydkw1IqK1RXHYmHHKS0Xkk3dBvPjeBbTghMeb5hNrukj5GD3JYkO1EmZvoJm0Jlzg1oaLaaAX4ze/COPCV0JWOVyvyBc8AGBEbiII5yfDb73Y/gPC9/wDtN78kCdhmM7gCDAMgfAIPWwYtbQR3kd2v73LYEmaOVuUTdtxMxBmfArnCBPCZtcQZvAgjmLLmV2mMwuQA4GwIg3J3I48+IhMRlgDQaZiRbhpOloj7JbBVhZru/kb/AF1gboOPw+dpcww5oMgE9toG8bi/keScq0mA5hIgEkTrAOk6aIDi1jrG+haeevgg01qUi09BCnWMey0iBqXA24QrjGOGgc22snhzWbSrEQNdIHjbvv8ANMtpvJl1N/KA4b3OluCi6foTTYV2PdBDxf8Aj7AyriHgkOcCL24nQCbC3nCRxNOpcljgJkDK4Zd9wgNe4XvpPhf9fJHL000DilyOYquQ2DGtjEGRI27uKXFdxId2bcuGxtdXbUaW9ppcZ96Pl4Jym+GAtblk27IJNiJjvt4I3srWNqxV+MbN6YnkY+Gy5FzkaBwG1m/dchp1+wWZ6CphC8GbCDyGmgjxUM6PgRndA4RaZm8Tub/YIHrd4GXQEHN8Lctu5GZitiQdY1IjmTKneUdjseGW6KUuiKbLi1tS6PAfynKWHblDA4CAABqQOADvnzVWVI0HiQfqhes8htByn6pHKTGuloM1mFjgGta8QNSGyY0Gv6yi0qtoLMo4EgjbUyk/WSZDmi+8x4iDMpKpiAHSC8kxZrnak2k6xpqsouWhscVqjcqV3CA1slxI9rS0mPhspe+o1sl7iY9nieAgASstj7ybnuJ7pOvBDqO0IAnk4762cQIWwAzHuMvxtTM3LSe6QJJc1sTs2DB801injJmcMhgTmnQ/lfs4eNtlk5qhMF7YtZxGnItJI8FfHEhoLi0gH8rg4/O1uXBPgV0BSdmwfZPLOAC4Zj2BIElwk3MTc21ghI4mqzM5gcRcw43DmWIBi+YHgYKZd0nR2LzGwEjyP04LPfTa9xyteBcjNaCdV1xm8OFnHKCxYkO9HdKkuawszACAMxgi4DXG5AEgiNxcFamHxNYEiowAEnJclwvo7K2NN4GmiwsOwMJbpz3mNQVpuxBcbugiIaB2YGgbz4E8rqcoploSa3NZtXMJJtpLHzfTsnjO0bXV6hI9q/B2XW2sm48Vh18VlcHtObOcr8ws4x7Wuu07xdNsq+72bbXA5hx/RQlT5RaNRbDgrgjtGQe4HXYyhHBlzgGPOaPzQRpsQLG3ysppF02ex2p7bQbcJ/dirVXm0CI93bzQvbYottTMHTBbOZ5J0iBm7jyStfH9a+3tFptzHIdwWhiDTe452Bxi5sHX3MCPFLHomifZ6xruAMjvJdoO8hUhaLuSmpSVr3QuGzB4C+wv+/iVR+N/KRIEx3nlum63QZ2qmbkgtkf+BMeSyq+Dqt1ZPdfTkbjyVlNPZnPKk47oLQe2b6X+vDkoY0STb78YKSNUAwZBG38hHbiG6z5fxzRFvYP14GhtG6kYgizXFvIaX4cP5SeJxeYQOaF1sbhECtyO1cTA1vpqtnoTox2Kl+SWtlvJxInLHIEHxHNeeo03PIgQJ9oyYj5r0hxRbS6ukQIEwXyXGbki1z+4U5t2sjopRT1exo1sG5phwMyNbi/NCfhaZtla124OV1zoLAX10SmD9InuIBeWuGzocCeFyiY30hq6upgs0s1wjj2g4252UMMyv/Ha+ob1PZuUHuItvpqs/E9Hum9Jjjxach8SHAnxCGOnSR2A0AfllxHiCVfDdNAH2GtO5AE2sZ4oqM0SbgLP6McLNpvaeIqNO+3ZkeaIzolwEue6dTBDe8EEXtzTzOk5MjLruJGnf8+CtWxRMSx3+0O8DPH7hbFLoOGPBm/hzP6r/wDJq5aP4iOLvMfdclvMFo9iVPCNABEcxdSzKNI4aX7roBcZIsY84lXaL3J8J+101pPcPsFY+4+n8K7sQd/Kf3+ygPqgDh4XjWdjuqvzuHZEczpAHl4o4Fya4N2KkgH2d47X1CM6ganaZUDG6NEXLdC+banxuopsIbDiDHAuBO0C5F/om24ltpbJ8YERtMfyUzdtgxjdaiLujnHWqTPBzb93HwUM6JmwOabRmHPgeGydxOKaAAzLfaSdO/zXUsSQ2Q5xvq0TqP7RxWxOwcEblGdBPmBTB0tx/hWf0TUaDNIgASbCANZ15HyKJ61U9n/VM97IuAJkT8OC5mEcT2g5vIuJJ5hpjh4xbkLy5Y+GPCCM6De67HtiYB5aTLQYFxr9EtjOiKlMS9zCJgua7NGuotwOqPgsZkluhEweIJib7RtzXYk5gSZJg3vG+nFBOV9WFxg46LUQxnRbmtbUY4OHcRtMFKl9SbU3TPxCeGPc3sguaNOMf28deKlpJEtJnc2uOEDVPia3ISim9BLO6CHU3X27/kiYd72iOrflHEifonKOLYfaOWLmYPw5ozcTTdZrwTwgg+EmUHJ9GjBdgqbHvIuWCbnskjvEnY/wtL8NF3Co5xiTIaZtezRIN+eiQqViNJ79Rw46KHY4gxfvAPlwSNSexeDity4w1N5Gao6LaAZh4OmB3BV6Qwbqbv8ATeSCPzH85tJAEeEKhDicwGXkNe+NvD6opxD4hwk2E6nLMXm42uPFHVMzs09LAKtJ0e2OYnflKUxGHkdqTO8n7wmnknb996h8nn3aKiITuZnqDDxU+osGx8/1WjE/VUewcf35JsRPCKNwFM7fEorejaf7/cK+Q8FwceGyGJg06C0MM2mZadOAC2cH0hSiKjXHxDh5FYIfz+nerye/hEpZRUtysKrjsbdfCYF8EkNNj7JaZPNkW8ETB9HUmg5Mzy72YcSbCSMjwJ8puvOZrphmKgjsi2k/r8PqpuMkrJsoq8W7tIYxnRbC4nI4GdHBs6SYiP3xWViOj8ty1zfAj5wtY9KF0SyIiCJt/t0cNIlXZWc0ZmvBB1y5rWtmsD594mEylJbiywS2PPZnN0Onh3cQiN6QcLEnmD3/ACW967J/1GNcIvIaSNRNxPxSlShQfYsLSRYtcW+UyB3LY+0K4rhg6WPbAzZie8nu+C5cOhmf1ag5QDHjIlcheHbDef8ALEVKhabACROpkbz3+fdwgF27BG3a22BAb37rlyPAeTmgg3a2Z/MS6RYkaWsBe/CDJVTXmRALg6/aOva17MG5H6KFyyFZTrHR7LTqdY8B2ZEEK9Mk6MDZk5szjHhI/fFcuTcAW5ZgaJJs7ib6xoBbmrurFpME9/zJublcuWHKuquOsbeMRsCOSawTnkWfc6Ws6QdtBpu2eahcllsGO5R2frWmQS4CYsCCTvYzbXktCnRzXJFtbSTpxMD9N5XLksisNWzM6SgzlFjppG19tzpG6XoVoERJ5rlyotiEv6gWInMHttrI2PcDojMw7XgODQAdPDuXLkRFq2WOHIF3ugX1KjCvuRY66bjxHj9ly5DgbZmvg6gd2TIga5icw13FjflEaobKrDAYTF+MSeRt+YCYC5cpnQ5PQCYED817DTwMfPmqvaAJm0wPHw7tlK5OicuQOU8JjabfGFYnfxHyXLkxIqGg8ZXZVy5ABHVT+wh9WQZAkgzrHx47+C5cgxSJcDOpkXJvEie1H0GtoUdeAQHNbBIPtPk6SJgzeTJ/UyuRQLkMLoiB3yQbRrtwPhztfO9pAyib6Oi0ze0fxzMyuQGWxz677nK224MOEkXDgJmJEknjyRqVQkaNE2Mkk3iCCQd9vO2kLlmtApj2QDVrZ31+i5cuXOWP/9k=", "location": "Acadia National Park", "city": "Bar Harbor", "state": "Maine", "caption": "The country's first glimpse of the sunrise today from the summit of Cadillac Mountain!", "date": "2015-11-03"},
-    {"user_id": 1, "image": "https://www.territorysupply.com/wp-content/uploads/2021/03/things-to-do-rocky-mountain-national-park-900x600.jpg", "location": "Blitzen Ridge", "city": "Estes Park", "state": "Colorado", "caption": "Golden hour on the Four Aces / Blitzen Ridge of Ypsilon!", "date": "2014-08-12"},
-    {"user_id": 1, "image": "https://www.mygrandcanyonpark.com/wp-content/uploads/2020/04/gc-desert-view-point-sunset_dp_680.jpg?width=730", "location": "Grand Canyon National Park", "city": "Grand Canyon Village", "state": "Arizona", "caption": "Sunset over the South Rim!", "date": "2015-11-03"},
-    {"user_id": 1, "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8C5i14Oe2G1WmvFOyJrxdQCeFFEwCyVEgqg&usqp=CAU", "location": "Great Smoky Mountains National Park", "city": "Gatlinburg", "state": "Tennessee", "caption": "Exploring the lush forests of the Smokies!", "date": "2017-09-16"},
-    {"user_id": 2, "image": "https://c4.wallpaperflare.com/wallpaper/208/316/993/north-cascades-alpenglow-mount-baker-snoqualmie-national-forest-washington-wallpaper-preview.jpg", "location": "Snoqualmie Pass", "city": "North Bend", "state": "Washington", "caption": "This morning's gorgeous sunrise over the pass!", "date": "2015-11-03"}
+    {"user_id": 1, "image": "./uploads/1.jpeg", "location": "Turkey Burn", "city": "Moab", "state": "Utah", "caption": "Full moon at sunset, even drugs couldn't make this better", "date": "2015-11-03"},
+    {"user_id": 1, "image": "./uploads/2.jpeg", "location": "College of the Atlantic", "city": "Bar Harbor", "state": "Maine", "caption": "Sunset at my old college pier", "date": "2014-08-12"},
+    {"user_id": 2, "image": "./uploads/3.jpeg", "location": "Roy", "city": "Roy", "state": "New Mexico", "caption": "Light show after a little bouldering!", "date": "2015-11-03"},
+    {"user_id": 2, "image": "./uploads/4.jpeg", "location": "Jurassic Park - Rocky Mountain Natioal Park", "city": "Estes Park", "state": "Colorado", "caption": "Sun blip on the Edge of Time with a view on Longs Peak in the back!", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/6.jpeg", "location": "Eastern Sierras", "city": "Crestview", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/7.jpeg", "location": "Top of the World", "city": "Laguna Beach", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/8.jpeg", "location": "On the Pier", "city": "Santa Barbara", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/9.jpeg", "location": "Morning Froth", "city": "Fire Island", "state": "New York", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/10.jpeg", "location": "That One Place", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/11.jpeg", "location": "Eastern Sieera Nevada Mountains", "city": "Mammoth Lakes", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/12.jpeg", "location": "My Back Deck", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/13.jpeg", "location": "Steamer Lane", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/14.jpeg", "location": "Midnight Safari", "city": "Silver City", "state": "New Mexico", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/15.jpeg", "location": "Natural Bridges State Beach", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/16.jpeg", "location": "West Cliff Drive", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/17.jpeg", "location": "West Cliff Drive", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/18.jpeg", "location": "West Cliff Drive", "city": "Santa Cruz", "state": "California", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 3, "image": "./uploads/19.jpeg", "location": "Young Pueblo", "city": "Pueblo", "state": "Colorado", "caption": "Peep my other 35mm on instagram (@filmpotato_)", "date": "2017-09-16"},
+    {"user_id": 7, "image": "./uploads/20.jpeg", "location": "Glacier Point, Yosemite National Park", "city": "El Portal", "state": "California", "caption": "Moments before the jump at twilight!", "date": "2017-09-16"},
+    {"user_id": 4, "image": "./uploads/5.jpeg", "location": "Snoqualmie Pass", "city": "North Bend", "state": "Washington", "caption": "This morning's gorgeous sunrise over the pass!", "date": "2015-11-03"},
+    {"user_id": 4, "image": "./uploads/28.jpeg", "location": "Venice Beach", "city": "Los Angeles", "state": "California", "caption": "Endless Summer", "date": "2015-11-03"},
+    {"user_id": 6, "image": "./uploads/27.jpeg", "location": "Eastern Sierras", "city": "Bishop", "state": "California", "caption": "Celebrating Code Blooded and all of their achievements with a backpacking trip!", "date": "2015-11-03"},
+    {"user_id": 11, "image": "./uploads/26.jpeg", "location": "Bolinas Ridge", "city": "Bolinas", "state": "California", "caption": "On a run, stopped to snap this moment!", "date": "2015-11-03"},
+    {"user_id": 2, "image": "./uploads/25.jpeg", "location": "Mt Rainier", "city": "Ashford", "state": "Washington", "caption": "Finally visted Sam in Washington! SO WORTH IT :)", "date": "2015-11-03"},
+    {"user_id": 1, "image": "./uploads/24.jpeg", "location": "Elgol", "city": "Isle of Skye", "state": "Scotland", "caption": "I'll be an early bird if this is the worm.", "date": "2015-11-03"},
+    {"user_id": 10, "image": "./uploads/23.jpeg", "location": "North Cascades", "city": "Seattle", "state": "Washington", "caption": "So excited to visit Sam in Washington!! First light over the clouds.", "date": "2015-11-03"},
+    {"user_id": 7, "image": "./uploads/22.jpeg", "location": "Mt Si", "city": "North Bend", "state": "Washington", "caption": "Got out to visit Sam in Washington - holy smokes is it pretty!!", "date": "2015-11-03"},
+    {"user_id": 7, "image": "./uploads/22.jpeg", "location": "Mt Si", "city": "North Bend", "state": "Washington", "caption": "Got out to visit Sam in Washington - holy smokes is it pretty!!", "date": "2015-11-03"}
 ]
 print('photos created')
 
@@ -258,19 +282,101 @@ def make_photos():
 
 print('creating comments')
 comments_list = [
-    {"user_id": 2, "photo_id": 1, "comment": "Wow, what a beautiful view!"},
-    {"user_id": 3, "photo_id": 1, "comment": "I'm so jealous, I've always wanted to go there!"},
-    {"user_id": 4, "photo_id": 1, "comment": "This looks like a fantastic hike, I'll have to add it to my list!"},
-    {"user_id": 5, "photo_id": 2, "comment": "This photo is breathtaking!"},
-    {"user_id": 6, "photo_id": 2, "comment": "I love the colors in this picture, so vibrant!"},
-    {"user_id": 7, "photo_id": 2, "comment": "I can't believe how clear the sky is in this photo, amazing!"},
-    {"user_id": 8, "photo_id": 3, "comment": "I've been to the Grand Canyon but never seen a sunset like this, gorgeous!"},
-    {"user_id": 9, "photo_id": 3, "comment": "This is one of the most beautiful photos I've ever seen, thanks for sharing!"},
-    {"user_id": 10, "photo_id": 3, "comment": "I can't wait to visit the Grand Canyon and take photos like this, so inspiring!"},
-    {"user_id": 11, "photo_id": 4, "comment": "I love the Smoky Mountains, this photo makes me want to go back!"},
-    {"user_id": 12, "photo_id": 4, "comment": "The foliage in this photo is beautiful, I bet it's even better in person!"},
-    {"user_id": 13, "photo_id": 4, "comment": "This photo perfectly captures the essence of the Smokies, thanks for sharing!"},
-    {"user_id": 1, "photo_id": 5, "comment": "Wow, what a beautiful view!"}
+    {"user_id": 2, "photo_id": 1, "comment": "Wow, so beautiful!"},
+    {"user_id": 5, "photo_id": 1, "comment": "Drugs could still make this better!"},
+    {"user_id": 7, "photo_id": 1, "comment": "I've always wanted to visit Moab!"},
+    {"user_id": 12, "photo_id": 2, "comment": "Looks like a great spot to enjoy the sunset!"},
+    {"user_id": 18, "photo_id": 2, "comment": "Love the colors in this photo!"},
+    {"user_id": 25, "photo_id": 3, "comment": "One of the most beautiful places on Earth!"},
+    {"user_id": 6, "photo_id": 3, "comment": "Spectacular view!"},
+    {"user_id": 15, "photo_id": 3, "comment": "Can't wait to visit Roy!"},
+    {"user_id": 19, "photo_id": 4, "comment": "So peaceful!"},
+    {"user_id": 22, "photo_id": 4, "comment": "Beautiful photo!"},
+    {"user_id": 13, "photo_id": 4, "comment": "What a stunning location!"},
+    {"user_id": 17, "photo_id": 6, "comment": "The mountains are calling!"},
+    {"user_id": 3, "photo_id": 6, "comment": "Love the vintage vibe!"},
+    {"user_id": 9, "photo_id": 7, "comment": "Breathtaking view!"},
+    {"user_id": 16, "photo_id": 7, "comment": "Amazing shot!"},
+    {"user_id": 20, "photo_id": 8, "comment": "Looks like a great place to relax!"},
+    {"user_id": 21, "photo_id": 8, "comment": "Love the colors in this photo!"},
+    {"user_id": 11, "photo_id": 9, "comment": "Beautiful shot!"},
+    {"user_id": 14, "photo_id": 9, "comment": "Can't wait to visit Fire Island!"},
+    {"user_id": 8, "photo_id": 10, "comment": "Great photo!"},
+    {"user_id": 23, "photo_id": 10, "comment": "Looks like a fun place to explore!"},
+    {"user_id": 4, "photo_id": 11, "comment": "The Sierra Nevada mountains are stunning!"},
+    {"user_id": 10, "photo_id": 11, "comment": "What a breathtaking view!"},
+    {"user_id": 24, "photo_id": 12, "comment": "Love the bokeh in this photo!"},
+    {"user_id": 2, "photo_id": 12, "comment": "Looks like a great place to relax and enjoy the view!"},
+    {"user_id": 5, "photo_id": 13, "comment": "One of my favorite surf spots!"},
+    {"user_id": 7, "photo_id": 13, "comment": "Love the colors in this photo!"},
+    {"user_id": 12, "photo_id": 14, "comment": "What a cool shot!"},
+    {"user_id": 14, "photo_id": 14, "comment": "Love the desert landscape!"},
+    {"user_id": 18, "photo_id": 15, "comment": "Natural Bridges is one of my favorite spots in Santa Cruz!"},
+    {"user_id": 22, "photo_id": 15, "comment": "Great photo!"},
+    {"user_id": 25, "photo_id": 16, "comment": "Looks like a beautiful place for a walk!"},
+    {"user_id": 8, "photo_id": 16, "comment": "I love the ocean views in Santa Cruz!"},
+    {"user_id": 9, "photo_id": 17, "comment": "Amazing photo!"},
+    {"user_id": 15, "photo_id": 17, "comment": "I love walking along West Cliff Drive!"},
+    {"user_id": 19, "photo_id": 18, "comment": "Looks like a great place for a picnic!"},
+    {"user_id": 20, "photo_id": 18, "comment": "I love the colors in this photo!"},
+    {"user_id": 21, "photo_id": 19, "comment": "Great shot!"},
+    {"user_id": 23, "photo_id": 19, "comment": "What a beautiful view!"},
+    {"user_id": 1, "photo_id": 5, "comment": "Love the sunrise colors in this photo!"},
+    {"user_id": 4, "photo_id": 5, "comment": "Snoqualmie Pass is one of my favorite spots in Washington!"},
+    {"user_id": 26, "photo_id": 5, "comment": "What a beautiful photo!"},
+    {"user_id": 6, "photo_id": 2, "comment": "Great shot!"},
+    {"user_id": 10, "photo_id": 2, "comment": "Blitzen Ridge looks like a great spot for climbing!"},
+    {"user_id": 13, "photo_id": 2, "comment": "What a stunning view!"},
+    {"user_id": 16, "photo_id": 3, "comment": "I can't wait to hike the Grand Canyon!"},
+    {"user_id": 17, "photo_id": 3, "comment": "Spectacular view!"},
+    {"user_id": 24, "photo_id": 4, "comment": "I love exploring the forests in the Smokies!"},
+    {"user_id": 2, "photo_id": 6, "comment": "Love the vintage vibe of this photo!"},
+    {"user_id": 7, "photo_id": 6, "comment": "The Eastern Sierras are breathtaking!"},
+    {"user_id": 11, "photo_id": 7, "comment": "I love Laguna Beach!"},
+    {"user_id": 19, "photo_id": 7, "comment": "What a stunning view!"},
+    {"user_id": 25, "photo_id": 8, "comment": "Looks like a great place to relax and unwind!"},
+    {"user_id": 1, "photo_id": 9, "comment": "Beautiful shot!"},
+    {"user_id": 5, "photo_id": 9, "comment": "Morning Froth is one of my favorite surf spots!"},
+    {"user_id": 8, "photo_id": 10, "comment": "Great photo!"},
+    {"user_id": 12, "photo_id": 10, "comment": "Santa Cruz is one of my favorite places to visit!"},
+    {"user_id": 13, "photo_id": 11, "comment": "The Eastern Sierras are so beautiful!"},
+    {"user_id": 14, "photo_id": 11, "comment": "What an incredible view!"},
+    {"user_id": 17, "photo_id": 12, "comment": "I love the bokeh in this photo!"},
+    {"user_id": 21, "photo_id": 12, "comment": "Great shot!"},
+    {"user_id": 24, "photo_id": 13, "comment": "I love surfing at Steamer Lane!"},
+    {"user_id": 26, "photo_id": 13, "comment": "Great photo!"},
+    {"user_id": 1, "photo_id": 14, "comment": "Love the desert scenery!"},
+    {"user_id": 4, "photo_id": 14, "comment": "What a cool shot!"},
+    {"user_id": 6, "photo_id": 15, "comment": "Natural Bridges is one of my favorite spots in Santa Cruz!"},
+    {"user_id": 9, "photo_id": 15, "comment": "Great photo!"},
+    {"user_id": 11, "photo_id": 16, "comment": "Looks like a beautiful place to walk!"},
+    {"user_id": 14, "photo_id": 16, "comment": "I love the ocean views in Santa Cruz!"},
+    {"user_id": 16, "photo_id": 17, "comment": "West Cliff Drive is one of my favorite spots in Santa Cruz!"},
+    {"user_id": 19, "photo_id": 17, "comment": "Great shot!"},
+    {"user_id": 23, "photo_id": 18, "comment": "Looks like a great spot for a picnic!"},
+    {"user_id": 26, "photo_id": 18, "comment": "Love the colors in this photo!"},
+    {"user_id": 2, "photo_id": 19, "comment": "Great shot!"},
+    {"user_id": 5, "photo_id": 19, "comment": "Looks like a beautiful place to visit!"},
+    {"user_id": 6, "photo_id": 5, "comment": "Amazing photo!"},
+    {"user_id": 10, "photo_id": 5, "comment": "Snoqualmie Pass is one of my favorite spots in Washington!"},
+    {"user_id": 13, "photo_id": 5, "comment": "What a breathtaking view!"},
+    {"user_id": 16, "photo_id": 2, "comment": "Blitzen Ridge looks like a great spot for hiking!"},
+    {"user_id": 17, "photo_id": 2, "comment": "Spectacular view!"},
+    {"user_id": 24, "photo_id": 3, "comment": "The Grand Canyon is so beautiful!"},
+    {"user_id": 26, "photo_id": 3, "comment": "Great photo!"},
+    {"user_id": 1, "photo_id": 21, "comment": "This view is breathtaking!"},    {"user_id": 7, "photo_id": 21, "comment": "I'm getting vertigo just looking at this!"},
+    {"user_id": 14, "photo_id": 21, "comment": "This looks like something out of a dream."},
+    {"user_id": 1, "photo_id": 22, "comment": "The colors in the sky are so beautiful!"},
+    {"user_id": 8, "photo_id": 22, "comment": "This looks like the perfect spot for a picnic."},
+    {"user_id": 1, "photo_id": 23, "comment": "Wow, that's an amazing view!"},    {"user_id": 3, "photo_id": 23, "comment": "This looks like a great place for a hike."},
+    {"user_id": 5, "photo_id": 23, "comment": "I can't wait to visit there someday!"},
+    {"user_id": 1, "photo_id": 24, "comment": "The scenery in Scotland is so beautiful!"},
+    {"user_id": 9, "photo_id": 24, "comment": "I've always wanted to visit Scotland!"},
+    {"user_id": 1, "photo_id": 25, "comment": "Mt. Rainier looks incredible!"},    {"user_id": 4, "photo_id": 25, "comment": "I love hiking in Mt. Rainier National Park!"},
+    {"user_id": 1, "photo_id": 26, "comment": "What a beautiful view!"},    {"user_id": 11, "photo_id": 26, "comment": "I love running in Bolinas!"},    {"user_id": 1, "photo_id": 27, "comment": "Looks like you had a great time on your backpacking trip!"},
+    {"user_id": 2, "photo_id": 27, "comment": "That's my favorite spot in the Eastern Sierras!"},
+    {"user_id": 1, "photo_id": 28, "comment": "I love the vibe at Venice Beach!"},
+    {"user_id": 13, "photo_id": 28, "comment": "This photo makes me miss LA so much!"}
 ]
 print('comments created')
 
