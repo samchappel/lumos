@@ -6,11 +6,11 @@ const commentSchema = Yup.object().shape({
   comment: Yup.string().required('Required'),
 });
 
-function AddComment({ photoId, userId, setComments }) {
+function AddComment({ photoId, userId, setComments, onCancel }) {
   const [error, setError] = useState(null);
 
   const handleAddComment = (values, { setSubmitting }) => {
-    console.log('user id:', userId); // add this line
+    console.log('user id:', userId); 
     fetch(`/photos/${photoId}/comments`, {
       method: 'POST',
       headers: {
@@ -51,6 +51,9 @@ function AddComment({ photoId, userId, setComments }) {
             <ErrorMessage name="comment" component="div" />
             <button type="submit" disabled={isSubmitting}>
               Submit
+            </button>
+            <button type="button" onClick={onCancel}>
+              Cancel
             </button>
           </Form>
         )}

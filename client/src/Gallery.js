@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Comments from './Comments';
+import AddComment from './AddComment';
 
 function Gallery({ userId }) {
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
+  const [showAddComment, setShowAddComment] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [comments, setComments] = useState([]);
 
   const navigate = useNavigate();
 
@@ -12,9 +16,15 @@ function Gallery({ userId }) {
     navigate('/add');
   };
 
-  useEffect(() => {
-    fetchPhotos();
-  }, []);
+  const handleAddComment = (photo) => {
+    setSelectedPhoto(photo);
+    setShowAddComment(true);
+  };
+
+  const handleCloseAddComment = () => {
+    setSelectedPhoto(null);
+    setShowAddComment(false);
+  };
 
   const fetchPhotos = () => {
     fetch(`/photos?user_id=${userId}`)
@@ -31,17 +41,29 @@ function Gallery({ userId }) {
       });
   }
 
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
+
   return (
     <div>
-        <button onClick={handleAddPhoto}>Add New Photo</button>
-        {error && <p>{error}</p>}
-        {photos.map(photo => (
+      <button onClick={handleAddPhoto}>Add New Photo</button>
+      {error && <p>{error}</p>}
+      {photos.map(photo => (
         <div key={photo.id}>
-            <img src={photo.image} alt={photo.caption} />
-            <p>{photo.caption}</p>
-            <Comments photoId={photo.id} userId={userId} />
+          <img src={photo.image} alt={photo.caption} />
+          <p>{photo.caption}</p>
+          <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
         </div>
       ))}
+      {selectedPhoto && showAddComment && (
+        <AddComment
+          photoId={selectedPhoto.id}
+          userId={userId}
+          setComments={setComments}
+          onCancel={handleCloseAddComment}
+        />
+      )}
     </div>
   );
 }
