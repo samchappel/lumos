@@ -156,7 +156,7 @@ class Photo(db.Model, SerializerMixin):
     def like_count(self):
         return db.session.query(func.count(Like.id)).filter(Like.photo_id == self.id).scalar()
 
-    serialize_rules = ('-user', '-comments', '-likes')
+    serialize_rules = ('-comments', '-likes')
 
 
 class Comment(db.Model, SerializerMixin):

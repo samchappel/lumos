@@ -80,14 +80,12 @@ function Comments({ photoId, userId }) {
     setCommentToEdit(null);
   };
 
-
   return (
     <div>
       {error && <p>{error}</p>}
       {comments.map(comment => (
         <div key={comment.id}>
-          <p>{comment.comment}</p>
-          <p>Posted by: {comment.user ? comment.user.first_name + ' ' + comment.user.last_name : 'Unknown'}</p>
+          <p><strong>{comment.user ? comment.user.first_name + ' ' + comment.user.last_name + ':' : 'Unknown:'}</strong> {comment.comment}</p>
           {(comment.user_id === userId) && (
             <div>
               <button onClick={() => handleEdit(comment)}>Edit</button>
