@@ -49,7 +49,7 @@ function EditComments({ comment, setCommentToEdit, setComments, comments, onSave
         return response.json();
       })
       .then(data => {
-        onSave(data); // call the onSave function passed from the Comments component with the updated data
+        onSave(data); 
         setEditedComment('');
       })
       .catch(error => {

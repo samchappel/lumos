@@ -49,7 +49,7 @@ function Gallery({ userId }) {
       {photos.map(photo => (
         <div key={photo.id}>
           <img src={photo.image} alt={photo.caption} />
-          <p>{photo.caption}</p>
+          <p><strong>{photo.user.first_name} {photo.user.last_name}:</strong> {photo.caption}</p>
           <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
           {selectedPhoto && selectedPhoto.id === photo.id && (
             <AddComment
