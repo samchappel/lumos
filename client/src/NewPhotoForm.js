@@ -47,6 +47,10 @@ function NewPhotoForm({ addPhotoToGallery }) {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/gallery');
+  };
+
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <label>
@@ -74,6 +78,7 @@ function NewPhotoForm({ addPhotoToGallery }) {
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </label>
       <button type="submit">Submit</button>
+      <button type="button" onClick={handleCancel}>Cancel</button>
     </form>
   );
 }

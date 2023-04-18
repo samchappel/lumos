@@ -6,7 +6,6 @@ import AddComment from './AddComment';
 function Gallery({ userId }) {
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
-  const [showAddComment, setShowAddComment] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [comments, setComments] = useState([]);
 
@@ -18,12 +17,10 @@ function Gallery({ userId }) {
 
   const handleAddComment = (photo) => {
     setSelectedPhoto(photo);
-    setShowAddComment(true);
   };
 
   const handleCloseAddComment = () => {
     setSelectedPhoto(null);
-    setShowAddComment(false);
   };
 
   const fetchPhotos = () => {
@@ -54,16 +51,16 @@ function Gallery({ userId }) {
           <img src={photo.image} alt={photo.caption} />
           <p>{photo.caption}</p>
           <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
+          {selectedPhoto && selectedPhoto.id === photo.id && (
+            <AddComment
+              photoId={selectedPhoto.id}
+              userId={userId}
+              setComments={setComments}
+              onCancel={handleCloseAddComment}
+            />
+          )}
         </div>
       ))}
-      {selectedPhoto && showAddComment && (
-        <AddComment
-          photoId={selectedPhoto.id}
-          userId={userId}
-          setComments={setComments}
-          onCancel={handleCloseAddComment}
-        />
-      )}
     </div>
   );
 }
