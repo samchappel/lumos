@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 from flask_login import current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import NotFound, Unauthorized
-from models import User, UserFavorite, Location, Comment, Photo, db, Like
+from models import User, UserFavorite, Location, Comment, Like, Photo, db
 from config import db, api, app, CORS, migrate, bcrypt, load_user
 from enum import Enum
 from datetime import datetime

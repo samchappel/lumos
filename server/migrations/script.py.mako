@@ -8,6 +8,7 @@ Create Date: ${create_date}
 from alembic import op
 import sqlalchemy as sa
 ${imports if imports else ""}
+from models import Like, Photo
 
 # revision identifiers, used by Alembic.
 revision = ${repr(up_revision)}
@@ -17,8 +18,13 @@ depends_on = ${repr(depends_on)}
 
 
 def upgrade():
-    ${upgrades if upgrades else "pass"}
+    with db.engine.connect() as connection:
+        photos = connection.execute(select([Photo]))
+        for photo in photos:
+            likes = connection.execute(select([func.count(Like.id)]).where(Like.photo_id == photo.id)).scalar()
+            connection.execute(Photo.update().where(Photo.id == photo.id).values(likes=likes))
 
 
 def downgrade():
-    ${downgrades if downgrades else "pass"}
+    with db.engine.connect() as connection:
+        connection.execute(Photo.update().values(likes=None))
