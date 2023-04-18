@@ -28,10 +28,11 @@ class User(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user_favorites = db.relationship('UserFavorite', back_populates='user')
-    photos = db.relationship('Photo', back_populates='user')
-    comments = db.relationship('Comment', back_populates='user')
+    photos = db.relationship('Photo', back_populates='user', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='user')
 
-    serialize_rules = ('-user_favorites', '-photos', '-comments')
+    serialize_rules = ('-user_favorites', '-photos', '-comments', '-likes')
 
     @hybrid_property
     def password_hash(self):
@@ -134,9 +135,10 @@ class Photo(db.Model, SerializerMixin):
     # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
-    comments = db.relationship('Comment', back_populates='photos')
+    comments = db.relationship('Comment', back_populates='photos', cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='photo')
 
-    serialize_rules = ('-user', '-comments')
+    serialize_rules = ('-user', '-comments', '-likes')
 
 
 class Comment(db.Model, SerializerMixin):
@@ -153,5 +155,18 @@ class Comment(db.Model, SerializerMixin):
     photos = db.relationship('Photo', back_populates='comments')
 
     serialize_rules = ('-photos',)
+
+class Like(db.Model):
+    __tablename__ = 'likes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    user = db.relationship('User', back_populates='likes')
+    photo = db.relationship('Photo', back_populates='likes')
+
+    serialize_rules = ('-user', '-photo')
 
 

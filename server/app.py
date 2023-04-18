@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 from flask_login import current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import NotFound, Unauthorized
-from models import User, UserFavorite, Location, Comment, Photo, db
+from models import User, UserFavorite, Location, Comment, Photo, db, Like
 from config import db, api, app, CORS, migrate, bcrypt, load_user
 from enum import Enum
 from datetime import datetime
@@ -173,8 +173,7 @@ class Photos(Resource):
         filename = secure_filename(image.filename)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        # The image_url below assumes the images are served from the /uploads folder.
-        # You may need to adjust this based on your server configuration.
+        # adjust this based on your server configuration.
         image = f'/uploads/{filename}'
 
         form_data = request.form
@@ -312,6 +311,32 @@ class CommentByID(Resource):
         return response
 
 api.add_resource(CommentByID, '/comments/<int:id>')
+
+class Likes(Resource):
+    def get(self, photo_id):
+        likes = Like.query.filter_by(photo_id=photo_id).all()
+        likes_count = len(likes)
+        return {"likes_count": likes_count}, 200
+        
+    def post(self):
+        form_json = request.get_json()
+        new_like = Like(
+            user_id=form_json['user_id'],
+            photo_id=form_json['photo_id'],
+            created_at=datetime.utcnow()
+        )
+
+        db.session.add(new_like)
+        db.session.commit()
+
+        response_dict = new_like.to_dict()
+        response = make_response(
+            response_dict,
+            201
+        )
+        return response
+
+api.add_resource(Likes, '/likes/<int:photo_id>')
 
 
 class Signup(Resource):

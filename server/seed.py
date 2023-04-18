@@ -1,38 +1,39 @@
 from random import choice as rc, randint
 #from faker import Faker
+import random
 from app import app
-from models import db, User, Location, UserFavorite, Photo, Comment
+from models import db, User, Location, UserFavorite, Photo, Comment, Like
 from datetime import datetime
 
 
 print('creating users')
 users_list = [
-    {"email": "packD@climber.com", "password": "@samDAbest", "first_name": "Sam", "last_name": "Chappel"}, #1
-    {"email": "chalky@climber.com", "password": "@sentDat", "first_name": "Ari", "last_name": "Marz"}, #2
-    {"email": "arnee@filmpotato.com", "password": "@filmp0tat0", "first_name": "Renee", "last_name": "Wall"}, #3
-    {"email": "kyle@boulderingisdumb.com", "password": "@Top0ut", "first_name": "Kyle", "last_name": "Wehrung"}, #4
-    {"email": "nick@rockymoves.com", "password": "@CragHopper", "first_name": "Nick", "last_name": "Johnson"},#5
-    {"email": "emiley@holdtight.com", "password": "@PalmquistPower", "first_name": "Emiley", "last_name": "Palmquist"}, #6
-    {"email": "topher@nottopher.com", "password": "@LudlowLedge", "first_name": "Topher", "last_name": "Ludlow"}, #7
-    {"email": "terrence@dynojumps.com", "password": "@ChungChampion", "first_name": "Terrence", "last_name": "Chung"}, #8
-    {"email": "kyle@schneidersend.com", "password": "@SendItSchneider", "first_name": "Kyle", "last_name": "Schneider"}, #9
-    {"email": "bianca@routeplanning.com", "password": "@AspinAdvice", "first_name": "Bianca", "last_name": "Aspin"}, #10
-    {"email": "diana@mountaindancer.com", "password": "@LinUpTheWall", "first_name": "Diana", "last_name": "Lin"}, #11
-    {"email": "patty@stronggrip.com", "password": "@EatAssBro", "first_name": "Patty", "last_name": "Hughes"}, #12
-    {"email": "stove_top@climber.com", "password": "@fireGripper", "first_name": "Steve", "last_name": "Passarelli"}, #13
-    {"email": "brett@bearhugholds.com", "password": "@DeBearStrength", "first_name": "Brett", "last_name": "de Bear"}, #14
-    {"email": "lynn@itgoesboys.com", "password": "@TheNoseInADay", "first_name": "Lynn", "last_name": "Hill"}, #15
-    {"email": "chris@sharmafan.com", "password": "@KingLines", "first_name": "Chris", "last_name": "Sharma"}, #16
-    {"email": "tommy@crushingprojects.com", "password": "@DawnWall", "first_name": "Tommy", "last_name": "Caldwell"}, #17
-    {"email": "alex@nohandsneeded.com", "password": "@FreeSolo", "first_name": "Alex", "last_name": "Honnold"}, #18
-    {"email": "adam@silentroars.com", "password": "@Silence9c", "first_name": "Adam", "last_name": "Ondra"}, #19
+    {"email": "packD@climber.com", "password": "@samDAbest", "first_name": "Sam", "last_name": "Chappel"},
+    {"email": "chalky@climber.com", "password": "@sentDat", "first_name": "Ari", "last_name": "Marz"},
+    {"email": "arnee@filmpotato.com", "password": "@filmp0tat0", "first_name": "Renee", "last_name": "Wall"},
+    {"email": "kyle@boulderingisdumb.com", "password": "@Top0ut", "first_name": "Kyle", "last_name": "Wehrung"},
+    {"email": "nick@rockymoves.com", "password": "@CragHopper", "first_name": "Nick", "last_name": "Johnson"},
+    {"email": "emiley@holdtight.com", "password": "@PalmquistPower", "first_name": "Emiley", "last_name": "Palmquist"},
+    {"email": "topher@nottopher.com", "password": "@LudlowLedge", "first_name": "Topher", "last_name": "Ludlow"},
+    {"email": "terrence@dynojumps.com", "password": "@ChungChampion", "first_name": "Terrence", "last_name": "Chung"},
+    {"email": "kyle@schneidersend.com", "password": "@SendItSchneider", "first_name": "Kyle", "last_name": "Schneider"},
+    {"email": "bianca@routeplanning.com", "password": "@AspinAdvice", "first_name": "Bianca", "last_name": "Aspin"},
+    {"email": "diana@mountaindancer.com", "password": "@LinUpTheWall", "first_name": "Diana", "last_name": "Lin"},
+    {"email": "patty@stronggrip.com", "password": "@EatAssBro", "first_name": "Patty", "last_name": "Hughes"},
+    {"email": "stove_top@climber.com", "password": "@fireGripper", "first_name": "Steve", "last_name": "Passarelli"},
+    {"email": "brett@bearhugholds.com", "password": "@DeBearStrength", "first_name": "Brett", "last_name": "de Bear"},
+    {"email": "lynn@itgoesboys.com", "password": "@TheNoseInADay", "first_name": "Lynn", "last_name": "Hill"},
+    {"email": "chris@sharmafan.com", "password": "@KingLines", "first_name": "Chris", "last_name": "Sharma"},
+    {"email": "tommy@crushingprojects.com", "password": "@DawnWall", "first_name": "Tommy", "last_name": "Caldwell"},
+    {"email": "alex@nohandsneeded.com", "password": "@FreeSolo", "first_name": "Alex", "last_name": "Honnold"},
+    {"email": "adam@silentroars.com", "password": "@Silence9c", "first_name": "Adam", "last_name": "Ondra"},
     {"email": "sasha@inspirationontherocks.com", "password": "@VerticalWorld", "first_name": "Sasha", "last_name": "DiGiulian"},
-    {"email": "margo@breakingbarriers.com", "password": "@Grade15", "first_name": "Margo", "last_name": "Hayes"}, #20
-    {"email": "ethan@sendtrain.com", "password": "@BatHangAlways", "first_name": "Ethan", "last_name": "Pringle"}, #21
-    {"email": "alex@precisiongerman.com", "password": "@FastClimb", "first_name": "Alexander", "last_name": "Megos"}, #22
-    {"email": "brooke@climbingprodigy.com", "password": "@ClimbYoung", "first_name": "Brooke", "last_name": "Raboutou"}, #23
-    {"email": "nina@highballqueen.com", "password": "@ToppingOutHigh", "first_name": "Nina", "last_name": "Williams"}, #24
-    {"email": "alex@boulderingbeast.com", "password": "@StrongClimbs", "first_name": "Alex", "last_name": "Puccio"} #25
+    {"email": "margo@breakingbarriers.com", "password": "@Grade15", "first_name": "Margo", "last_name": "Hayes"},
+    {"email": "ethan@sendtrain.com", "password": "@BatHangAlways", "first_name": "Ethan", "last_name": "Pringle"},
+    {"email": "alex@precisiongerman.com", "password": "@FastClimb", "first_name": "Alexander", "last_name": "Megos"},
+    {"email": "brooke@climbingprodigy.com", "password": "@ClimbYoung", "first_name": "Brooke", "last_name": "Raboutou"},
+    {"email": "nina@highballqueen.com", "password": "@ToppingOutHigh", "first_name": "Nina", "last_name": "Williams"},
+    {"email": "alex@boulderingbeast.com", "password": "@StrongClimbs", "first_name": "Alex", "last_name": "Puccio"} 
 ]
 print('users created')
 
@@ -364,8 +365,6 @@ comments_list = [
     {"user_id": 17, "photo_id": 2, "comment": "Spectacular view!"},
     {"user_id": 24, "photo_id": 3, "comment": "The Grand Canyon is so beautiful!"},
     {"user_id": 26, "photo_id": 3, "comment": "Great photo!"},
-    {"user_id": 1, "photo_id": 21, "comment": "This view is breathtaking!"},    {"user_id": 7, "photo_id": 21, "comment": "I'm getting vertigo just looking at this!"},
-    {"user_id": 14, "photo_id": 21, "comment": "This looks like something out of a dream."},
     {"user_id": 1, "photo_id": 22, "comment": "The colors in the sky are so beautiful!"},
     {"user_id": 8, "photo_id": 22, "comment": "This looks like the perfect spot for a picnic."},
     {"user_id": 1, "photo_id": 23, "comment": "Wow, that's an amazing view!"},    {"user_id": 3, "photo_id": 23, "comment": "This looks like a great place for a hike."},
@@ -399,6 +398,23 @@ def make_comments():
     print('comments committed')
 
 
+def make_likes():
+    Like.query.delete()
+
+    likes = []
+    
+    for photo in Photo.query.all():
+        num_likes = random.randint(1, 28)
+        for i in range(num_likes):
+            like = Like(user_id=random.randint(1, 26), photo_id=photo.id)
+            likes.append(like)
+    print('likes created')
+
+    db.session.add_all(likes)
+    db.session.commit()
+    print('likes committed')
+
+
 
 if __name__ == '__main__':
     with app.app_context():
@@ -407,3 +423,5 @@ if __name__ == '__main__':
         make_user_favorites()
         make_photos()
         make_comments()
+        print('creating likes')
+        make_likes()
