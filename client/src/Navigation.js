@@ -10,9 +10,9 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
         <Link to="/">Home</Link>
         <Link to="/Favorites">Favorites</Link>
         <Link to="/Gallery">Gallery</Link>
+        <Link to="/premium">Premium</Link>
         {isLoggedIn ? (
           <>
-            <Link to="/profile">Profile</Link>
             <Link to="/logout" onClick={handleLogout}>Log Out</Link>
           </>
         ) : (

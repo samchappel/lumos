@@ -3,7 +3,8 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
-from sqlalchemy import CheckConstraint, Date, Enum
+from sqlalchemy import CheckConstraint, Date, Enum, func, literal_column
+from sqlalchemy.sql import select
 from flask_login import LoginManager
 from enum import Enum as PyEnum
 import re
@@ -120,6 +121,19 @@ class UserFavorite(db.Model, SerializerMixin):
 
     serialize_rules = ('-user', '-location')
 
+class Like(db.Model):
+    __tablename__ = 'likes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    user = db.relationship('User', back_populates='likes')
+    photo = db.relationship('Photo', back_populates='likes')
+
+    serialize_rules = ('-user', '-photo')
+
 
 class Photo(db.Model, SerializerMixin):
     __tablename__ = 'photos'
@@ -138,6 +152,10 @@ class Photo(db.Model, SerializerMixin):
     comments = db.relationship('Comment', back_populates='photos', cascade='all, delete-orphan')
     likes = db.relationship('Like', back_populates='photo')
 
+    @property
+    def like_count(self):
+        return db.session.query(func.count(Like.id)).filter(Like.photo_id == self.id).scalar()
+
     serialize_rules = ('-user', '-comments', '-likes')
 
 
@@ -155,18 +173,5 @@ class Comment(db.Model, SerializerMixin):
     photos = db.relationship('Photo', back_populates='comments')
 
     serialize_rules = ('-photos',)
-
-class Like(db.Model):
-    __tablename__ = 'likes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-
-    user = db.relationship('User', back_populates='likes')
-    photo = db.relationship('Photo', back_populates='likes')
-
-    serialize_rules = ('-user', '-photo')
 
 
