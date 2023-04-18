@@ -76,6 +76,11 @@ function Comments({ photoId, userId }) {
     setShowCommentForm(false);
   };
 
+  const handleCancel = () => {
+    setCommentToEdit(null);
+  };
+
+
   return (
     <div>
       {error && <p>{error}</p>}
@@ -103,6 +108,8 @@ function Comments({ photoId, userId }) {
           onCancel={() => setCommentToEdit(null)}
           setComments={setComments}
           comments={comments}
+          photoId={photoId}
+          userId={userId}
         />
       )}
     </div>
