@@ -79,19 +79,17 @@ api.add_resource(LocationByID, '/locations/<int:id>')
 
 
 class UserFavorites(Resource):
-    @login_required
     def get(self):
         print("get method called")
-        favorite_list = [user_favorite.to_dict() for user_favorite in current_user.user_favorites]
-        print(current_user.id)
+        favorite_list = [user_favorite.to_dict() for user_favorite in session['user_id'].user_favorites]
+        print(session['user_id'])
         response = make_response(
             favorite_list,
             200
         )
-        print(current_user.id)
+        print(session['user_id'])
         return response
 
-    @login_required
     def post(self):
         data = request.get_json()
         location_id = data.get('location_id')
@@ -173,7 +171,6 @@ class Photos(Resource):
         filename = secure_filename(image.filename)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        # adjust this based on your server configuration.
         image = f'/uploads/{filename}'
 
         form_data = request.form
@@ -185,7 +182,8 @@ class Photos(Resource):
             city=form_data['city'],
             state=form_data['state'],
             caption=form_data['caption'],
-            date=date
+            date=date,
+            user_id=session['user_id']
         )
 
         db.session.add(new_photo)
@@ -210,7 +208,7 @@ class PhotoByID(Resource):
         if not photo:
             raise NotFound
 
-        if photo.user_id != current_user.id:
+        if photo.user_id != session['user_id']:
             return make_response({'message': 'You are not authorized to update this photo.'}, 401)
 
         for attr in request.form:
@@ -228,13 +226,12 @@ class PhotoByID(Resource):
 
         return response
 
-    @login_required
     def delete(self, id):
         photo = Photo.query.filter_by(id=id).first()
         if not photo:
             raise NotFound
 
-        if photo.user_id != current_user.id:
+        if photo.user_id != session['user_id']:
             return make_response({'message': 'You are not authorized to delete this photo.'}, 401)
 
         db.session.delete(photo)

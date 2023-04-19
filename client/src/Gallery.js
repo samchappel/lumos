@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Comments from './Comments';
 import AddComment from './AddComment';
+import DeletePhoto from './DeletePhoto';
 
 function Gallery({ userId }) {
   const [photos, setPhotos] = useState([]);
@@ -21,6 +22,10 @@ function Gallery({ userId }) {
 
   const handleCloseAddComment = () => {
     setSelectedPhoto(null);
+  };
+
+  const handleDeletePhoto = (photoId) => {
+    setPhotos(photos.filter(photo => photo.id !== photoId));
   };
 
   const fetchPhotos = () => {
@@ -50,6 +55,9 @@ function Gallery({ userId }) {
         <div key={photo.id}>
           <img src={photo.image} alt={photo.caption} />
           <p><strong>{photo.user.first_name} {photo.user.last_name}:</strong> {photo.caption}</p>
+          {photo.user.id === userId && (
+            <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
+          )}
           <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
           {selectedPhoto && selectedPhoto.id === photo.id && (
             <AddComment

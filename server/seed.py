@@ -364,7 +364,7 @@ comments_list = [
     {"user_id": 8, "photo_id": 22, "comment": "Wow, so cool."},
     {"user_id": 3, "photo_id": 23, "comment": "This looks like a great place for a hike."},
     {"user_id": 5, "photo_id": 23, "comment": "I can't wait to visit there someday!"},
-    {"user_id": 1, "photo_id": 23, "comment": "The scenery in Scotland is so beautiful!"},
+    {"user_id": 2, "photo_id": 23, "comment": "The scenery in Scotland is so beautiful!"},
     {"user_id": 9, "photo_id": 23, "comment": "I've always wanted to visit Scotland!"},
     {"user_id": 1, "photo_id": 24, "comment": "So when are you moving here??"},    {"user_id": 4, "photo_id": 24, "comment": "I love hiking in Mt. Rainier National Park!"},
     {"user_id": 1, "photo_id": 25, "comment": "Get it girl!"},    

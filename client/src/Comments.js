@@ -101,14 +101,15 @@ function Comments({ photoId, userId }) {
       )}
       {commentToEdit && (
         <EditComments
-          comment={commentToEdit}
-          onSave={handleSave}
-          onCancel={() => setCommentToEdit(null)}
-          setComments={setComments}
-          comments={comments}
-          photoId={photoId}
-          userId={userId}
-        />
+        comment={commentToEdit}
+        onSave={handleSave}
+        onCancel={() => setCommentToEdit(null)}
+        setComments={setComments}
+        comments={comments}
+        photoId={photoId}
+        userId={userId}
+        setCommentToEdit={setCommentToEdit}
+      />
       )}
     </div>
   );
