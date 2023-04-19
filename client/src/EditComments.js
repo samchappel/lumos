@@ -60,8 +60,7 @@ function EditComments({ comment, setCommentToEdit, setComments, comments, onSave
 
   const handleCancel = () => {
     setCommentToEdit(null);
-    onCancel();
-  }
+  };
 
   return (
     <div>

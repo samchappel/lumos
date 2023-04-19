@@ -1,21 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+const photoSchema = Yup.object().shape({
+  image: Yup.mixed().required('Required'),
+  location: Yup.string().required('Required'),
+  city: Yup.string().required('Required'),
+  state: Yup.string().required('Required'),
+  caption: Yup.string().required('Required'),
+  date: Yup.date().required('Required'),
+});
 
 function NewPhotoForm({ addPhotoToGallery }) {
-  const [location, setLocation] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [caption, setCaption] = useState('');
-  const [date, setDate] = useState('');
-
   const navigate = useNavigate();
+  const imageInputRef = useRef(); 
 
-  const imageInputRef = useRef(); // Add a ref for the file input
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const imageFile = imageInputRef.current.files[0]; // Get the selected file
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const imageFile = imageInputRef.current.files[0]; 
     if (!imageFile) {
       console.error('No image file selected');
       return;
@@ -23,11 +25,11 @@ function NewPhotoForm({ addPhotoToGallery }) {
 
     const formData = new FormData();
     formData.append('image', imageFile);
-    formData.append('location', location);
-    formData.append('city', city);
-    formData.append('state', state);
-    formData.append('caption', caption);
-    formData.append('date', date);
+    formData.append('location', values.location);
+    formData.append('city', values.city);
+    formData.append('state', values.state);
+    formData.append('caption', values.caption);
+    formData.append('date', values.date);
 
     try {
       const response = await fetch('/photos', {
@@ -37,6 +39,7 @@ function NewPhotoForm({ addPhotoToGallery }) {
 
       if (response.ok) {
         const newPhoto = await response.json();
+        console.log(newPhoto);
         addPhotoToGallery(newPhoto);
         navigate('/gallery');
       } else {
@@ -45,6 +48,8 @@ function NewPhotoForm({ addPhotoToGallery }) {
     } catch (error) {
       console.error('Error adding photo:', error);
     }
+
+    setSubmitting(false);
   };
 
   const handleCancel = () => {
@@ -52,34 +57,66 @@ function NewPhotoForm({ addPhotoToGallery }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <label>
-        Image:
-        <input type="file" ref={imageInputRef} />
-      </label>
-      <label>
-        Location:
-        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
-      </label>
-      <label>
-        City:
-        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-      </label>
-      <label>
-        State:
-        <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
-      </label>
-      <label>
-        Caption:
-        <input type="text" value={caption} onChange={(e) => setCaption(e.target.value)} />
-      </label>
-      <label>
-        Date:
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-      </label>
-      <button type="submit">Submit</button>
-      <button type="button" onClick={handleCancel}>Cancel</button>
-    </form>
+    <Formik
+      initialValues={{
+        image: null,
+        location: '',
+        city: '',
+        state: '',
+        caption: '',
+        date: '',
+      }}
+      validationSchema={photoSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting, setFieldValue }) => (
+        <Form>
+          <label>
+            Image:
+            <input
+              type="file"
+              name="image"
+              onChange={(event) => {
+                setFieldValue('image', event.currentTarget.files[0]);
+              }}
+              ref={imageInputRef}
+            />
+            <ErrorMessage name="image" component="div" />
+          </label>
+          <label>
+            Location:
+            <Field type="text" name="location" />
+            <ErrorMessage name="location" component="div" />
+          </label>
+          <label>
+            City:
+            <Field type="text" name="city" />
+            <ErrorMessage name="city" component="div" />
+          </label>
+          <label>
+            State:
+            <Field type="text" name="state" />
+            <ErrorMessage name="state" component="div" />
+          </label>
+          <label>
+            Caption:
+            <Field type="text" name="caption" />
+            <ErrorMessage name="caption" component="div" />
+          </label>
+          <label>
+            Date:
+            <Field type="date" name="date" />
+            <ErrorMessage name="date" component="div" />
+          </label>
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 }
 
