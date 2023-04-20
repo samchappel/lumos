@@ -51,24 +51,29 @@ function Gallery({ userId }) {
     <div>
       <button onClick={handleAddPhoto}>Add New Photo</button>
       {error && <p>{error}</p>}
-      {photos.map(photo => (
-        <div key={photo.id}>
-          <img src={photo.image} alt={photo.caption} />
-          <p><strong>{photo.user.first_name} {photo.user.last_name}:</strong> {photo.caption}</p>
-          {photo.user.id === userId && (
-            <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
-          )}
-          <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
-          {selectedPhoto && selectedPhoto.id === photo.id && (
-            <AddComment
-              photoId={selectedPhoto.id}
-              userId={userId}
-              setComments={setComments}
-              onCancel={handleCloseAddComment}
-            />
-          )}
-        </div>
-      ))}
+      <div className="flex flex-wrap">
+        {photos.map(photo => (
+          <div key={photo.id} className="card w-96 bg-base-100 shadow-xl m-4">
+            <img src={photo.image} alt={photo.caption} onClick={() => navigate(`/photos/${photo.id}`)} />
+            <div className="card-body">
+              <h2 className="card-title">{photo.caption}</h2>
+              <p><strong>{photo.user.first_name} {photo.user.last_name}:</strong> {photo.caption}</p>
+              {photo.user.id === userId && (
+                <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
+              )}
+              <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
+              {selectedPhoto && selectedPhoto.id === photo.id && (
+                <AddComment
+                  photoId={selectedPhoto.id}
+                  userId={userId}
+                  setComments={setComments}
+                  onCancel={handleCloseAddComment}
+                />
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

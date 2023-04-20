@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Authentication from './Authentication';
 import Favorites from './Favorites'
 import Gallery from './Gallery'
+import PhotoPage from './PhotoPage'
 import './index.css';
 
 function App() {
@@ -76,18 +77,19 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
+      <Header />
       <Routes>
-      <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
+        <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
         <Route path="/results/:latitude/:longitude" element={<Results />} />
-        <Route path="/profile" element={<Profile />} /><Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/favorites" element={<Favorites user={user} />} />
         <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
         <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/photos/:id" element={<PhotoPage userId={user.id} />} /> */}
         <Route path="*" element={<p>Page not found</p>} />
-        </Routes>
+      </Routes>
     </div>
   );
 }

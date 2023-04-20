@@ -44,10 +44,12 @@ function Home({locations, setLocations, setError, setLocationData}) {
     const locationCards = locations.map(location => <LocationsCard key={location.id} location={location} setLocations={setLocations}/>)
 
     return (
-        <div>
-            <Search handleSearch={handleSearch} />
-            <ul className="cards">{locationCards}</ul>
+      <>
+        <Search handleSearch={handleSearch} />
+        <div style={{ backgroundColor: 'var(--secondary-color)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px', marginBottom: '20px' }}>
+          {locationCards}
         </div>
+      </>
     )
 }
 

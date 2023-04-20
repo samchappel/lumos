@@ -57,7 +57,7 @@ const Authentication = ({ updateUser }) => {
             last_name: values.lastName
           }),
         });
-    console.log(response)
+        console.log(response)
         if (response.ok) {
           const user = await response.json();
           sessionStorage.setItem('user', JSON.stringify(user));
@@ -72,7 +72,6 @@ const Authentication = ({ updateUser }) => {
         setFieldError('general', 'An error occurred. Please try again.');
       }
     },
-    
   });
 
   const toggleSignUp = () => {
@@ -80,91 +79,125 @@ const Authentication = ({ updateUser }) => {
   };
 
   return (
-    <div>
-      <h2 className='login-title'>{signUp ? 'SIGN UP' : 'LOG IN'}</h2>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input
-            type='email'
-            name='email'
-            placeholder='Email'
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.touched.email && formik.errors.email && <div id='feedback'>{formik.errors.email}</div>}
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">{signUp ? 'Sign Up' : 'Log In'}</h1>
+          <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
         </div>
-        <div>
-          <label>Password</label>
-          <input
-            type='password'
-            name='password'
-            placeholder='Password'
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-          {formik.touched.password && formik.errors.password && (
-            <div id='feedback'>{formik.errors.password}</div>
-          )}
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <form onSubmit={formik.handleSubmit}>
+            <div className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  className="input input-bordered"
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div id="feedback">{formik.errors.email}</div>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  className="input input-bordered"
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div id="feedback">{formik.errors.password}</div>
+                )}
+              </div>
+              {signUp && (
+                <>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">First Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      placeholder="First Name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.firstName}
+                      className="input input-bordered"
+                    />
+                    {formik.touched.firstName && formik.errors.firstName && (
+                      <div id="feedback">{formik.errors.firstName}</div>
+                    )}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Last Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Last Name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lastName}
+                      className="input input-bordered"
+                    />
+                    {formik.touched.lastName && formik.errors.lastName && (
+                      <div id="feedback">{formik.errors.lastName}</div>
+                    )}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Confirm Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                      className="input input-bordered"
+                    />
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                      <div id="feedback">{formik.errors.confirmPassword}</div>
+                    )}
+                  </div>
+                </>
+              )}
+              <div className="form-control mt-6">
+                <button type="submit" className="btn btn-primary">
+                  {signUp ? 'Sign Up' : 'Log In'}
+                </button>
+              </div>
+              <div className="form-control mt-6">
+                <button type="button" onClick={toggleSignUp} className="btn btn-secondary">
+                  {signUp ? 'Cancel' : 'Create Account'}
+                </button>
+              </div>
+              {formik.errors.general && (
+                <div className="form-control mt-6">
+                  <div id="feedback">{formik.errors.general}</div>
+                </div>
+              )}
+            </div>
+          </form>
         </div>
-        {signUp && (
-          <>
-            <div>
-              <label>First Name</label>
-              <input
-                type='text'
-                name='firstName'
-                placeholder='First Name'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.firstName}
-              />
-              {formik.touched.firstName && formik.errors.firstName && (
-                <div id='feedback'>{formik.errors.firstName}</div>
-              )}
-            </div>
-            <div>
-              <label>Last Name</label>
-              <input
-                type='text'
-                name='lastName'
-                placeholder='Last Name'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.lastName}
-              />
-              {formik.touched.lastName && formik.errors.lastName && (
-                <div id='feedback'>{formik.errors.lastName}</div>
-              )}
-            </div>
-            <div>
-              <label>Confirm Password</label>
-              <input
-                type='password'
-                name='confirmPassword'
-                placeholder='Confirm Password'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.confirmPassword}
-              />
-              {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-                <div id='feedback'>{formik.errors.confirmPassword}</div>
-              )}
-            </div>
-          </>
-        )}
-        <button type='submit' disabled={formik.isSubmitting}>
-          {signUp ? 'Sign Up' : 'Log In'}
-        </button>
-        <button type='button' onClick={toggleSignUp}>
-          {signUp ? 'Cancel' : 'Create Account'}
-        </button>
-        {formik.errors.general && <div id='feedback'>{formik.errors.general}</div>}
-      </form>
+      </div>
     </div>
   );
-};
+}
 
 export default Authentication;
