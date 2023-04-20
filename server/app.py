@@ -202,6 +202,21 @@ api.add_resource(Photos, '/photos')
 
 
 class PhotoByID(Resource):
+    def get(self, id):
+        photo = Photo.query.filter_by(id=id).first()
+        if not photo:
+            raise NotFound
+
+        photo_dict = photo.to_dict()
+
+        response = make_response(
+            photo_dict,
+            200
+        )
+
+        return response
+
+        
     @login_required
     def patch(self, id):
         photo = Photo.query.filter_by(id=id).first()

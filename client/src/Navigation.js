@@ -6,19 +6,28 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
 
   return (
     <div className="nav-container">
-      <nav className="nav-bar">
-        <Link to="/">Home</Link>
-        <Link to="/Favorites">Favorites</Link>
-        <Link to="/Gallery">Gallery</Link>
-        <Link to="/premium">Premium</Link>
-        {isLoggedIn ? (
-          <>
-            <Link to="/logout" onClick={handleLogout}>Log Out</Link>
-          </>
-        ) : (
-          <Link to="/login">Log In/Sign Up</Link>
-        )}
-      </nav>
+      <div className="navbar" style={{ backgroundColor: '#54473e' }}>
+        <div className="flex-1">
+        <Link to="/">
+          <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />
+        </Link>
+        </div>
+        <div className="flex-none">
+          <ul className="menu menu-horizontal px-1">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/Favorites">Favorites</Link></li>
+            <li><Link to="/Gallery">Gallery</Link></li>
+            <li><Link to="/premium">Premium</Link></li>
+            {isLoggedIn ? (
+              <>
+                <li><Link to="/logout" onClick={handleLogout}>Log Out</Link></li>
+              </>
+            ) : (
+              <li><Link to="/login">Log In/Sign Up</Link></li>
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }

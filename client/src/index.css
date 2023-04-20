@@ -1,4 +1,20 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #d07e3d;
+  --secondary-color: #54473e;
+  --success-color: #749040;
+  --warning-color: #ffc107;
+  --danger-color: #52291e;
+  --info-color: #b23c17;
+  --light-color: #b1cbbb;
+  --dark-color: #615042;
+}
+
+
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -137,4 +153,4 @@ form {
 
 .close-button:hover {
   background-color: #342c2c;
-}
+} */

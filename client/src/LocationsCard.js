@@ -5,7 +5,6 @@ function LocationsCard({ location }) {
   const { name, city, state, image, id, latitude, longitude, timezone } = location;
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
-//   const endUrl = "&date=today";
 
   const [sunriseData, setSunriseData] = useState(null);
 
@@ -17,26 +16,25 @@ function LocationsCard({ location }) {
   }, []);
 
   return (
-    <li className="card">
-      <div className="image">
+    <div className="location-card-wrapper">
+      <div className="card card-compact w-96 bg-primary-color shadow-xl" style={{ marginRight: '20px' }}>
         <Link to={`/locations/${id}`}>
-          <img src={image} alt={name} />
+        <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
         </Link>
+        <div className="card-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <h2 className="card-title">{name}</h2>
+          <h3>{city}, {state}</h3>
+          {sunriseData && (
+            <>
+              <p>Sunrise: {sunriseData.results.sunrise}</p>
+              <p>Sunset: {sunriseData.results.sunset}</p>
+              <p>Golden Hour: {sunriseData.results.golden_hour}</p>
+              <p>Day Length: {sunriseData.results.day_length} Hours</p>
+            </>
+          )}
+        </div>
       </div>
-      <div className="center">
-        <h3 className="name">{name}</h3>
-        <h4>{city}, {state}</h4>
-        {sunriseData && (
-          <>
-            <p>Sunrise: {sunriseData.results.sunrise}</p>
-            <p>Sunset: {sunriseData.results.sunset}</p>
-            <p>Golden Hour: {sunriseData.results.golden_hour}</p>
-            <p>Day Length: {sunriseData.results.day_length} Hours</p>
-          </>
-        )}
-      </div>
-    </li>
+    </div>
   );
 }
-
 export default LocationsCard;
