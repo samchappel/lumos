@@ -9,7 +9,9 @@ import Profile from './Profile';
 import Authentication from './Authentication';
 import Favorites from './Favorites'
 import Gallery from './Gallery'
-import PhotoPage from './PhotoPage'
+import PhotoDetail from './PhotoDetail';
+import { useDispatch } from 'react-redux';
+import { setLocationData } from './redux/actions';
 import './index.css';
 
 function App() {
@@ -75,31 +77,65 @@ function App() {
     setPhotos([newPhoto, ...photos]);
   };
 
-  return (
-    <div className="App">
-      <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
-        <Route path="/results/:latitude/:longitude" element={<Results />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/favorites" element={<Favorites user={user} />} />
-        <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
-        <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-        {/* <Route path="/photos/:id" element={<PhotoPage userId={user.id} />} /> */}
-        <Route path="*" element={<p>Page not found</p>} />
-      </Routes>
-    </div>
-  );
-}
+  const dispatch = useDispatch();
 
-function WrappedApp() {
-  return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  )
-}
-
-export default WrappedApp;
+  const handleSearch = (address) => {
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_API_KEY}`;
+    fetch(geocodeUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); 
+        if (data.results.length === 0) {
+          setError('No results found. Please try a different search term.');
+        } else {
+          const { lat, lng } = data.results[0].geometry.location;
+          console.log('Latitude:', lat);
+          console.log('Longitude:', lng);
+          const addressComponents = data.results[0].address_components;
+          const cityComponent = addressComponents.find(component => component.types.includes('locality') || component.types.includes('postal_town'));
+          const stateComponent = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
+          const city = cityComponent?.long_name;
+          const state = stateComponent?.short_name;
+          dispatch(setLocationData({ city, state })); 
+          console.log('city:', city)
+          console.log('state:', state)
+          navigate({
+            pathname: `/results/${lat}/${lng}`,
+            state: { city, state },
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching geocode data:', error);
+        setError(error.message);
+      });
+  };
+          
+          return (
+          <div className="App">
+          <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
+          <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
+          <Routes>
+          <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
+          <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/favorites" element={<Favorites user={user} />} />
+          <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
+          <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
+          <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
+          <Route path="*" element={<p>Page not found</p>} />
+          </Routes>
+          </div>
+          );
+          }
+          
+          function WrappedApp() {
+          return (
+          <BrowserRouter>
+          <App />
+          </BrowserRouter>
+          )
+          }
+          
+          export default WrappedApp;

@@ -49,18 +49,16 @@ function Gallery({ userId }) {
 
   return (
     <div>
-      <button onClick={handleAddPhoto}>Add New Photo</button>
+      <button className="btn btn-outline btn-primary" onClick={handleAddPhoto}>Add To Gallery</button>
       {error && <p>{error}</p>}
       <div className="flex flex-wrap">
         {photos.map(photo => (
           <div key={photo.id} className="card w-96 bg-base-100 shadow-xl m-4">
-            <img src={photo.image} alt={photo.caption} onClick={() => navigate(`/photos/${photo.id}`)} />
+            {/* <img src={photo.image} alt={photo.caption} onClick={() => navigate(`/photos/${photo.id}`, { state: { photo, userId, handleDeletePhoto, handleAddComment, selectedPhoto, setComments, handleCloseAddComment, photos } })} /> */}
+            <img src={photo.image} alt={photo.caption} />
             <div className="card-body">
               <h2 className="card-title">{photo.caption}</h2>
-              <p><strong>{photo.user.first_name} {photo.user.last_name}:</strong> {photo.caption}</p>
-              {photo.user.id === userId && (
-                <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
-              )}
+              <p><strong>Photo by: {photo.user.first_name} {photo.user.last_name}</strong></p>
               <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
               {selectedPhoto && selectedPhoto.id === photo.id && (
                 <AddComment
@@ -69,6 +67,9 @@ function Gallery({ userId }) {
                   setComments={setComments}
                   onCancel={handleCloseAddComment}
                 />
+              )}
+              {photo.user.id === userId && (
+                <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
               )}
             </div>
           </div>

@@ -13,7 +13,7 @@ function DeletePhoto({ photo, onDelete }) {
   };
 
   return (
-    <button onClick={handleDelete}>Delete</button>
+    <button className="btn btn-outline btn-accent" onClick={handleDelete}>Delete Photo</button>
   );
 }
 
