@@ -6,7 +6,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
 
   return (
     <div className="nav-container">
-      <div className="navbar" style={{ backgroundColor: '#54473e' }}>
+      <div className="navbar">
         <div className="flex-1">
         <Link to="/">
           <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />

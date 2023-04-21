@@ -10,7 +10,7 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
   const [error, setError] = useState(null);
 
   const handleAddComment = (values, { setSubmitting }) => {
-    console.log('user id:', userId); 
+    console.log('user id:', userId);
     fetch(`/photos/${photoId}/comments`, {
       method: 'POST',
       headers: {
@@ -21,21 +21,22 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
         user_id: userId,
       }),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`Error adding comment: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setComments((comments) => [...comments, data]);
         setSubmitting(false);
+        onCancel();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error adding comment:', error);
         setError(error.message);
       });
-  }
+  };
 
   return (
     <div>

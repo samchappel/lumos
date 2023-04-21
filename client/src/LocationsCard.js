@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 function LocationsCard({ location }) {
   const { name, city, state, image, id, latitude, longitude, timezone } = location;
@@ -18,18 +18,18 @@ function LocationsCard({ location }) {
   return (
     <div className="location-card-wrapper">
       <div className="card card-compact w-96 bg-primary-color shadow-xl" style={{ marginRight: '20px' }}>
-        <Link to={`/locations/${id}`}>
+        {/* <Link to={`/locations/${id}`}> */}
         <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
-        </Link>
+        {/* </Link> */}
         <div className="card-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <h2 className="card-title">{name}</h2>
           <h3>{city}, {state}</h3>
           {sunriseData && (
             <>
-              <p>Sunrise: {sunriseData.results.sunrise}</p>
-              <p>Sunset: {sunriseData.results.sunset}</p>
-              <p>Golden Hour: {sunriseData.results.golden_hour}</p>
-              <p>Day Length: {sunriseData.results.day_length} Hours</p>
+              <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
+              <p><strong>Sunset:</strong> {sunriseData.results.sunset}</p>
+              <p><strong>Golden Hour:</strong> {sunriseData.results.golden_hour}</p>
+              <p><strong>Day Length:</strong> {sunriseData.results.day_length} Hours</p>
             </>
           )}
         </div>
