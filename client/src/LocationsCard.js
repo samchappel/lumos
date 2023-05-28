@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import pinIcon from './assets/pin_icon.jpg';
+import pinIconActive from './assets/pin_icon_clicked.jpg';
 
 function LocationsCard({ location }) {
-  const { name, city, state, image, id, latitude, longitude, timezone } = location;
+  const { id, name, city, state, image, latitude, longitude } = location;
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
 
   const [sunriseData, setSunriseData] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     fetch(`${baseUrl}lat=${latitude}&lng=${longitude}`)
@@ -15,14 +17,38 @@ function LocationsCard({ location }) {
       .catch(error => console.error('Error fetching sunrise data:', error));
   }, []);
 
+  const handleFavoriteClick = () => {
+    const requestBody = {
+      location_id: location.id
+    };
+
+    fetch('/userfavorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error adding location to favorites: ${response.status}`);
+        }
+        setIsFavorite(true);
+      })
+      .catch(error => {
+        console.error('Error adding location to favorites:', error);
+      });
+  };
+
   return (
     <div className="location-card-wrapper">
       <div className="card card-compact w-96 bg-primary-color shadow-xl" style={{ marginRight: '20px' }}>
-        {/* <Link to={`/locations/${id}`}> */}
         <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
-        {/* </Link> */}
-        <div className="card-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <h2 className="card-title">{name}</h2>
+        <div className="card-body flex flex-col items-center">
+          <div className="flex justify-center items-center">
+            <h2 className="card-title text-center">{name}</h2>
+            <img src={isFavorite ? pinIconActive : pinIcon} alt="Favorite" style={{width: '60px', height: '60px'}} className="cursor-pointer" onClick={handleFavoriteClick} />
+          </div>
           <h3>{city}, {state}</h3>
           {sunriseData && (
             <>
@@ -37,4 +63,5 @@ function LocationsCard({ location }) {
     </div>
   );
 }
+
 export default LocationsCard;

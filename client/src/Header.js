@@ -8,7 +8,7 @@ function Header({ handleSearch }) {
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold text-secondary">LUMOS</h1>
-          <p className="mb-5 text-secondary">chase the light</p>
+          <p className="mb-5 text-secondary">CHASE THE LIGHT</p>
           <Search handleSearch={handleSearch} />
         </div>
       </div>
