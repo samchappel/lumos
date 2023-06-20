@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+import TodaysDate from './TodaysDate';
 
 function Results({ city, state }) {
   const [sunData, setSunData] = useState(null);
@@ -51,75 +52,59 @@ function Results({ city, state }) {
     }
   }, [latitude, longitude]);
 
-  const qualityDescriptions = [
-    { quality: 'Poor', percentage: '0-25%', description: 'Little to no color, with precipitation or a thick cloud layer often blocking a direct view of the sun.' },
-    { quality: 'Fair', percentage: '25-50%', description: 'Some color for a short time, with conditions ranging from mostly cloudy, or hazy, to clear, with little to no clouds at all levels.' },
-    { quality: 'Good', percentage: '50-75%', description: 'A fair amount of color, often multi-colored, lasting a considerable amount of time. Often caused by scattered clouds at multiple levels.' },
-    { quality: 'Great', percentage: '75-100%', description: 'Extremely vibrant color lasting 30 minutes or more. Often caused by multiple arrangements of clouds at multiple levels, transitioning through multiple stages of vivid color.' }
-  ];
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   return (
     <div className="max-w-3xl mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-8">{city && state ? `${city}, ${state}` : 'Loading location...'}</h1>
+      <h1 className="text-3xl font-bold mb-8">Results for {city && state ? `${city}, ${state}` : 'Loading location...'}</h1>
+      <h2 className="text-center text-2xl mb-2">Today</h2>
+      <h3 className="text-center mb-8"><TodaysDate/></h3>
       {sunData ? (
-        <div className="mb-8">
-          <img src="/sunrise.png" alt="Sunrise" style={{ width: '100px', height: '75px' }} />
-          <p>Sunrise: {sunData.sunrise}</p>
-          <img src="/sunset.png" alt="Sunset" style={{ width: '100px', height: '75px' }} />
-          <p>Sunset: {sunData.sunset}</p>
-          <p>Golden Hour: {sunData.golden_hour}</p>
-          <p>Day Length: {sunData.day_length} Hours</p>
+        <div className="mb-8 grid grid-cols-2 gap-4">
+          <div className="flex flex-col items-center">
+            <img src="/1.png" alt="Sunrise" style={{ width: '200px', height: '150px' }} />
+            <p className="text-center">Sunrise: {sunData.sunrise}</p>
+            <p className="text-center">Golden Hour: {sunData.golden_hour}</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img src="/2.png" alt="Sunset" style={{ width: '200px', height: '150px' }} />
+            <p className="text-center">Sunset: {sunData.sunset}</p>
+            <p className="text-center">Day Length: {sunData.day_length} Hours</p>
+          </div>
         </div>
       ) : (
         <p>Loading sun data...</p>
       )}
       {qualityData ? (
-        <div className="mb-8 quality-data">
+        <div className="mb-8 quality-data flex items-center justify-center">
           {qualityData.features.map((feature, index) => (
-            <div key={index} className="mb-4 p-4 rounded-lg shadow-md">
+            <div key={index} className="mb-4 p-4 rounded-lg shadow-md text-center">
               <p className="text-lg font-bold mb-2">Next Event: {feature.properties.type}</p>
               <p>Quality: {feature.properties.quality}</p>
               <p>Quality Percent: {feature.properties.quality_percent}</p>
+              <button className="btn" onClick={()=>window.my_modal_4.showModal()}>open modal</button>
+              <dialog id="my_modal_4" className="modal">
+                <form method="dialog" className="modal-box w-11/12 max-w-5xl">
+                  <h3 className="font-bold text-lg">Hello!</h3>
+                  <p className="py-4">Click the button below to close</p>
+                  <div className="modal-action">
+                    {/* if there is a button, it will close the modal */}
+                    <button className="btn">Close</button>
+                  </div>
+                </form>
+              </dialog>
+              <p>*Please Note: sunrise and sunset quality predictions update periodically throughout the day and aren't always perfect.*</p>
             </div>
           ))}
         </div>
       ) : (
         <p>Loading quality predictions data...</p>
       )}
-      <div className="overflow-x-auto">
-      <table className="table w-full">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>Quality (%)</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* row 1 */}
-          <tr>
-            <th>{qualityDescriptions[0].quality} ({qualityDescriptions[0].percentage})</th>
-            <td>{qualityDescriptions[0].description}</td>
-          </tr>
-          {/* row 2 */}
-          <tr>
-            <th>{qualityDescriptions[1].quality} ({qualityDescriptions[1].percentage})</th>
-            <td>{qualityDescriptions[1].description}</td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>{qualityDescriptions[2].quality} ({qualityDescriptions[2].percentage})</th>
-            <td>{qualityDescriptions[2].description}</td>
-          </tr>
-          {/* row 4 */}
-          <tr>
-            <th>{qualityDescriptions[3].quality} ({qualityDescriptions[3].percentage})</th>
-            <td>{qualityDescriptions[3].description}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>Please Note: sunrise and sunset quality predictions update periodically throughout the day and aren't always perfect.</p>
     {weatherData ? (
   <div className="mb-8 weather-data">
     <div className="card w-96 bg-base-100 shadow-xl">

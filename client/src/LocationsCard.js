@@ -47,7 +47,12 @@ function LocationsCard({ location }) {
         <div className="card-body flex flex-col items-center">
           <div className="flex justify-center items-center">
             <h2 className="card-title text-center">{name}</h2>
-            <img src={isFavorite ? pinIconActive : pinIcon} alt="Favorite" style={{width: '60px', height: '60px'}} className="cursor-pointer" onClick={handleFavoriteClick} />
+            <div className="relative group">
+              <img src={isFavorite ? pinIconActive : pinIcon} alt="Favorite" style={{width: '60px', height: '60px'}} className="cursor-pointer" onClick={handleFavoriteClick} />
+              <div className="absolute top-12 right-700 bg-primary text-white text-xs invisible group-hover:visible p-2 rounded w-24 h-22 flex items-center justify-center">
+                Psst! Click me to add this spot to your favorites
+              </div>
+            </div>
           </div>
           <h3>{city}, {state}</h3>
           {sunriseData && (
