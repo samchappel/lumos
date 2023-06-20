@@ -1,18 +1,13 @@
 import React from "react";
-import LocationsCard from './LocationsCard';
+import Header from './Header';
 import { connect } from 'react-redux';
 import { setLocationData } from './redux/actions';
 
-function Home({ locations, setLocations }) {
+function Home({ handleSearch, setLocationData }) {
   
-  const locationCards = locations.map(location => <LocationsCard key={location.id} location={location} setLocations={setLocations}/>)
 
   return (
-    <>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px', marginBottom: '20px' }}>
-        {locationCards}
-      </div>
-    </>
+    <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
   )
 }
 

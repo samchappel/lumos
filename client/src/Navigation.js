@@ -15,6 +15,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li><Link to="/">Home</Link></li>
+            <li><Link to="/Explore">Explore</Link></li>
             <li><Link to="/Favorites">Favorites</Link></li>
             <li><Link to="/Gallery">Gallery</Link></li>
             <li><Link to="/premium">Premium</Link></li>

@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-ro
 import Header from './Header';
 import Navigation from './Navigation'
 import Home from './Home';
+import Explore from './Explore';
 import Results from './Results'
 import NewPhotoForm from './NewPhotoForm';
 import Profile from './Profile';
 import Authentication from './Authentication';
-import Favorites from './Favorites'
+// import Favorites from './Favorites'
 import Gallery from './Gallery'
 import PhotoDetail from './PhotoDetail';
 import { useDispatch } from 'react-redux';
@@ -114,9 +115,10 @@ function App() {
           return (
           <div className="App">
           <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
-          <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
+          {/* <Header handleSearch={handleSearch} setLocationData={setLocationData}/> */}
           <Routes>
-          <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
+          <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} handleSearch={handleSearch} setLocationData={setLocationData}/>} />
+          <Route path="/explore" element={<Explore locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
           <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
