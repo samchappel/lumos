@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserLoggedIn } from './redux/actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,6 +12,8 @@ const Authentication = ({ updateUser }) => {
   useEffect(() => {
     navigate('/login');
   }, []);
+
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -61,6 +65,7 @@ const Authentication = ({ updateUser }) => {
         if (response.ok) {
           const user = await response.json();
           sessionStorage.setItem('user', JSON.stringify(user));
+          dispatch(setUserLoggedIn(true));
           updateUser(user);
           navigate('/');
         } else {

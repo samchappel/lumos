@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import Header from './Header';
 import Navigation from './Navigation'
 import Home from './Home';
 import Explore from './Explore';
@@ -11,24 +10,34 @@ import Authentication from './Authentication';
 // import Favorites from './Favorites'
 import Gallery from './Gallery'
 import PhotoDetail from './PhotoDetail';
-import { useDispatch } from 'react-redux';
+import { useDispatch, Provider } from 'react-redux';
 import { setLocationData } from './redux/actions';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 import './index.css';
 
 function App() {
-  const [page, setPage] = useState("/")
+  const [page, setPage] = useState("/");
   const [locations, setLocations] = useState([]);
   const [error, setError] = useState(null);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUserFetched, setIsUserFetched] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [photos, setPhotos] = useState([])
+  const [photos, setPhotos] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchUser()
+  }, []);
+
+  useEffect(() => {
+    const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (storedIsLoggedIn) {
+      setIsLoggedIn(JSON.parse(storedIsLoggedIn));
+    }
   }, []);
 
   const fetchLocations = () => {
@@ -46,22 +55,25 @@ function App() {
     });
   }
 
-  const fetchUser = () => (
+  const fetchUser = () => {
     fetch('/authorized')
-    .then(response => {
-      if(response.ok){
-        setIsLoggedIn(true);
-        response.json()
-        .then(data => {
-          setUser(data)
-          fetchLocations()
-        })
-      } else {
-        setIsLoggedIn(false)
-        setUser(null)
-      }
-    })
-  )
+      .then(response => {
+        if (response.ok) {
+          response.json()
+            .then(data => {
+              setUser(data);
+              fetchLocations();
+              sessionStorage.setItem('isLoggedIn', 'true');
+              setIsLoggedIn(true);
+              setIsUserFetched(true); // Set user data fetched flag to true
+            });
+        } else {
+          setIsLoggedIn(false);
+          setUser(null);
+          setIsUserFetched(true); // Set user data fetched flag to true even if no user is found
+        }
+      });
+  };
 
   const updateUser = (user) => setUser(user)
 
@@ -69,61 +81,29 @@ function App() {
     fetch('/logout', { method: 'DELETE' })
       .then(() => {
         setIsLoggedIn(false);
+        sessionStorage.removeItem('isLoggedIn');
         navigate('/login');
       })
       .catch(error => console.error('Error logging out:', error));
   };
 
-  const addPhotoToGallery = (newPhoto) => {
-    setPhotos([newPhoto, ...photos]);
-  };
-
   const dispatch = useDispatch();
 
-  const handleSearch = (address) => {
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_API_KEY}`;
-    fetch(geocodeUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data); 
-        if (data.results.length === 0) {
-          setError('No results found. Please try a different search term.');
-        } else {
-          const { lat, lng } = data.results[0].geometry.location;
-          console.log('Latitude:', lat);
-          console.log('Longitude:', lng);
-          const addressComponents = data.results[0].address_components;
-          const cityComponent = addressComponents.find(component => component.types.includes('locality') || component.types.includes('postal_town'));
-          const stateComponent = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
-          const city = cityComponent?.long_name;
-          const state = stateComponent?.short_name;
-          dispatch(setLocationData({ city, state })); 
-          console.log('city:', city)
-          console.log('state:', state)
-          navigate({
-            pathname: `/results/${lat}/${lng}`,
-            state: { city, state },
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching geocode data:', error);
-        setError(error.message);
-      });
+  const addPhotoToGallery = (newPhoto) => {
+    setPhotos([newPhoto, ...photos]);
   };
           
           return (
           <div className="App">
           <Navigation onChangePage={setPage} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
-          {/* <Header handleSearch={handleSearch} setLocationData={setLocationData}/> */}
           <Routes>
-          <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} handleSearch={handleSearch} setLocationData={setLocationData}/>} />
+          <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} setLocationData={setLocationData}/>} />
           <Route path="/explore" element={<Explore locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
           <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
           {/* <Route path="/favorites" element={<Favorites user={user} />} /> */}
-          <Route path="/gallery" element={user ? <Gallery userId={user.id} /> : null} />
+          <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn}/> : null} />
           <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
           <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
           <Route path="*" element={<p>Page not found</p>} />
@@ -131,13 +111,17 @@ function App() {
           </div>
           );
           }
-          
+
           function WrappedApp() {
-          return (
-          <BrowserRouter>
-          <App />
-          </BrowserRouter>
-          )
+            return (
+              <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                  <BrowserRouter>
+                    <App />
+                  </BrowserRouter>
+                </PersistGate>
+              </Provider>
+            );
           }
           
           export default WrappedApp;

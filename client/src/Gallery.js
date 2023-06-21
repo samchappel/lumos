@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import Comments from './Comments';
 import AddComment from './AddComment';
 import DeletePhoto from './DeletePhoto';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-function Gallery({ userId }) {
+function Gallery({ userId, isLoggedIn }) {
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [comments, setComments] = useState([]);
 
   const navigate = useNavigate();
+
+  console.log('isLoggedIn:', isLoggedIn);
 
   const handleAddPhoto = () => {
     navigate('/add');
@@ -47,6 +51,17 @@ function Gallery({ userId }) {
     fetchPhotos();
   }, []);
 
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <p>Please log in to interact with the Lumos Community!</p>
+        <Link to="/path/to/destination">
+          <button className="btn btn-outline btn-accent">Log In or Sign Up!</button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div>
       <button className="btn btn-outline btn-primary" onClick={handleAddPhoto}>Add To Gallery</button>
@@ -79,4 +94,14 @@ function Gallery({ userId }) {
   );
 }
 
-export default Gallery;
+// const mapStateToProps = (state) => ({
+//   isLoggedIn: state.user.isLoggedIn,
+// });
+
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.isLoggedIn
+  };
+};
+
+export default connect(mapStateToProps)(Gallery);

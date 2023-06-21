@@ -34,7 +34,6 @@ const SearchInput = styled.input`
   border: 1px solid #ccc;
 `;
 
-
 const Form = styled.form`
   display: flex;
   align-items: center;
