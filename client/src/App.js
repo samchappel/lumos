@@ -7,6 +7,7 @@ import Results from './Results'
 import NewPhotoForm from './NewPhotoForm';
 import Profile from './Profile';
 import Authentication from './Authentication';
+import NotFound from './NotFound';
 // import Favorites from './Favorites'
 import Gallery from './Gallery'
 import PhotoDetail from './PhotoDetail';
@@ -106,7 +107,7 @@ function App() {
           <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn}/> : null} />
           <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
           <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-          <Route path="*" element={<p>Page not found</p>} />
+          <Route path="*" element={<NotFound />} />
           </Routes>
           </div>
           );
