@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn, handleSearch }) {
+function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log('Navigation re-rendered. isLoggedIn:', isLoggedIn);
+    if (isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [isLoggedIn, setIsLoggedIn]);
 
   return (
     <div className="nav-container">
