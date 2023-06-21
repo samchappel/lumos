@@ -5,13 +5,9 @@ import { setUserLoggedIn } from './redux/actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const Authentication = ({ updateUser }) => {
+const Authentication = ({ updateUser, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [signUp, setSignUp] = useState(false);
-
-  useEffect(() => {
-    navigate('/login');
-  }, []);
 
   const dispatch = useDispatch();
 
@@ -67,6 +63,7 @@ const Authentication = ({ updateUser }) => {
           sessionStorage.setItem('user', JSON.stringify(user));
           dispatch(setUserLoggedIn(true));
           updateUser(user);
+          setIsLoggedIn(true);
           navigate('/');
         } else {
           setSubmitting(false);

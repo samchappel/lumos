@@ -5,6 +5,7 @@ import { setUserLoggedIn } from './redux/actions';
 
 const Logout = ({ updateUser }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     sessionStorage.removeItem('user');
@@ -12,8 +13,6 @@ const Logout = ({ updateUser }) => {
     updateUser(null);
     navigate('/login');
   };
-
-  const dispatch = useDispatch();
 
   return (
     <button onClick={handleLogout}>
