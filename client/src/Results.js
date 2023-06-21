@@ -87,7 +87,7 @@ function Results({ city, state }) {
               <p className="text-lg font-bold mb-2">Next Event: {feature.properties.type}</p>
               <p>Quality: {feature.properties.quality}</p>
               <p>Quality Percent: {feature.properties.quality_percent}</p>
-              <button className="btn" onClick={()=>window.my_modal_4.showModal()}>open modal</button>
+              <button className="btn btn-xs btn-outline btn-primary" onClick={()=>window.my_modal_4.showModal()}>View Quality Prediction breakdowns</button>
               <dialog id="my_modal_4" className="modal">
                 <form method="dialog" className="modal-box w-11/12 max-w-5xl">
                   <h3 className="font-bold text-lg">Hello!</h3>
