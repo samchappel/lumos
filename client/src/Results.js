@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import TodaysDate from './TodaysDate';
+import QualityPredictionsTable from './QualityPredictionsTable';
 
 function Results({ city, state }) {
   const [sunData, setSunData] = useState(null);
   const [qualityData, setQualityData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const modalRef = useRef(null);
   const { latitude, longitude } = useParams();
 
   useEffect(() => {
@@ -52,13 +53,12 @@ function Results({ city, state }) {
     }
   }, [latitude, longitude]);
 
-  const openModal = () => {
-    setModalIsOpen(true);
+  const handleOpenModal = () => {
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
   return (
     <div className="max-w-3xl mx-auto px-4">
       <h1 className="text-3xl font-bold mb-8">Results for {city && state ? `${city}, ${state}` : 'Loading location...'}</h1>
@@ -87,15 +87,12 @@ function Results({ city, state }) {
               <p className="text-lg font-bold mb-2">Next Event: {feature.properties.type}</p>
               <p>Quality: {feature.properties.quality}</p>
               <p>Quality Percent: {feature.properties.quality_percent}</p>
-              <button className="btn btn-xs btn-outline btn-primary" onClick={()=>window.my_modal_4.showModal()}>View Quality Prediction breakdowns</button>
+              <button className="btn btn-xs btn-outline btn-primary" onClick={()=>window.my_modal_4.showModal()}>View Quality Prediction Details</button>
               <dialog id="my_modal_4" className="modal">
-                <form method="dialog" className="modal-box w-11/12 max-w-5xl">
-                  <h3 className="font-bold text-lg">Hello!</h3>
-                  <p className="py-4">Click the button below to close</p>
-                  <div className="modal-action">
-                    {/* if there is a button, it will close the modal */}
-                    <button className="btn">Close</button>
-                  </div>
+                <form method="dialog" className="modal-box">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                  <h3 className="font-bold text-lg">Quality Prediction Descriptions</h3>
+                  <p className="py-4"><QualityPredictionsTable/></p>
                 </form>
               </dialog>
               <p>*Please Note: sunrise and sunset quality predictions update periodically throughout the day and aren't always perfect.*</p>
