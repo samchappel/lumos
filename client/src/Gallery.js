@@ -68,8 +68,7 @@ function Gallery({ userId, isLoggedIn }) {
       {error && <p>{error}</p>}
       <div className="flex flex-wrap">
         {photos.map(photo => (
-          <div key={photo.id} className="card w-96 bg-base-100 shadow-xl m-4">
-            {/* <img src={photo.image} alt={photo.caption} onClick={() => navigate(`/photos/${photo.id}`, { state: { photo, userId, handleDeletePhoto, handleAddComment, selectedPhoto, setComments, handleCloseAddComment, photos } })} /> */}
+          <div key={photo.id} className="card w-96 bg-base-100 shadow-xl m-4 relative">
             <img src={photo.image} alt={photo.caption} />
             <div className="card-body">
               <h2 className="card-title">{photo.caption}</h2>
@@ -84,7 +83,9 @@ function Gallery({ userId, isLoggedIn }) {
                 />
               )}
               {photo.user.id === userId && (
-                <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
+                <div className="absolute bottom-2 right-2">
+                  <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
+                </div>
               )}
             </div>
           </div>
@@ -93,10 +94,6 @@ function Gallery({ userId, isLoggedIn }) {
     </div>
   );
 }
-
-// const mapStateToProps = (state) => ({
-//   isLoggedIn: state.user.isLoggedIn,
-// });
 
 const mapStateToProps = state => {
   return {

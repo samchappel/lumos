@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsTrash3 } from "react-icons/bs";
 
 function DeletePhoto({ photo, onDelete }) {
   const handleDelete = () => {
@@ -13,7 +14,9 @@ function DeletePhoto({ photo, onDelete }) {
   };
 
   return (
-    <button className="btn btn-outline btn-accent" onClick={handleDelete}>Delete Photo</button>
+    <button onClick={handleDelete}>
+      <BsTrash3/>
+    </button>
   );
 }
 
