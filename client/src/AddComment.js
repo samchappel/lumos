@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const commentSchema = Yup.object().shape({
-  comment: Yup.string().required('Required'),
+  comment: Yup.string().required('*Required - please enter a comment or cancel*'),
 });
 
 function AddComment({ photoId, userId, setComments, onCancel }) {
@@ -47,15 +47,23 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
         onSubmit={handleAddComment}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <Field type="text" name="comment" />
-            <ErrorMessage name="comment" component="div" />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-            <button type="button" onClick={onCancel}>
-              Cancel
-            </button>
+          <Form className="comment-form">
+            <Field
+              type="text"
+              name="comment"
+              className="comment-input"
+              placeholder="Enter your comment..."
+            />
+            <ErrorMessage name="comment" component="div" className="error-message" />
+            <div className="button-container">
+              <button type="submit" disabled={isSubmitting} className="submit-button">
+                Submit
+              </button>
+              <div className="button-separator" />
+              <button type="button" onClick={onCancel} className="cancel-button">
+                Cancel
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -3,6 +3,7 @@ import EditComments from './EditComments';
 import AddComment from './AddComment';
 import { BsTrash3 } from "react-icons/bs";
 import { BsPencil } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
 
 function Comments({ photoId, userId }) {
   const [comments, setComments] = useState([]);
@@ -99,7 +100,7 @@ function Comments({ photoId, userId }) {
       {showCommentForm ? (
         <AddComment photoId={photoId} userId={userId} onAddComment={handleAddComment} onCancel={() => setShowCommentForm(false)} setComments={setComments}/>
       ) : (
-        <button onClick={() => setShowCommentForm(true)}>Add Comment</button>
+        <button onClick={() => setShowCommentForm(true)}><BsPencilSquare/></button>
       )}
       {commentToEdit && (
         <EditComments

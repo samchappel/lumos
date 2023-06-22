@@ -185,7 +185,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
                 </button>
               </div>
               <div className="form-control mt-6">
-                <button type="button" onClick={toggleSignUp} className="btn btn-secondary">
+                <button type="button" onClick={toggleSignUp} className="btn btn-accent">
                   {signUp ? 'Cancel' : 'Create Account'}
                 </button>
               </div>

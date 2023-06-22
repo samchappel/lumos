@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Comments from './Comments';
-import AddComment from './AddComment';
-import DeletePhoto from './DeletePhoto';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import GalleryModal from './GalleryModal'
+import GalleryHover from './GalleryHover';
 
 function Gallery({ userId, isLoggedIn }) {
   const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [comments, setComments] = useState([]);
 
   const navigate = useNavigate();
 
@@ -18,18 +16,6 @@ function Gallery({ userId, isLoggedIn }) {
 
   const handleAddPhoto = () => {
     navigate('/add');
-  };
-
-  const handleAddComment = (photo) => {
-    setSelectedPhoto(photo);
-  };
-
-  const handleCloseAddComment = () => {
-    setSelectedPhoto(null);
-  };
-
-  const handleDeletePhoto = (photoId) => {
-    setPhotos(photos.filter(photo => photo.id !== photoId));
   };
 
   const fetchPhotos = () => {
@@ -51,11 +37,19 @@ function Gallery({ userId, isLoggedIn }) {
     fetchPhotos();
   }, []);
 
+  const openModal = (photo) => {
+    setSelectedPhoto(photo);
+  };
+
+  const closeModal = () => {
+    setSelectedPhoto(null);
+  };
+
   if (!isLoggedIn) {
     return (
       <div>
         <p>Please log in to interact with the Lumos Community!</p>
-        <Link to="/path/to/destination">
+        <Link to="/login">
           <button className="btn btn-outline btn-accent">Log In or Sign Up!</button>
         </Link>
       </div>
@@ -63,34 +57,18 @@ function Gallery({ userId, isLoggedIn }) {
   }
 
   return (
-    <div>
-      <button className="btn btn-outline btn-primary" onClick={handleAddPhoto}>Add To Gallery</button>
+    <div className="text-center mt-8">
+      <h1 className="text-3xl font-bold mb-4">For the Glow Getters: Our Community's Sunrise and Sunset Hub</h1>
+      <button className="btn btn-outline btn-primary mb-4" onClick={handleAddPhoto}>Add To Gallery</button>
       {error && <p>{error}</p>}
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {photos.map(photo => (
-          <div key={photo.id} className="card w-96 bg-base-100 shadow-xl m-4 relative">
-            <img src={photo.image} alt={photo.caption} />
-            <div className="card-body">
-              <h2 className="card-title">{photo.caption}</h2>
-              <p><strong>Photo by: {photo.user.first_name} {photo.user.last_name}</strong></p>
-              <Comments photoId={photo.id} userId={userId} onAddComment={() => handleAddComment(photo)} />
-              {selectedPhoto && selectedPhoto.id === photo.id && (
-                <AddComment
-                  photoId={selectedPhoto.id}
-                  userId={userId}
-                  setComments={setComments}
-                  onCancel={handleCloseAddComment}
-                />
-              )}
-              {photo.user.id === userId && (
-                <div className="absolute bottom-2 right-2">
-                  <DeletePhoto photo={photo} onDelete={handleDeletePhoto} />
-                </div>
-              )}
-            </div>
-          </div>
+          <GalleryHover key={photo.id} photo={photo} openModal={openModal} />
         ))}
       </div>
+      {selectedPhoto && (
+        <GalleryModal photo={selectedPhoto} userId={userId} closeModal={closeModal} />
+      )}
     </div>
   );
 }
