@@ -8,8 +8,8 @@ function Results({ city, state }) {
   const [sunData, setSunData] = useState(null);
   const [qualityData, setQualityData] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
-  const modalRef = useRef(null);
   const { latitude, longitude } = useParams();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -53,10 +53,23 @@ function Results({ city, state }) {
     }
   }, [latitude, longitude]);
 
-  const handleOpenModal = () => {
-    if (modalRef.current) {
-      modalRef.current.showModal();
-    }
+  const Modal = ({ onClose, children }) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+      <div className="relative bg-base-200 p-8 w-full md:w-3/4 lg:w-1/2 max-h-full overflow-y-auto rounded-lg shadow-lg">
+        <button className="absolute top-4 right-4 text-xl" onClick={onClose}>✕</button>
+        <div className="overflow-x-auto">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -64,7 +77,7 @@ function Results({ city, state }) {
       <h1 className="text-3xl font-bold mb-8">Results for {city && state ? `${city}, ${state}` : 'Loading location...'}</h1>
       <div className="card w-full bg-base-200 shadow-xl mb-8">
         <div className="card-body text-center">
-            <h2 className="text-2xl mb-2">Today</h2>
+            <h2 className="text-2xl mb-1">Today</h2>
             <h3 className="mb-8"><TodaysDate/></h3>
             {sunData ? (
                 <div className="mb-8 grid grid-cols-2 gap-4">
@@ -84,27 +97,26 @@ function Results({ city, state }) {
             )}
             
             {qualityData ? (
-                <div className="mb-1 quality-data flex flex-col items-center">
-                    {qualityData.features.map((feature, index) => (
-                        <div key={index} className="mb-4 p-6 rounded-lg text-center"> {/* Increased padding */}
-                        <p className="text-lg font-bold mb-2">Next Event: {feature.properties.type}</p>
-                        <p className="mb-2">Quality: {feature.properties.quality}</p> {/* Added margin-bottom */}
-                        <p className="mb-4">Quality Percent: {feature.properties.quality_percent}</p> {/* Added margin-bottom */}
-                        <button className="btn btn-xs btn-outline btn-primary mb-2" onClick={()=>window.my_modal_4.showModal()}>View Quality Prediction Details</button> {/* Added margin-bottom */}
-                        <dialog id="my_modal_4" className="modal">
-                            <form method="dialog" className="modal-box">
-                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                <h3 className="font-bold text-lg">Quality Prediction Descriptions</h3>
-                                <p className="py-4"><QualityPredictionsTable/></p>
-                            </form>
-                        </dialog>
-                        <p className="mt-2 text-xs font-light">*Please Note: sunrise and sunset quality predictions update periodically throughout the day and aren't always perfect.*</p> {/* Added margin-top */}
-                    </div>
-                    ))}
-                </div>
-            ) : (
-                <p>Loading quality predictions data...</p>
-            )}
+              <div className="mb-2 quality-data flex flex-col items-center">
+                {qualityData.features.map((feature, index) => (
+                  <div key={index} className="mb-4 p-6 rounded-lg text-center">
+                          <p className="text-lg font-bold mb-2">Next Event: {feature.properties.type}</p>
+                          <p className="mb-2">Quality: {feature.properties.quality}</p>
+                          <p className="mb-4">Quality Percent: {feature.properties.quality_percent}</p>
+                          <button className="btn btn-xs btn-outline btn-primary mb-2" onClick={openModal}>View Quality Prediction Details</button>
+                          <p className="mt- text-xs font-light">*Please Note: sunrise and sunset quality predictions update periodically throughout the day and aren't always perfect.*</p>
+                      </div>
+                  ))}
+              </div>
+          ) : (
+              <p>Loading quality predictions data...</p>
+          )}
+          {isModalOpen ? (
+          <Modal onClose={closeModal}>
+            <h2 className="text-xl font-bold mb-4">Quality Prediction Details</h2>
+            <QualityPredictionsTable />
+          </Modal>
+        ) : null}
         </div>
     </div>
     {weatherData ? (
