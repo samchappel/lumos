@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import EditComments from './EditComments';
 import AddComment from './AddComment';
+import { BsTrash3 } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 
 function Comments({ photoId, userId }) {
   const [comments, setComments] = useState([]);
@@ -88,8 +90,8 @@ function Comments({ photoId, userId }) {
           <p><strong>{comment.user ? comment.user.first_name + ' ' + comment.user.last_name + ':' : 'Unknown:'}</strong> {comment.comment}</p>
           {(comment.user_id === userId) && (
             <div>
-              <button onClick={() => handleEdit(comment)}>Edit</button>
-              <button onClick={() => handleDelete(comment.id)}>Delete</button>
+              <button onClick={() => handleEdit(comment)}><BsPencil/></button>
+              <button onClick={() => handleDelete(comment.id)}><BsTrash3/></button>
             </div>
           )}
         </div>
