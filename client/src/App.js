@@ -66,12 +66,12 @@ function App() {
               fetchLocations();
               sessionStorage.setItem('isLoggedIn', 'true');
               setIsLoggedIn(true);
-              setIsUserFetched(true); // Set user data fetched flag to true
+              setIsUserFetched(true); 
             });
         } else {
           setIsLoggedIn(false);
           setUser(null);
-          setIsUserFetched(true); // Set user data fetched flag to true even if no user is found
+          setIsUserFetched(true); 
         }
       });
   };
