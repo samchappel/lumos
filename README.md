@@ -66,7 +66,7 @@ If you need to update your models, run the following command to generate a migra
   $ flask db revision --autogenerate -m 'Your migration message'
   ```
 
-Apply the migration to update the database file:
+Apply the migration to update the database file, if needed:
 ```
   $ flask db upgrade head
   ```
