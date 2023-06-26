@@ -20,17 +20,6 @@ As a secondary feature, Lumos also taps into a dedicated weather API. This allow
 
 Lumos was born out of a deep appreciation for the great outdoors and a desire to capture and celebrate the beauty of natural events. The project is driven by a passion for preserving the fleeting moments of sunrise, sunset, and the golden hour while inviting a community of like-minded individuals to embark on a collective journey of discovery, connection, and appreciation. I wanted to create a platform that not only helps users track and plan their outdoor activities but also offers insights and predictions to enhance their experience and provides a community space to connect and share with others. Lumos aims to be the go-to app for hikers, photographers, sun enthusiasts, and travelers seeking to put themselves in the way of beauty.
 
-## What I Learned
-Throughout the development of Lumos, I acquired valuable skills and knowledge, including:
-
-- Integration of React.js frontend with a Python/Flask backend.
-- Handling and combining data from multiple APIs (four total, to date!) to provide accurate and always up-to-date solar event timings and forecasts.
-- Implementing responsive design principles and smooth navigation using React Router.
-- Performing CRUD operations and data validation to ensure data integrity and security.
-- Applying authentication and resource ownership concepts to enhance user experience and privacy.
-- Optimizing data transfer and retrieval using SQLAlchemy and SQLAlchemy-Serializer.
-
-
 ## Project Demo and Deployment
 A full demo of Lumos, along with the deployed application, will be available soon. Please check back for updates!
 
