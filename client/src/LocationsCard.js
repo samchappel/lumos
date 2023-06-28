@@ -57,11 +57,13 @@ function LocationsCard({ location }) {
           <h3>{city}, {state}</h3>
           {sunriseData && (
             <div className="tooltip tooltip-primary tooltip-right" data-tip={location.timezone}>
-              <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
-              <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
-              <p><strong>Sunset:</strong> {sunriseData.results.sunset}</p>
-              <p><strong>Golden Hour:</strong> {sunriseData.results.golden_hour}</p>
-              <p><strong>Day Length:</strong> {sunriseData.results.day_length} Hours</p>
+              <div>
+                <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
+                <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
+                <p><strong>Sunset:</strong> {sunriseData.results.sunset}</p>
+                <p><strong>Golden Hour:</strong> {sunriseData.results.golden_hour}</p>
+                <p><strong>Day Length:</strong> {sunriseData.results.day_length} Hours</p>
+              </div>
             </div>
           )}
         </div>

@@ -33,10 +33,10 @@ function Explore({ locations, setLocations }) {
         <h3 className="text-center text-xl my-2">Current Data for {formattedDate}</h3>
         <div className="collapse bg-background text-center">
           <input type="checkbox" /> 
-          <div className="collapse-title text-l font-medium">
+          <div className="collapse-title text-l text-secondary font-medium">
             Click here to view a few notes on this data
           </div>
-          <div className="collapse-content"> 
+          <div className="collapse-content text-secondary"> 
             <ul className="list-disc list-inside">
                   <li>All sunrise and sunset data is dynamically updated daily to ensure you have the most accurate and current information.</li>
                   <li>All times are displayed in each park's local timezone.</li>
