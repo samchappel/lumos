@@ -11,6 +11,7 @@ import NotFound from './NotFound';
 // import Favorites from './Favorites'
 import Gallery from './Gallery'
 import PhotoDetail from './PhotoDetail';
+import Footer from './Footer';
 import { useDispatch, Provider } from 'react-redux';
 import { setLocationData } from './redux/actions';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -109,6 +110,7 @@ function App() {
           <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
           <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
           </div>
           );
           }
