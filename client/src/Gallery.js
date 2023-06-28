@@ -67,7 +67,7 @@ function Gallery({ userId, isLoggedIn }) {
         ))}
       </div>
       {selectedPhoto && (
-        <GalleryModal photo={selectedPhoto} userId={userId} closeModal={closeModal} />
+        <GalleryModal photo={selectedPhoto} photosProp={photos} userId={userId} closeModal={closeModal} />
       )}
     </div>
   );

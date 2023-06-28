@@ -64,7 +64,7 @@ function Home({ setLocationData }) {
           <p className="text-lg mb-4">
             Join our vibrant community of sun enthusiasts in the Lumos Gallery. Share your own stunning photos of sunrises and sunsets, explore and comment on other community members' photos, and get inspired by the breathtaking beauty captured around the world.
           </p>
-          <button className="bg-primary text-accent rounded-lg py-3 px-6 text-lg font-semibold hover:bg-yellow-500" onClick={handleExplore}>Get Started</button>
+          <button className="bg-primary text-accent rounded-lg py-3 px-6 text-lg font-semibold hover:bg-yellow-500" onClick={handleExplore}>Start Exploring ✨</button>
         </div>
       </section>
     </>
