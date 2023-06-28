@@ -15,7 +15,7 @@ function DeletePhoto({ photo, onDelete }) {
 
   return (
     <button onClick={handleDelete}>
-      <BsTrash3/>
+      <BsTrash3 className="text-accent"/>
     </button>
   );
 }

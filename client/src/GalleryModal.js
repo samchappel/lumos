@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Comments from './Comments';
-import AddComment from './AddComment';
 import DeletePhoto from './DeletePhoto';
 
 function GalleryModal({ photo, userId, closeModal }) {
@@ -24,7 +23,7 @@ function GalleryModal({ photo, userId, closeModal }) {
           <div className="modal-container bg-base-200 p-8 w-full md:w-3/4 lg:w-1/2 max-h-full overflow-y-auto rounded-lg shadow-lg relative">
             <div className="modal-content">
               <div className="modal-image-container">
-                <img src={photo.image} alt={photo.caption} className="modal-image" />
+                <img src={photo.image} alt={photo.caption} className="modal-image items-center" />
               </div>
               <div className="modal-details">
                 <h2 className="modal-caption">{photo.caption}</h2>

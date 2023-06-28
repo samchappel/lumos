@@ -47,7 +47,7 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
         onSubmit={handleAddComment}
       >
         {({ isSubmitting }) => (
-          <Form className="comment-form">
+          <Form className="comment-form text-secondary">
             <Field
               type="text"
               name="comment"
@@ -55,11 +55,11 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
               placeholder="Enter your comment..."
             />
             <ErrorMessage name="comment" component="div" className="error-message" />
-            <div className="button-container">
-              <button type="submit" disabled={isSubmitting} className="submit-button">
+            <div className="button-container text-secondary">
+              <button type="submit" className="text-secondary" disabled={isSubmitting} >
                 Submit
               </button>
-              <div className="button-separator" />
+              <div className="button-separator text-secondary" />
               <button type="button" onClick={onCancel} className="cancel-button">
                 Cancel
               </button>
