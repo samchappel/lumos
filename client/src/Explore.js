@@ -31,8 +31,21 @@ function Explore({ locations, setLocations }) {
     <>
         <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in National Parks</h2>
         <h3 className="text-center text-xl my-2">Current Data for {formattedDate}</h3>
+        <div className="collapse bg-background text-center">
+          <input type="checkbox" /> 
+          <div className="collapse-title text-l font-medium">
+            Click here to view a few notes on this data
+          </div>
+          <div className="collapse-content"> 
+            <ul className="list-disc list-inside">
+                  <li>All sunrise and sunset data is dynamically updated daily to ensure you have the most accurate and current information.</li>
+                  <li>All times are displayed in each park's local timezone.</li>
+                  <li>To view the local timezones corresponding to a park, simply hover over the displayed times.</li>
+              </ul>
+          </div>
+        </div>
         {/* <ExploreDropDown /> */}
-        <div className="flex flex-wrap justify-center p-5 mb-5">
+        <div className="flex flex-wrap justify-center p-5 mb-5 pb-8">
             {locationCards}
         </div>
     </>
