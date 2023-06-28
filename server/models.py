@@ -96,11 +96,12 @@ class Location(db.Model, SerializerMixin):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
+    timezone = db.Column(db.String)
     city = db.Column(db.String)
     state = db.Column(db.String)
     park_type = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=func.now())
 
     user_favorites = db.relationship('UserFavorite', back_populates='location')
 

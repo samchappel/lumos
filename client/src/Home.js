@@ -49,7 +49,7 @@ function Home({ setLocationData }) {
     <>
       <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
       <section className="py-12 px-4">
-        <div className="max-w-2xl mx-auto text-center text-accent">
+        <div className="max-w-2xl mx-auto text-center text-secondary">
           <h2 className="text-4xl font-bold mb-4 text-primary">Welcome to Lumos</h2>
           <p className="text-lg mb-8 text-primary">(where you're always encouraged to chase the light)</p>
           <p className="text-lg mb-4">

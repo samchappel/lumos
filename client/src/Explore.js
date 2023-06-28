@@ -1,7 +1,8 @@
 import React from "react";
 import LocationsCard from './LocationsCard';
+// import ExploreDropDown from './ExploreDropDown';
 import { connect } from 'react-redux';
-import { setLocationData } from './redux/actions';
+import { setLocationData, setLocations } from './redux/actions';
 
 function Explore({ locations, setLocations }) {
   
@@ -30,6 +31,7 @@ function Explore({ locations, setLocations }) {
     <>
         <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in National Parks</h2>
         <h3 className="text-center text-xl my-2">Current Data for {formattedDate}</h3>
+        {/* <ExploreDropDown /> */}
         <div className="flex flex-wrap justify-center p-5 mb-5">
             {locationCards}
         </div>
@@ -39,6 +41,7 @@ function Explore({ locations, setLocations }) {
 
 const mapDispatchToProps = {
   setLocationData,
+  setLocations,
 };
 
 export default connect(null, mapDispatchToProps)(Explore);

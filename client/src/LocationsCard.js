@@ -3,7 +3,7 @@ import pinIcon from './assets/pin_icon.jpg';
 import pinIconActive from './assets/pin_icon_clicked.jpg';
 
 function LocationsCard({ location }) {
-  const { id, name, city, state, image, latitude, longitude } = location;
+  const { id, name, city, state, image, latitude, longitude, timezone } = location;
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
 
@@ -54,7 +54,7 @@ function LocationsCard({ location }) {
               </div>
             </div>
           </div>
-          <h3>{city}, {state}</h3>
+          <h3>{city}, {state} ({location.timezone})</h3>
           {sunriseData && (
             <>
               <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
