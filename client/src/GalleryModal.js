@@ -22,12 +22,12 @@ function GalleryModal({ photo, userId, closeModal }) {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-10">
           <div className="modal-container bg-base-200 p-8 w-full md:w-3/4 lg:w-1/2 max-h-full overflow-y-auto rounded-lg shadow-lg relative">
             <div className="modal-content">
-              <div className="modal-image-container">
-                <img src={photo.image} alt={photo.caption} className="modal-image items-center" />
+              <div className="modal-image-container flex justify-center">
+                  <img src={photo.image} alt={photo.caption} className="modal-image items-center" />
               </div>
               <div className="modal-details">
-                <h2 className="modal-caption">{photo.caption}</h2>
-                <p>
+                <h2 className="modal-caption mb-2 text-secondary">{photo.caption}</h2>
+                <p className="mb-4 text-secondary">
                   <strong>
                     Photo by: {photo.user.first_name} {photo.user.last_name}
                   </strong>
