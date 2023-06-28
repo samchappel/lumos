@@ -91,8 +91,8 @@ function Comments({ photoId, userId }) {
           <p><strong>{comment.user ? comment.user.first_name + ' ' + comment.user.last_name + ':' : 'Unknown:'}</strong> {comment.comment}</p>
           {(comment.user_id === userId) && (
             <div>
-              <button onClick={() => handleEdit(comment)}><BsPencil/></button>
-              <button onClick={() => handleDelete(comment.id)}><BsTrash3/></button>
+              <button onClick={() => handleEdit(comment)}><BsPencil className="text-primary" /></button>
+              <button onClick={() => handleDelete(comment.id)}><BsTrash3 className="text-primary"/></button>
             </div>
           )}
         </div>
@@ -100,7 +100,7 @@ function Comments({ photoId, userId }) {
       {showCommentForm ? (
         <AddComment photoId={photoId} userId={userId} onAddComment={handleAddComment} onCancel={() => setShowCommentForm(false)} setComments={setComments}/>
       ) : (
-        <button onClick={() => setShowCommentForm(true)}><BsPencilSquare/></button>
+        <button onClick={() => setShowCommentForm(true)}><BsPencilSquare className="text-secondary" /></button>
       )}
       {commentToEdit && (
         <EditComments

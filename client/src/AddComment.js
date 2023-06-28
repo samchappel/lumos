@@ -39,7 +39,7 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
   };
 
   return (
-    <div>
+    <div className="p-4">
       {error && <p>{error}</p>}
       <Formik
         initialValues={{ comment: '' }}
@@ -47,20 +47,19 @@ function AddComment({ photoId, userId, setComments, onCancel }) {
         onSubmit={handleAddComment}
       >
         {({ isSubmitting }) => (
-          <Form className="comment-form">
+          <Form className="comment-form space-y-4">
             <Field
               type="text"
               name="comment"
-              className="comment-input"
+              className="comment-input text-secondary border-2 border-secondary p-2 rounded-md w-full"
               placeholder="Enter your comment..."
             />
             <ErrorMessage name="comment" component="div" className="error-message" />
-            <div className="button-container">
-              <button type="submit" disabled={isSubmitting} className="submit-button">
+            <div className="flex justify-center space-x-2">
+              <button type="submit" className="btn btn-outline btn-secondary py-2 px-4" disabled={isSubmitting}>
                 Submit
               </button>
-              <div className="button-separator" />
-              <button type="button" onClick={onCancel} className="cancel-button">
+              <button type="button" onClick={onCancel} className="btn btn-outline btn-secondary py-2 px-4">
                 Cancel
               </button>
             </div>

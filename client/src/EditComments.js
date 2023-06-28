@@ -65,19 +65,28 @@ function EditComments({ comment, setCommentToEdit, setComments, comments, onSave
   return (
     <div>
       {error && <p>{error}</p>}
-      <form onSubmit={handleEdit}>
-        <label>
-          Edit comment:
+      <form onSubmit={handleEdit} className="space-y-4">
+        <div className="text-primary">Edit comment:</div>
+        <div className="mb-4">
           <input
             type="text"
             value={editedComment}
             onChange={(e) => setEditedComment(e.target.value)}
+            className="border-primary border-2 p-2 rounded-md w-full"
           />
-        </label>
-        <button type="submit">Save</button>
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+        </div>
+        <div>
+          <button type="submit" className="btn btn-outline btn-primary py-2 px-4">
+            Save
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline btn-primary py-2 px-4 ml-2"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
