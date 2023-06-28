@@ -225,7 +225,7 @@ print('user_favorites committed')
 
 print('creating photos')
 photos_list = [
-    {"user_id": 1, "image": "./uploads/1.jpeg", "location": "Turkey Burn", "city": "Moab", "state": "Utah", "caption": "Full moon at sunset, even drugs couldn't make this better", "date": "2015-11-03"},
+    {"user_id": 1, "image": "./uploads/1.jpeg", "location": "Turkey Burn", "city": "Moab", "state": "Utah", "caption": "Full moon at sunset, nothing could make this better", "date": "2015-11-03"},
     {"user_id": 1, "image": "./uploads/2.jpeg", "location": "College of the Atlantic", "city": "Bar Harbor", "state": "Maine", "caption": "Sunset at my old college pier", "date": "2014-08-12"},
     {"user_id": 2, "image": "./uploads/3.jpg", "location": "Roy", "city": "Roy", "state": "New Mexico", "caption": "Light show after a little bouldering!", "date": "2015-11-03"},
     {"user_id": 2, "image": "./uploads/4.jpeg", "location": "Jurassic Park - Rocky Mountain Natioal Park", "city": "Estes Park", "state": "Colorado", "caption": "Sun blip on The Edge of Time with a view on Longs Peak in the back!", "date": "2017-09-16"},
@@ -283,7 +283,7 @@ def make_photos():
 print('creating comments')
 comments_list = [
     {"user_id": 2, "photo_id": 1, "comment": "Wow, so beautiful!"},
-    {"user_id": 5, "photo_id": 1, "comment": "Drugs could still make this better!"},
+    {"user_id": 5, "photo_id": 1, "comment": "I can think of a few things that could make this better!"},
     {"user_id": 7, "photo_id": 1, "comment": "I've always wanted to visit Moab!"},
     {"user_id": 12, "photo_id": 2, "comment": "Looks like a great spot to enjoy the sunset!"},
     {"user_id": 18, "photo_id": 2, "comment": "Love the colors in this photo!"},
