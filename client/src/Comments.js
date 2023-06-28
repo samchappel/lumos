@@ -87,32 +87,47 @@ function Comments({ photoId, userId }) {
     <div>
       {error && <p>{error}</p>}
       {comments.map(comment => (
-        <div key={comment.id}>
-          <p><strong>{comment.user ? comment.user.first_name + ' ' + comment.user.last_name + ':' : 'Unknown:'}</strong> {comment.comment}</p>
-          {(comment.user_id === userId) && (
+        <div key={comment.id} className="flex justify-center space-x-2 mb-2">
+          <p>
+            <strong>{comment.user ? comment.user.first_name + ' ' + comment.user.last_name + ':' : 'Unknown:'}</strong>{' '}
+            {comment.comment}
+          </p>
+          {comment.user_id === userId && (
             <div>
-              <button onClick={() => handleEdit(comment)}><BsPencil className="text-primary" /></button>
-              <button onClick={() => handleDelete(comment.id)}><BsTrash3 className="text-primary"/></button>
+              <button onClick={() => handleEdit(comment)}>
+                <BsPencil className="text-primary" />
+              </button>
+              <button onClick={() => handleDelete(comment.id)}>
+                <BsTrash3 className="text-primary" />
+              </button>
             </div>
           )}
         </div>
       ))}
       {showCommentForm ? (
-        <AddComment photoId={photoId} userId={userId} onAddComment={handleAddComment} onCancel={() => setShowCommentForm(false)} setComments={setComments}/>
+        <AddComment
+          photoId={photoId}
+          userId={userId}
+          onAddComment={handleAddComment}
+          onCancel={() => setShowCommentForm(false)}
+          setComments={setComments}
+        />
       ) : (
-        <button onClick={() => setShowCommentForm(true)}><BsPencilSquare className="text-secondary" /></button>
+        <button onClick={() => setShowCommentForm(true)}>
+          <BsPencilSquare className="text-secondary" />
+        </button>
       )}
       {commentToEdit && (
         <EditComments
-        comment={commentToEdit}
-        onSave={handleSave}
-        onCancel={() => setCommentToEdit(null)}
-        setComments={setComments}
-        comments={comments}
-        photoId={photoId}
-        userId={userId}
-        setCommentToEdit={setCommentToEdit}
-      />
+          comment={commentToEdit}
+          onSave={handleSave}
+          onCancel={() => setCommentToEdit(null)}
+          setComments={setComments}
+          comments={comments}
+          photoId={photoId}
+          userId={userId}
+          setCommentToEdit={setCommentToEdit}
+        />
       )}
     </div>
   );
