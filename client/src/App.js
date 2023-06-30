@@ -8,7 +8,7 @@ import NewPhotoForm from './NewPhotoForm';
 import Profile from './Profile';
 import Authentication from './Authentication';
 import NotFound from './NotFound';
-// import Favorites from './Favorites'
+import Favorites from './Favorites'
 import Gallery from './Gallery'
 import PhotoDetail from './PhotoDetail';
 import Footer from './Footer';
@@ -104,7 +104,7 @@ function App() {
           <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
-          {/* <Route path="/favorites" element={<Favorites user={user} />} /> */}
+          <Route path="/favorites" element={<Favorites user={user} />} />
           <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn}/> : null} />
           <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
           <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
