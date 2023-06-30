@@ -5,7 +5,7 @@ function Footer() {
     return (
         <footer className="footer footer-center p-5 bg-background text-secondary">
             <div>
-                <img src={logo} alt="Logo" className="logoc h-36 w-42" />
+                <img src={logo} alt="Logo" className="logoc h-32 w-38" />
                 <p>Copyright © 2023 - All right reserved</p>
                 <p>
                     Powered by{' '}

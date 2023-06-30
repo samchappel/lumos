@@ -13,7 +13,7 @@ function Comments({ photoId, userId }) {
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [photoId]);
 
   const fetchComments = () => {
     fetch(`/photos/${photoId}/comments`)

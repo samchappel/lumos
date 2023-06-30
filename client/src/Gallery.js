@@ -2,17 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import GalleryModal from './GalleryModal'
+import GalleryModal from './GalleryModal';
 import GalleryHover from './GalleryHover';
 
 function Gallery({ userId, isLoggedIn }) {
-  const [photos, setPhotos] = useState([]);
   const [error, setError] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [photosProp, setPhotosProp] = useState([]);
 
   const navigate = useNavigate();
-
-  console.log('isLoggedIn:', isLoggedIn);
 
   const handleAddPhoto = () => {
     navigate('/add');
@@ -26,7 +24,9 @@ function Gallery({ userId, isLoggedIn }) {
         }
         return response.json()
       })
-      .then(setPhotos)
+      .then(data => {
+        setPhotosProp(data);
+      })
       .catch(error => {
         console.error('Error fetching data:', error)
         setError(error.message)
@@ -62,12 +62,12 @@ function Gallery({ userId, isLoggedIn }) {
       <button className="btn btn-outline btn-primary mb-4" onClick={handleAddPhoto}>Add To Gallery</button>
       {error && <p>{error}</p>}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {photos.map(photo => (
+        {photosProp.map(photo => (
           <GalleryHover key={photo.id} photo={photo} openModal={openModal} />
         ))}
       </div>
       {selectedPhoto && (
-        <GalleryModal photo={selectedPhoto} photosProp={photos} userId={userId} closeModal={closeModal} />
+        <GalleryModal photo={selectedPhoto} photosProp={photosProp} userId={userId} closeModal={closeModal} />
       )}
     </div>
   );
@@ -75,7 +75,7 @@ function Gallery({ userId, isLoggedIn }) {
 
 const mapStateToProps = state => {
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
   };
 };
 
