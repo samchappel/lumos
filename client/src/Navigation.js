@@ -15,23 +15,24 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
     <div className="nav-container">
       <div className="navbar">
         <div className="flex-1">
-        <Link to="/">
-          <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />
-        </Link>
+          <Link to="/">
+            <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />
+          </Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/Explore">Explore</Link></li>
-            <li><Link to="/Favorites">Favorites</Link></li>
-            <li><Link to="/Gallery">Gallery</Link></li>
-            <li><Link to="/premium">Premium</Link></li>
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <>
+                <li><Link to="/home">Home</Link></li>
+                <li><Link to="/explore">Explore</Link></li>
+                <li><Link to="/favorites">Favorites</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
+                <li><Link to="/premium">Premium</Link></li>
                 <li><Link to="/logout" onClick={handleLogout}>Log Out</Link></li>
               </>
-            ) : (
-              <li><Link to="/login">Log In/Sign Up</Link></li>
+            )}
+            {!isLoggedIn && (
+              <li><Link to="/">Log In/Sign Up</Link></li>
             )}
           </ul>
         </div>

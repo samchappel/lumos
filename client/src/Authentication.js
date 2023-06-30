@@ -64,7 +64,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
           dispatch(setUserLoggedIn(true));
           updateUser(user);
           setIsLoggedIn(true);
-          navigate('/');
+          navigate('/home');
         } else {
           setSubmitting(false);
           setFieldError('general', 'Login failed');

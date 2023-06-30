@@ -11,7 +11,7 @@ const Logout = ({ updateUser }) => {
     sessionStorage.removeItem('user');
     dispatch(setUserLoggedIn(false)); 
     updateUser(null);
-    navigate('/login');
+    navigate('/');
   };
 
   return (
