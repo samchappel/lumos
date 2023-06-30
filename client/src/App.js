@@ -95,24 +95,57 @@ function App() {
     setPhotos([newPhoto, ...photos]);
   };
 
+  const isLoginPage = location.pathname === '/';
+
   return (
     <div className="App">
-      <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
+      {!isLoginPage && (
+        <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
+      )}
       <Routes>
-        {/* <Route path="/" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} setLocationData={setLocationData}/>} /> */}
         <Route path="/" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/home" element={<Home locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} setLocationData={setLocationData}/>} />
-        <Route path="/explore" element={<Explore locations={locations} setLocations={setLocations} latitude={latitude} longitude={longitude} setError={setError} setLatitude={setLatitude} setLongitude={setLongitude} />} />
-        <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
-        <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} /> */}
-        <Route path="/favorites" element={<Favorites user={user} />} />
-        <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn}/> : null} />
-        <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
-        <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-        <Route path="*" element={<NotFound />} />
+        {!isLoginPage && (
+          <>
+            <Route
+              path="/home"
+              element={
+                <Home
+                  locations={locations}
+                  setLocations={setLocations}
+                  latitude={latitude}
+                  longitude={longitude}
+                  setError={setError}
+                  setLatitude={setLatitude}
+                  setLongitude={setLongitude}
+                  setLocationData={setLocationData}
+                />
+              }
+            />
+            <Route
+              path="/explore"
+              element={
+                <Explore
+                  locations={locations}
+                  setLocations={setLocations}
+                  latitude={latitude}
+                  longitude={longitude}
+                  setError={setError}
+                  setLatitude={setLatitude}
+                  setLongitude={setLongitude}
+                />
+              }
+            />
+            <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/favorites" element={<Favorites user={user} />} />
+            <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn} /> : null} />
+            <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
+            <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
+            <Route path="*" element={<NotFound />} />
+          </>
+        )}
       </Routes>
-      <Footer />
+      {!isLoginPage && <Footer />}
     </div>
   );
 }
