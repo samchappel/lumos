@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserLoggedIn } from './redux/actions';
 import { useFormik } from 'formik';
+import logo from './assets/Lumos (2).png';
 import * as Yup from 'yup';
 
 const Authentication = ({ updateUser, setIsLoggedIn }) => {
@@ -45,7 +46,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
       try {
         setSignUp(false);
-        const response = await fetch(signUp?'/signup':'/login', {
+        const response = await fetch(signUp ? '/signup' : '/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -54,10 +55,10 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
             email: values.email,
             password: values.password,
             first_name: values.firstName,
-            last_name: values.lastName
+            last_name: values.lastName,
           }),
         });
-        console.log(response)
+        console.log(response);
         if (response.ok) {
           const user = await response.json();
           sessionStorage.setItem('user', JSON.stringify(user));
@@ -81,18 +82,14 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-background">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">{signUp ? 'Sign Up' : 'Log In'}</h1>
-          <p className="py-6">It’s all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark. Log in or create an account and get started!</p>
-        </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form onSubmit={formik.handleSubmit}>
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-background mx-16">
+          <form onSubmit={formik.handleSubmit}>
             <div className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text text-secondary">Email</span>
                 </label>
                 <input
                   type="email"
@@ -109,7 +106,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text text-secondary">Password</span>
                 </label>
                 <input
                   type="password"
@@ -128,7 +125,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
                 <>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">First Name</span>
+                      <span className="label-text text-secondary">First Name</span>
                     </label>
                     <input
                       type="text"
@@ -197,9 +194,16 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
             </div>
           </form>
         </div>
+        <div className="text-center lg:text-left text-secondary w-1/3 mx-16">
+          <img src={logo} alt="Logo" className="logoc h-39 w-45 mx-auto" />
+          {/* <p className="py-6">
+            It’s all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and
+            set where it matters most, so you're never left in the dark.
+          </p> */}
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Authentication;
