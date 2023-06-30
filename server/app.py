@@ -135,6 +135,28 @@ class UserFavoritesByID(Resource):
 
         return response
 
+        def post(self, id):
+            favorite = UserFavorite.query.filter_by(id=id).first()
+            if favorite:
+                raise Conflict
+
+            new_favorite = UserFavorite(
+                user_id=session['user_id'],
+                location_id=id
+            )
+
+            db.session.add(new_favorite)
+            db.session.commit()
+
+            response_dict = new_favorite.to_dict()
+
+            response = make_response(
+                response_dict,
+                201
+            )
+
+            return response
+
     def delete(self, id):
         favorite = UserFavorite.query.filter_by(id=id).first()
         if not favorite:
@@ -148,6 +170,23 @@ class UserFavoritesByID(Resource):
         return response
 
 api.add_resource(UserFavoritesByID, '/userfavorites/<int:id>')
+
+class UserFavoritesDelete(Resource):
+    def delete(self):
+        user_id = session['user_id']
+
+        if user_id is None:
+            return make_response({'message': 'User not found.'}, 404)
+
+        favorites = UserFavorite.query.filter_by(user_id=user_id).all()
+        for favorite in favorites:
+            db.session.delete(favorite)
+        db.session.commit()
+
+        response = make_response('', 204)
+        return response
+
+api.add_resource(UserFavoritesDelete, '/userfavorites/delete')
 
 
 UPLOAD_FOLDER = 'uploads'

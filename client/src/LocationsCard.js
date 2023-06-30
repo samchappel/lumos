@@ -21,9 +21,11 @@ function LocationsCard({ location }) {
     const requestBody = {
       location_id: location.id
     };
-
-    fetch('/userfavorites', {
-      method: 'POST',
+  
+    const endpoint = isFavorite ? '/userfavorites/delete' : '/userfavorites';
+  
+    fetch(endpoint, {
+      method: isFavorite ? 'DELETE' : 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -31,12 +33,12 @@ function LocationsCard({ location }) {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Error adding location to favorites: ${response.status}`);
+          throw new Error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites: ${response.status}`);
         }
-        setIsFavorite(true);
+        setIsFavorite(prevIsFavorite => !prevIsFavorite);
       })
       .catch(error => {
-        console.error('Error adding location to favorites:', error);
+        console.error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites:`, error);
       });
   };
 
@@ -50,7 +52,7 @@ function LocationsCard({ location }) {
             <div className="relative group">
               <img src={isFavorite ? pinIconActive : pinIcon} alt="Favorite" style={{width: '60px', height: '60px'}} className="cursor-pointer" onClick={handleFavoriteClick} />
               <div className="absolute top-12 right-700 bg-primary text-white text-xs invisible group-hover:visible p-2 rounded w-24 h-22 flex items-center justify-center">
-                Psst! Click me to add this spot to your favorites
+                {isFavorite ? "Click me to remove this spot from your favorites" : "Click me to add this spot to your favorites"}
               </div>
             </div>
           </div>
@@ -58,7 +60,6 @@ function LocationsCard({ location }) {
           {sunriseData && (
             <div className="tooltip tooltip-primary tooltip-right" data-tip={location.timezone}>
               <div>
-                <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
                 <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
                 <p><strong>Sunset:</strong> {sunriseData.results.sunset}</p>
                 <p><strong>Golden Hour:</strong> {sunriseData.results.golden_hour}</p>
