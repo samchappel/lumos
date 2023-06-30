@@ -42,6 +42,7 @@ function Home({ setLocationData }) {
   };
 
   const handleExplore = () => {
+    window.scrollTo(0, 0);
     navigate('/explore');
   };
 
