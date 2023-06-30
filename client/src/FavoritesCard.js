@@ -1,15 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import pinIcon from './assets/pin_icon.jpg';
 import pinIconActive from './assets/pin_icon_clicked.jpg';
 
-function FavoritesCard({ favorite }) {
+function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) {
   const { location } = favorite;
-  const { name, city, state, image, sunrise, sunset, goldenHour, dayLength } = location;
-  const isFavorite = true;
+  const { id, name, city, state, image, sunrise, sunset, goldenHour, dayLength } = location;
+  const isFavorite = favorites.some(fav => fav.id === favorite.id);
 
   const handleFavoriteClick = () => {
-    // Handle favorite click logic here
+    const requestBody = {
+      location_id: id
+    };
+
+    const endpoint = isFavorite ? '/userfavorites/delete' : '/userfavorites';
+
+    fetch(endpoint, {
+      method: isFavorite ? 'DELETE' : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites: ${response.status}`);
+        }
+        if (isFavorite) {
+          setFavorites(prevFavorites =>
+            prevFavorites.filter(fav => fav.id !== favorite.id)
+          );
+        } else {
+          setFavorites(prevFavorites => [...prevFavorites, favorite]);
+        }
+      })
+      .catch(error => {
+        console.error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites:`, error);
+      });
   };
 
   return (

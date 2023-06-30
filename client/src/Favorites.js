@@ -21,6 +21,27 @@ function Favorites({ user }) {
       });
   }, [user]);
 
+  const handleRemoveFavorite = (favoriteId) => {
+    fetch(`/userfavorites/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ favoriteId })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error removing favorite: ${response.status}`);
+        }
+        setFavorites(prevFavorites =>
+          prevFavorites.filter(favorite => favorite.id !== favoriteId)
+        );
+      })
+      .catch(error => {
+        console.error('Error removing favorite:', error);
+      });
+  };
+
   return (
     <div>
       {user ? (
@@ -29,7 +50,13 @@ function Favorites({ user }) {
           <FormattedDate />
           <div className="flex flex-wrap justify-center p-5 mb-5 pb-8">
             {favorites.map(favorite => (
-              <FavoritesCard key={favorite.id} favorite={favorite} />
+              <FavoritesCard
+                key={favorite.id}
+                favorite={favorite}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                onRemoveFavorite={handleRemoveFavorite}
+              />
             ))}
           </div>
         </>
