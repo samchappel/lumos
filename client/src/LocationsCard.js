@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { setLocationData } from './redux/actions';
 import pinIcon from './assets/pin_icon.jpg';
 import pinIconActive from './assets/pin_icon_clicked.jpg';
 
-function LocationsCard({ location }) {
+function LocationsCard({ location, setLocationData }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
@@ -17,7 +19,21 @@ function LocationsCard({ location }) {
       .catch(error => console.error('Error fetching sunrise data:', error));
   }, []);
 
+  useEffect(() => {
+    const storedFavorite = localStorage.getItem(`favorite-${id}`);
+    if (storedFavorite) {
+      setIsFavorite(JSON.parse(storedFavorite));
+    }
+  }, [id]);
+
   const handleFavoriteClick = () => {
+    const updatedIsFavorite = !isFavorite;
+    setIsFavorite(updatedIsFavorite);
+    localStorage.setItem(`favorite-${id}`, JSON.stringify(updatedIsFavorite));
+
+    const updatedLocationData = { ...location, isFavorite: updatedIsFavorite };
+    setLocationData(updatedLocationData);
+
     const requestBody = {
       location_id: location.id
     };
@@ -35,7 +51,6 @@ function LocationsCard({ location }) {
         if (!response.ok) {
           throw new Error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites: ${response.status}`);
         }
-        setIsFavorite(prevIsFavorite => !prevIsFavorite);
       })
       .catch(error => {
         console.error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites:`, error);
@@ -73,4 +88,8 @@ function LocationsCard({ location }) {
   );
 }
 
-export default LocationsCard;
+const mapDispatchToProps = {
+  setLocationData,
+};
+
+export default connect(null, mapDispatchToProps)(LocationsCard);
