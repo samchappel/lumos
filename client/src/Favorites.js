@@ -5,6 +5,7 @@ import FormattedDate from './FormattedDate';
 function Favorites({ user }) {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(null);
+  const [showDate, setShowDate] = useState(true);
 
   useEffect(() => {
     fetch(`/userfavorites`)
@@ -42,22 +43,32 @@ function Favorites({ user }) {
       });
   };
 
+  useEffect(() => {
+    setShowDate(favorites.length > 0);
+  }, [favorites]);
+
   return (
     <div>
       {user ? (
         <>
           <h2 className="text-center text-2xl my-4">View Your Favorite Locations At-A-Glance</h2>
-          <FormattedDate />
+          {showDate && <FormattedDate />}
           <div className="flex flex-wrap justify-center p-5 mb-5 pb-8">
-            {favorites.map(favorite => (
-              <FavoritesCard
-                key={favorite.id}
-                favorite={favorite}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                onRemoveFavorite={handleRemoveFavorite}
-              />
-            ))}
+            {favorites.length > 0 ? (
+              favorites.map(favorite => (
+                <FavoritesCard
+                  key={favorite.id}
+                  favorite={favorite}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  onRemoveFavorite={handleRemoveFavorite}
+                />
+              ))
+            ) : (
+              <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
+                Get busy exploring and pick some favorites!
+              </p>
+            )}
           </div>
         </>
       ) : (
