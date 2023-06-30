@@ -80,20 +80,20 @@ api.add_resource(LocationByID, '/locations/<int:id>')
 
 class UserFavorites(Resource):
     def get(self):
-        print("get method called")
-
         user_id = session['user_id']
         user = User.query.get(user_id)
 
         if user is None:
             return make_response({'message': 'User not found.'}, 404)
 
-        favorite_list = [user_favorite.to_dict() for user_favorite in user.user_favorites]
+        favorite_list = []
+
+        for user_favorite in user.user_favorites:
+            favorite_dict = user_favorite.to_dict()
+            favorite_dict['location'] = user_favorite.location.to_dict()
+            favorite_list.append(favorite_dict)
         
-        response = make_response(
-            favorite_list,
-            200
-        )
+        response = make_response(favorite_list, 200)
         return response
 
     def post(self):
