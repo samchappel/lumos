@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Comments from './Comments';
 import DeletePhoto from './DeletePhoto';
 
@@ -6,16 +6,20 @@ function GalleryModal({ photo, photosProp, userId, closeModal }) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(photosProp.findIndex(p => p.id === photo.id));
   const [photos, setPhotos] = useState(photosProp);
 
+  useEffect(() => {
+    setPhotos(photosProp);
+  }, [photosProp]);
+
   const handlePrev = () => {
     setSelectedPhotoIndex((prevIndex) => {
-      const newIndex = prevIndex === 0 ? photosProp.length - 1 : prevIndex - 1;
+      const newIndex = prevIndex === 0 ? photos.length - 1 : prevIndex - 1;
       return newIndex;
     });
   };
 
   const handleNext = () => {
     setSelectedPhotoIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % photosProp.length;
+      const newIndex = (prevIndex + 1) % photos.length;
       return newIndex;
     });
   };
