@@ -5,6 +5,7 @@ import persistConfig from './persistConfig';
 const initialState = {
   locationData: {},
   isLoggedIn: false,
+  favorites: [],
 };
 
 const locationReducer = (state = initialState.locationData, action) => {
@@ -29,9 +30,26 @@ const isLoggedInReducer = (state = initialState.isLoggedIn, action) => {
   }
 };
 
+const favoritesReducer = (state = initialState.favorites, action) => {
+  switch (action.type) {
+    case 'UPDATE_FAVORITE_STATUS':
+      const { locationId, isFavorite } = action.payload;
+      if (isFavorite) {
+        return [...state, { id: locationId, isFavorite }];
+      } else {
+        return state.filter(location => location.id !== locationId);
+      }
+    case 'SET_FAVORITES':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   locationData: locationReducer,
   isLoggedIn: isLoggedInReducer,
+  favorites: favoritesReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
