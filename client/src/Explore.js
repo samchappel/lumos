@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormattedDate from './FormattedDate';
 import LocationsCard from './LocationsCard';
 import ExploreSearch from './ExploreSearch';
 import { connect } from 'react-redux';
-import { setLocationData, setLocations } from './redux/actions';
+import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from './redux/actions';
 
-function Explore({ locations, setLocations }) {
+function Explore({ locations, setLocations, favorites, setFavorites }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(`/userfavorites`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error fetching data: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(favorites => {
+        setFavorites(favorites);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+      });
+  }, [setFavorites]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -21,7 +39,15 @@ function Explore({ locations, setLocations }) {
     return name.includes(search) || city.includes(search) || state.includes(search);
   });
 
-  const locationCards = filteredLocations.map(location => <LocationsCard key={location.id} location={location} setLocations={setLocations}/>);
+  const locationCards = filteredLocations.map(location => (
+    <LocationsCard
+      key={location.id}
+      location={location}
+      setLocations={setLocations}
+      favorites={favorites}
+      updateFavoriteStatus={updateFavoriteStatus} // pass this prop
+    />
+  ));
 
   return (
     <>
@@ -51,6 +77,8 @@ function Explore({ locations, setLocations }) {
 const mapDispatchToProps = {
   setLocationData,
   setLocations,
+  updateFavoriteStatus,
+  setFavorites,
 };
 
 export default connect(null, mapDispatchToProps)(Explore);
