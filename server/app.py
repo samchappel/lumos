@@ -91,6 +91,7 @@ class UserFavorites(Resource):
         for user_favorite in user.user_favorites:
             favorite_dict = user_favorite.to_dict()
             favorite_dict['location'] = user_favorite.location.to_dict()
+            favorite_dict['is_favorite'] = True
             favorite_list.append(favorite_dict)
         
         response = make_response(favorite_list, 200)
@@ -120,6 +121,67 @@ class UserFavorites(Resource):
         return response
 
 api.add_resource(UserFavorites, '/userfavorites')
+
+class CheckFavoriteStatus(Resource):
+    def get(self):
+        user_id = session['user_id']
+        location_id = request.args.get('location_id')
+
+        favorite = UserFavorite.query.filter_by(user_id=user_id, location_id=location_id).first()
+
+        if favorite:
+            return {'is_favorite': True}, 200
+        else:
+            return {'is_favorite': False}, 200
+
+api.add_resource(CheckFavoriteStatus, '/userfavorites/check', endpoint='userfavorites_check')
+
+class ToggleFavoriteStatus(Resource):
+    def get(self):
+        user_id = session['user_id']
+        location_id = request.args.get('location_id')
+
+        favorite = UserFavorite.query.filter_by(user_id=user_id, location_id=location_id).first()
+
+        if favorite:
+            db.session.delete(favorite)
+            is_favorite = False
+        else:
+            new_favorite = UserFavorite(
+                user_id=user_id,
+                location_id=location_id
+            )
+            db.session.add(new_favorite)
+            is_favorite = True
+
+        db.session.commit()
+
+        return {'is_favorite': is_favorite}, 200
+
+    def post(self):
+        data = request.get_json()
+        location_id = data.get('location_id')
+        if not location_id:
+            return make_response({'message': 'Location ID not provided.'}, 400)
+
+        new_favorite = UserFavorite(
+            user_id=session['user_id'],
+            location_id=location_id
+        )
+
+        db.session.add(new_favorite)
+        db.session.commit()
+
+        response_dict = new_favorite.to_dict()
+
+        response = make_response(
+            response_dict,
+            201
+        )
+
+        return response
+
+api.add_resource(ToggleFavoriteStatus, '/userfavorites/toggle', endpoint='userfavorites_toggle')
 
 
 class UserFavoritesByID(Resource):

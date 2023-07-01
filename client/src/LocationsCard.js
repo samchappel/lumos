@@ -29,19 +29,15 @@ function LocationsCard({ location, setLocationData }) {
   const handleFavoriteClick = () => {
     const updatedIsFavorite = !isFavorite;
     setIsFavorite(updatedIsFavorite);
-    localStorage.setItem(`favorite-${id}`, JSON.stringify(updatedIsFavorite));
-
-    const updatedLocationData = { ...location, isFavorite: updatedIsFavorite };
-    setLocationData(updatedLocationData);
-
+  
     const requestBody = {
       location_id: location.id
     };
   
-    const endpoint = isFavorite ? '/userfavorites/delete' : '/userfavorites';
+    const endpoint = updatedIsFavorite ? '/userfavorites/toggle' : '/userfavorites/toggle';
   
     fetch(endpoint, {
-      method: isFavorite ? 'DELETE' : 'POST',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -49,11 +45,12 @@ function LocationsCard({ location, setLocationData }) {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites: ${response.status}`);
+          throw new Error(`Error toggling favorite status: ${response.status}`);
         }
+        // Optionally, you can update the favorite status in the Redux store here.
       })
       .catch(error => {
-        console.error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites:`, error);
+        console.error('Error toggling favorite status:', error);
       });
   };
 
