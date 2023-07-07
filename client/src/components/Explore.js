@@ -3,7 +3,7 @@ import FormattedDate from './FormattedDate';
 import LocationsCard from './LocationsCard';
 import ExploreSearch from './ExploreSearch';
 import { connect } from 'react-redux';
-import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from './redux/actions';
+import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from '../redux/actions';
 
 function Explore({ locations, setLocations, favorites, setFavorites }) {
   const [searchTerm, setSearchTerm] = useState("");

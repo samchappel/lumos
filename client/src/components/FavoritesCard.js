@@ -1,6 +1,6 @@
 import React from 'react';
-import pinIcon from './assets/pin_icon.jpg';
-import pinIconActive from './assets/pin_icon_clicked.jpg';
+import pinIcon from '../assets/pin_icon.jpg';
+import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
 function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) {
   const { location } = favorite;

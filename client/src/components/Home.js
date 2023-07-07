@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import { connect, useDispatch } from 'react-redux';
-import { setLocationData } from './redux/actions';
+import { setLocationData } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 function Home({ setLocationData }) {

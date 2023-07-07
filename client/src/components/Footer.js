@@ -1,4 +1,4 @@
-import logo from './assets/Lumos (2).png';
+import logo from '../assets/Lumos (2).png';
 
 function Footer() {
 

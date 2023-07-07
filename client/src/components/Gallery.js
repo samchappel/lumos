@@ -12,6 +12,10 @@ function Gallery({ userId, isLoggedIn }) {
 
   const navigate = useNavigate();
 
+  const addPhotoToGallery = (newPhoto) => {
+    setPhotosProp(prevPhotos => [newPhoto, ...prevPhotos]);
+  };
+
   const handleAddPhoto = () => {
     navigate('/add');
   };

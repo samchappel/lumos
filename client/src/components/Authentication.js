@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserLoggedIn } from './redux/actions';
+import { setUserLoggedIn } from '../redux/actions';
 import { useFormik } from 'formik';
-import logo from './assets/Lumos (2).png';
+import logo from '../assets/Lumos (2).png';
 import * as Yup from 'yup';
 
 const Authentication = ({ updateUser, setIsLoggedIn }) => {

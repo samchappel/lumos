@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setLocationData, updateFavoriteStatus } from './redux/actions';
-import pinIcon from './assets/pin_icon.jpg';
-import pinIconActive from './assets/pin_icon_clicked.jpg';
+import { setLocationData, updateFavoriteStatus } from '../redux/actions';
+import pinIcon from '../assets/pin_icon.jpg';
+import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
 function LocationsCard({ location, setLocationData, updateFavoriteStatus, favorites }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
