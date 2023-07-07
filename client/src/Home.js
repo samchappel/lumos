@@ -10,7 +10,7 @@ function Home({ setLocationData }) {
   const navigate = useNavigate();
   
   const handleSearch = (address) => {
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_API_KEY}`;
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`;
     fetch(geocodeUrl)
       .then(response => response.json())
       .then(data => {

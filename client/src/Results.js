@@ -23,7 +23,7 @@ function Results({ city, state }) {
   
       fetch(`https://sunburst.sunsetwx.com/v1/quality?geo=${latitude},${longitude}`, {
         headers: {
-          'Authorization': `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`
+          'Authorization': `Bearer ${process.env.REACT_APP_QUALITY_ACCESS_TOKEN}`
         }
       })
         .then(response => response.json())

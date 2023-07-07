@@ -1,5 +1,4 @@
 from random import choice as rc, randint
-#from faker import Faker
 import random
 from app import app
 from models import db, User, Location, UserFavorite, Photo, Comment, Like
