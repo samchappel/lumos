@@ -60,8 +60,8 @@ Start the React frontend server:
 Your unique versions of the following Google Geocode and Sunburst Quality Prediction credentials should be stored in a ```.env``` file in the client directory. The ```.env``` file should look like this, with your credentials appended after each ```=```.
 
 ```
-GOOGLE_GEOCODE_API_KEY=
-QUALITY_PREDICTION_ACCESS_TOKEN=
+REACT_APP_GEOCODE_API_KEY=
+REACT_APP_QUALITY_ACCESS_TOKEN=
 ```
 
 ## User Stories
