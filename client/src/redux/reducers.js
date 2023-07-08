@@ -6,7 +6,9 @@ const initialState = {
   locationData: {},
   isLoggedIn: false,
   favorites: [],
-  user: {},
+  user: {
+    first_name: '',
+  },
 };
 
 const locationReducer = (state = initialState.locationData, action) => {
