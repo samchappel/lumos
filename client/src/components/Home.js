@@ -4,7 +4,8 @@ import { connect, useDispatch } from 'react-redux';
 import { setLocationData } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
-function Home({ setLocationData }) {
+function Home({ setLocationData, firstName }) {
+  console.log(firstName);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,8 +52,8 @@ function Home({ setLocationData }) {
       <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
       <section className="py-12 px-4">
         <div className="max-w-2xl mx-auto text-center text-secondary">
-          <h2 className="text-4xl font-bold mb-4 text-primary">Welcome to Lumos</h2>
-          <p className="text-lg mb-8 text-accent">Your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.</p>
+        <h2 className="text-4xl font-bold mb-4 text-primary">Welcome, {firstName}!</h2>
+          <p className="text-lg mb-8 text-accent">Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.</p>
           <p className="text-lg mb-4">
             Lumos is your companion for capturing the beauty and wonder of sunrise and sunset moments. Whether you're a professional photographer, an outdoor enthusiast, or simply appreciate the serene beauty of the sun, Lumos provides you with the information you need to make the most of these magical moments.
           </p>
@@ -72,8 +73,14 @@ function Home({ setLocationData }) {
   );
 }
 
+const mapStateToProps = state => {
+  return {
+    firstName: state.user.first_name,
+  };
+};
+
 const mapDispatchToProps = {
   setLocationData,
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -7,7 +7,7 @@ from datetime import datetime
 
 print('creating users')
 users_list = [
-    {"email": "packD@climber.com", "password": "@samDAbest", "first_name": "Sam", "last_name": "Chappel"},
+    {"email": "hello@samchappel.com", "password": "@sendIT13", "first_name": "Sam", "last_name": "Chappel"},
     {"email": "chalky@climber.com", "password": "@sentDat", "first_name": "Ari", "last_name": "Marz"},
     {"email": "arnee@filmpotato.com", "password": "@filmp0tat0", "first_name": "Renee", "last_name": "Wall"},
     {"email": "kyle@boulderingisdumb.com", "password": "@Top0ut", "first_name": "Kyle", "last_name": "Wehrung"},

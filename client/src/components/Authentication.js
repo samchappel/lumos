@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserLoggedIn } from '../redux/actions';
+import { setUserLoggedIn, setUserData } from '../redux/actions';
 import { useFormik } from 'formik';
 import logo from '../assets/Lumos (2).png';
 import * as Yup from 'yup';
@@ -44,37 +44,39 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
       }),
     }),
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
-      try {
-        setSignUp(false);
-        const response = await fetch(signUp ? '/signup' : '/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: values.email,
-            password: values.password,
-            first_name: values.firstName,
-            last_name: values.lastName,
-          }),
-        });
-        console.log(response);
-        if (response.ok) {
-          const user = await response.json();
-          sessionStorage.setItem('user', JSON.stringify(user));
-          dispatch(setUserLoggedIn(true));
-          updateUser(user);
-          setIsLoggedIn(true);
-          navigate('/home');
-        } else {
-          setSubmitting(false);
-          setFieldError('general', 'Login failed');
-        }
-      } catch (error) {
-        setSubmitting(false);
-        setFieldError('general', 'An error occurred. Please try again.');
-      }
-    },
+  try {
+    setSignUp(false);
+    const response = await fetch(signUp ? '/signup' : '/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName,
+      }),
+    });
+    console.log(response);
+    if (response.ok) {
+      const user = await response.json();
+      sessionStorage.setItem('user', JSON.stringify(user));
+      console.log(user);
+      dispatch(setUserLoggedIn(true));
+      updateUser(user);
+      setIsLoggedIn(true);
+      navigate('/home');
+      dispatch(setUserData({ first_name: user.first_name }));
+    } else {
+      setSubmitting(false);
+      setFieldError('general', 'Login failed');
+    }
+  } catch (error) {
+    setSubmitting(false);
+    setFieldError('general', 'An error occurred. Please try again.');
+  }
+},
   });
 
   const toggleSignUp = () => {
