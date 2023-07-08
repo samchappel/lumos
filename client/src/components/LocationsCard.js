@@ -7,10 +7,9 @@ import pinIconActive from '../assets/pin_icon_clicked.jpg';
 function LocationsCard({ location, favorites }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
   const [sunriseData, setSunriseData] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
-
-  const isFavorite = favorites.some(favorite => favorite.id === id);
 
   useEffect(() => {
     fetch(`${baseUrl}lat=${latitude}&lng=${longitude}`)
@@ -24,9 +23,9 @@ function LocationsCard({ location, favorites }) {
   useEffect(() => {
     const localFavorite = localStorage.getItem(`favorite_${id}`);
     if (localFavorite !== undefined && localFavorite !== null && localFavorite !== "undefined" && JSON.parse(localFavorite) !== isFavorite) {
-      updateFavoriteStatus(id, JSON.parse(localFavorite));
+      setIsFavorite(JSON.parse(localFavorite));
     }
-  }, []);
+  }, [id, isFavorite]);
 
   const handleFavoriteClick = () => {
     fetch(`/userfavorites/toggle?location_id=${id}`, {
@@ -37,6 +36,7 @@ function LocationsCard({ location, favorites }) {
         const updatedIsFavorite = data.is_favorite;
 
         updateFavoriteStatus(id, updatedIsFavorite);
+        setIsFavorite(updatedIsFavorite);
 
         localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite));
       })

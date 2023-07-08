@@ -147,79 +147,79 @@ def make_locations():
 print('locations committed')
 
 
-print('creating user_favorites')
-user_favorites_list = [
-    {"user_id": 1, "location_id": 1},
-    {"user_id": 1, "location_id": 12},
-    {"user_id": 1, "location_id": 25},
-    {"user_id": 2, "location_id": 3},
-    {"user_id": 2, "location_id": 47},
-    {"user_id": 3, "location_id": 20},
-    {"user_id": 3, "location_id": 33},
-    {"user_id": 4, "location_id": 7},
-    {"user_id": 4, "location_id": 52},
-    {"user_id": 5, "location_id": 16},
-    {"user_id": 5, "location_id": 42},
-    {"user_id": 6, "location_id": 11},
-    {"user_id": 6, "location_id": 37},
-    {"user_id": 7, "location_id": 2},
-    {"user_id": 7, "location_id": 19},
-    {"user_id": 8, "location_id": 8},
-    {"user_id": 8, "location_id": 28},
-    {"user_id": 9, "location_id": 13},
-    {"user_id": 9, "location_id": 40},
-    {"user_id": 10, "location_id": 1},
-    {"user_id": 10, "location_id": 35},
-    {"user_id": 11, "location_id": 5},
-    {"user_id": 11, "location_id": 21},
-    {"user_id": 12, "location_id": 6},
-    {"user_id": 12, "location_id": 45},
-    {"user_id": 13, "location_id": 15},
-    {"user_id": 13, "location_id": 39},
-    {"user_id": 14, "location_id": 9},
-    {"user_id": 14, "location_id": 29},
-    {"user_id": 15, "location_id": 4},
-    {"user_id": 15, "location_id": 50},
-    {"user_id": 16, "location_id": 17},
-    {"user_id": 16, "location_id": 31},
-    {"user_id": 17, "location_id": 23},
-    {"user_id": 17, "location_id": 44},
-    {"user_id": 18, "location_id": 10},
-    {"user_id": 18, "location_id": 38},
-    {"user_id": 19, "location_id": 14},
-    {"user_id": 19, "location_id": 41},
-    {"user_id": 20, "location_id": 22},
-    {"user_id": 20, "location_id": 49},
-    {"user_id": 21, "location_id": 34},
-    {"user_id": 21, "location_id": 56},
-    {"user_id": 22, "location_id": 26},
-    {"user_id": 22, "location_id": 48},
-    {"user_id": 23, "location_id": 27},
-    {"user_id": 23, "location_id": 55},
-    {"user_id": 24, "location_id": 32},
-    {"user_id": 24, "location_id": 54},
-    {"user_id": 25, "location_id": 30},
-    {"user_id": 25, "location_id": 51},
-]
-print('user_favorites created')
+# print('creating user_favorites')
+# user_favorites_list = [
+#     {"user_id": 1, "location_id": 1},
+#     {"user_id": 1, "location_id": 12},
+#     {"user_id": 1, "location_id": 25},
+#     {"user_id": 2, "location_id": 3},
+#     {"user_id": 2, "location_id": 47},
+#     {"user_id": 3, "location_id": 20},
+#     {"user_id": 3, "location_id": 33},
+#     {"user_id": 4, "location_id": 7},
+#     {"user_id": 4, "location_id": 52},
+#     {"user_id": 5, "location_id": 16},
+#     {"user_id": 5, "location_id": 42},
+#     {"user_id": 6, "location_id": 11},
+#     {"user_id": 6, "location_id": 37},
+#     {"user_id": 7, "location_id": 2},
+#     {"user_id": 7, "location_id": 19},
+#     {"user_id": 8, "location_id": 8},
+#     {"user_id": 8, "location_id": 28},
+#     {"user_id": 9, "location_id": 13},
+#     {"user_id": 9, "location_id": 40},
+#     {"user_id": 10, "location_id": 1},
+#     {"user_id": 10, "location_id": 35},
+#     {"user_id": 11, "location_id": 5},
+#     {"user_id": 11, "location_id": 21},
+#     {"user_id": 12, "location_id": 6},
+#     {"user_id": 12, "location_id": 45},
+#     {"user_id": 13, "location_id": 15},
+#     {"user_id": 13, "location_id": 39},
+#     {"user_id": 14, "location_id": 9},
+#     {"user_id": 14, "location_id": 29},
+#     {"user_id": 15, "location_id": 4},
+#     {"user_id": 15, "location_id": 50},
+#     {"user_id": 16, "location_id": 17},
+#     {"user_id": 16, "location_id": 31},
+#     {"user_id": 17, "location_id": 23},
+#     {"user_id": 17, "location_id": 44},
+#     {"user_id": 18, "location_id": 10},
+#     {"user_id": 18, "location_id": 38},
+#     {"user_id": 19, "location_id": 14},
+#     {"user_id": 19, "location_id": 41},
+#     {"user_id": 20, "location_id": 22},
+#     {"user_id": 20, "location_id": 49},
+#     {"user_id": 21, "location_id": 34},
+#     {"user_id": 21, "location_id": 56},
+#     {"user_id": 22, "location_id": 26},
+#     {"user_id": 22, "location_id": 48},
+#     {"user_id": 23, "location_id": 27},
+#     {"user_id": 23, "location_id": 55},
+#     {"user_id": 24, "location_id": 32},
+#     {"user_id": 24, "location_id": 54},
+#     {"user_id": 25, "location_id": 30},
+#     {"user_id": 25, "location_id": 51},
+# ]
+# print('user_favorites created')
 
-def make_user_favorites():
+# def make_user_favorites():
 
-    UserFavorite.query.delete()
+#     UserFavorite.query.delete()
 
-    user_favorites = []
+#     user_favorites = []
 
-    for user_favorites_dict in user_favorites_list:
-        user_favorite = UserFavorite(
-            user_id=user_favorites_dict["user_id"],
-            location_id=user_favorites_dict["location_id"]
-        )
-        user_favorites.append(user_favorite)
+#     for user_favorites_dict in user_favorites_list:
+#         user_favorite = UserFavorite(
+#             user_id=user_favorites_dict["user_id"],
+#             location_id=user_favorites_dict["location_id"]
+#         )
+#         user_favorites.append(user_favorite)
 
-    db.session.add_all(user_favorites)
-    db.session.commit()
+#     db.session.add_all(user_favorites)
+#     db.session.commit()
 
-print('user_favorites committed')
+# print('user_favorites committed')
 
 
 print('creating photos')
@@ -417,7 +417,7 @@ if __name__ == '__main__':
     with app.app_context():
         make_users()
         make_locations()
-        make_user_favorites()
+        # make_user_favorites()
         make_photos()
         make_comments()
         print('creating likes')
