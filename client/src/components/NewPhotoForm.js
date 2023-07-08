@@ -36,7 +36,7 @@ function NewPhotoForm({ addPhotoToGallery }) {
         method: 'POST',
         body: formData
       });
-
+      
       if (response.ok) {
         const newPhoto = await response.json();
         console.log(newPhoto);

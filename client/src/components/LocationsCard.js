@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setLocationData, updateFavoriteStatus } from './redux/actions';
-import pinIcon from './assets/pin_icon.jpg';
-import pinIconActive from './assets/pin_icon_clicked.jpg';
+import { setLocationData, updateFavoriteStatus } from '../redux/actions';
+import pinIcon from '../assets/pin_icon.jpg';
+import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
-function LocationsCard({ location, setLocationData, updateFavoriteStatus, favorites }) {
+function LocationsCard({ location, favorites }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
   const [sunriseData, setSunriseData] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
-
-  const isFavorite = favorites.some(favorite => favorite.id === id);
 
   useEffect(() => {
     fetch(`${baseUrl}lat=${latitude}&lng=${longitude}`)
@@ -22,13 +21,11 @@ function LocationsCard({ location, setLocationData, updateFavoriteStatus, favori
   }, [latitude, longitude]);
 
   useEffect(() => {
-    // When the component is mounted, check if the favorites are stored in localStorage
-    const localFavorite = JSON.parse(localStorage.getItem(`favorite_${id}`));
-    if (localFavorite !== null && localFavorite !== isFavorite) {
-      // Update the Redux store with the favorites from localStorage
-      updateFavoriteStatus(id, localFavorite);
+    const localFavorite = localStorage.getItem(`favorite_${id}`);
+    if (localFavorite !== undefined && localFavorite !== null && localFavorite !== "undefined" && JSON.parse(localFavorite) !== isFavorite) {
+      setIsFavorite(JSON.parse(localFavorite));
     }
-  }, []);
+  }, [id, isFavorite]);
 
   const handleFavoriteClick = () => {
     fetch(`/userfavorites/toggle?location_id=${id}`, {
@@ -38,11 +35,10 @@ function LocationsCard({ location, setLocationData, updateFavoriteStatus, favori
       .then(data => {
         const updatedIsFavorite = data.is_favorite;
 
-        // Update the Redux store
         updateFavoriteStatus(id, updatedIsFavorite);
+        setIsFavorite(updatedIsFavorite);
 
-        // Store the favorite status in localStorage
-        localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite)); // Convert boolean to string
+        localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite));
       })
       .catch(error => {
         console.error('Error toggling favorite status:', error);
@@ -50,7 +46,7 @@ function LocationsCard({ location, setLocationData, updateFavoriteStatus, favori
   };
 
   return (
-    <div className="location-card-wrapper">
+    <div className="location-card-wrapper" style={{ marginBottom: '30px' }}>
       <div className="card card-compact w-96 bg-primary-color shadow-xl flex justify-center items-center" style={{ marginRight: '20px' }}>
         <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
         <div className="card-body flex flex-col items-center">

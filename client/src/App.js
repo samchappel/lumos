@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import Navigation from './Navigation'
-import Home from './Home';
-import Explore from './Explore';
-import Results from './Results'
-import NewPhotoForm from './NewPhotoForm';
-import Profile from './Profile';
-import Authentication from './Authentication';
-import NotFound from './NotFound';
-import Favorites from './Favorites';
-import Gallery from './Gallery';
-import PhotoDetail from './PhotoDetail';
-import Footer from './Footer';
+import Navigation from './components/Navigation';
+import Home from './components/Home';
+import Explore from './components/Explore';
+import Results from './components/Results';
+import NewPhotoForm from './components/NewPhotoForm';
+import Profile from './components/Profile';
+import Authentication from './components/Authentication';
+import NotFound from './components/NotFound';
+import Favorites from './components/Favorites';
+import Gallery from './components/Gallery';
+import PhotoDetail from './components/PhotoDetail';
+import Footer from './components/Footer';
 import { useDispatch, Provider } from 'react-redux';
 import { setLocationData } from './redux/actions';
 import { PersistGate } from 'redux-persist/integration/react';

@@ -3,9 +3,9 @@ import FormattedDate from './FormattedDate';
 import LocationsCard from './LocationsCard';
 import ExploreSearch from './ExploreSearch';
 import { connect } from 'react-redux';
-import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from './redux/actions';
+import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from '../redux/actions';
 
-function Explore({ locations, setLocations, favorites, setFavorites }) {
+function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
 
@@ -45,7 +45,7 @@ function Explore({ locations, setLocations, favorites, setFavorites }) {
       location={location}
       setLocations={setLocations}
       favorites={favorites}
-      updateFavoriteStatus={updateFavoriteStatus} // pass this prop
+      updateFavoriteStatus={updateFavoriteStatus} // Pass the updateFavoriteStatus prop
     />
   ));
 

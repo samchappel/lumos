@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['isLoggedIn'],
+  whitelist: ['isLoggedIn', 'favorites', 'user'],
 };
 
 export default persistConfig;

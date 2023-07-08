@@ -6,6 +6,9 @@ const initialState = {
   locationData: {},
   isLoggedIn: false,
   favorites: [],
+  user: {
+    first_name: '',
+  },
 };
 
 const locationReducer = (state = initialState.locationData, action) => {
@@ -46,10 +49,20 @@ const favoritesReducer = (state = initialState.favorites, action) => {
   }
 };
 
+const userReducer = (state = initialState.user, action) => {
+  switch (action.type) {
+    case 'SET_USER_DATA':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   locationData: locationReducer,
   isLoggedIn: isLoggedInReducer,
   favorites: favoritesReducer,
+  user: userReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -1,10 +1,23 @@
-import React from 'react';
-import pinIcon from './assets/pin_icon.jpg';
-import pinIconActive from './assets/pin_icon_clicked.jpg';
+import React, { useEffect, useState } from 'react';
+import pinIcon from '../assets/pin_icon.jpg';
+import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
 function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) {
   const { location } = favorite;
-  const { id, name, city, state, image, sunrise, sunset, goldenHour, dayLength } = location;
+  const { id, name, city, state, image, latitude, longitude, timezone } = location;
+  const [sunriseData, setSunriseData] = useState(null);
+
+  const baseUrl = "https://api.sunrisesunset.io/json?";
+
+  useEffect(() => {
+    fetch(`${baseUrl}lat=${latitude}&lng=${longitude}`)
+      .then(response => response.json())
+      .then(data => {
+        setSunriseData(data);
+      })
+      .catch(error => console.error('Error fetching sunrise data:', error));
+  }, [latitude, longitude]);
+
   const isFavorite = favorites.some(fav => fav.id === favorite.id);
 
   const handleFavoriteClick = () => {
@@ -39,11 +52,9 @@ function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) 
   };
 
   return (
-    <div className="location-card-wrapper">
+    <div className="location-card-wrapper" style={{ marginBottom: '30px' }}>
       <div className="card card-compact w-96 bg-primary-color shadow-xl flex justify-center items-center" style={{ marginRight: '20px' }}>
-        <div className="h-60 flex items-center justify-center">
-          <img src={image} alt={name} className="w-full h-full object-cover" />
-        </div>
+        <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
         <div className="card-body flex flex-col items-center">
           <div className="flex justify-center items-center">
             <h2 className="card-title text-center">{name}</h2>
@@ -52,7 +63,7 @@ function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) 
                 src={isFavorite ? pinIconActive : pinIcon}
                 alt="Favorite"
                 style={{ width: '60px', height: '60px' }}
-                className="cursor-pointer"
+                className={`cursor-pointer ${isFavorite ? 'active' : ''}`}
                 onClick={handleFavoriteClick}
               />
               <div className="absolute top-12 right-700 bg-primary text-white text-xs invisible group-hover:visible p-2 rounded w-24 h-22 flex items-center justify-center">
@@ -61,14 +72,16 @@ function FavoritesCard({ favorite, favorites, setFavorites, onRemoveFavorite }) 
             </div>
           </div>
           <h3>{city}, {state}</h3>
-          <div className="tooltip tooltip-primary tooltip-right" data-tip={location.timezone}>
-            <div>
-              <p><strong>Sunrise:</strong> {sunrise}</p>
-              <p><strong>Sunset:</strong> {sunset}</p>
-              <p><strong>Golden Hour:</strong> {goldenHour}</p>
-              <p><strong>Day Length:</strong> {dayLength} Hours</p>
+          {sunriseData && (
+            <div className="tooltip tooltip-primary tooltip-right" data-tip={timezone}>
+              <div>
+                <p><strong>Sunrise:</strong> {sunriseData.results.sunrise}</p>
+                <p><strong>Sunset:</strong> {sunriseData.results.sunset}</p>
+                <p><strong>Golden Hour:</strong> {sunriseData.results.golden_hour}</p>
+                <p><strong>Day Length:</strong> {sunriseData.results.day_length} Hours</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

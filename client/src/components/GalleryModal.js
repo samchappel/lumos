@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Comments from './Comments';
 import DeletePhoto from './DeletePhoto';
 
-function GalleryModal({ photo, photosProp, userId, closeModal }) {
+function GalleryModal({ photo, photosProp, userId, closeModal, handleDeletePhoto }) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(photosProp.findIndex(p => p.id === photo.id));
   const [photos, setPhotos] = useState(photosProp);
 
@@ -24,15 +24,20 @@ function GalleryModal({ photo, photosProp, userId, closeModal }) {
     });
   };
 
-  const handleDeletePhoto = (photoId) => {
-    setPhotos(photos.filter(photo => photo.id !== photoId));
-  };
-
   if (!photo) {
     return null;
   }
 
   const selectedPhoto = photos[selectedPhotoIndex];
+
+  if (!selectedPhoto) {
+    return null;
+  }
+
+  const onDeletePhoto = (photoId) => {
+    handleDeletePhoto(photoId);
+    closeModal();
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-10">
@@ -61,7 +66,7 @@ function GalleryModal({ photo, photosProp, userId, closeModal }) {
             </div>
           </div>
           {selectedPhoto.user.id === userId && (
-            <DeletePhoto photo={selectedPhoto} onDelete={() => handleDeletePhoto(selectedPhoto.id)} />
+            <DeletePhoto photo={selectedPhoto} onDelete={() => onDeletePhoto(selectedPhoto.id)} />
           )}
           <button className="modal-close absolute top-4 right-4 text-secondary text-lg" onClick={closeModal}>
             ✕

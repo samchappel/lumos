@@ -16,7 +16,6 @@ const handleFavoriteClick = (locationId, isFavorite) => {
         if (!response.ok) {
           throw new Error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites: ${response.status}`);
         }
-        // Handle success or update state accordingly
       })
       .catch(error => {
         console.error(`Error ${isFavorite ? 'removing' : 'adding'} location to favorites:`, error);

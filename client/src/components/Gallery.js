@@ -12,6 +12,10 @@ function Gallery({ userId, isLoggedIn }) {
 
   const navigate = useNavigate();
 
+  const addPhotoToGallery = (newPhoto) => {
+    setPhotosProp(prevPhotos => [newPhoto, ...prevPhotos]);
+  };
+
   const handleAddPhoto = () => {
     navigate('/add');
   };
@@ -45,6 +49,10 @@ function Gallery({ userId, isLoggedIn }) {
     setSelectedPhoto(null);
   };
 
+  const handleDeletePhoto = (photoId) => {
+    setPhotosProp(photosProp.filter(photo => photo.id !== photoId));
+  };
+
   if (!isLoggedIn) {
     return (
       <div>
@@ -67,7 +75,13 @@ function Gallery({ userId, isLoggedIn }) {
         ))}
       </div>
       {selectedPhoto && (
-        <GalleryModal photo={selectedPhoto} photosProp={photosProp} userId={userId} closeModal={closeModal} />
+        <GalleryModal 
+          photo={selectedPhoto} 
+          photosProp={photosProp} 
+          userId={userId} 
+          closeModal={closeModal}
+          handleDeletePhoto={handleDeletePhoto}
+        />
       )}
     </div>
   );
