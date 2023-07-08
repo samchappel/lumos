@@ -46,7 +46,7 @@ function LocationsCard({ location, favorites }) {
   };
 
   return (
-    <div className="location-card-wrapper">
+    <div className="location-card-wrapper" style={{ marginBottom: '30px' }}>
       <div className="card card-compact w-96 bg-primary-color shadow-xl flex justify-center items-center" style={{ marginRight: '20px' }}>
         <img src={image} alt={name} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '350px', height: '300px', objectFit: 'cover' }} />
         <div className="card-body flex flex-col items-center">
