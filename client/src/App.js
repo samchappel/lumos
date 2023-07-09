@@ -29,6 +29,7 @@ function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const [isNotFoundPage, setIsNotFoundPage] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -95,6 +96,15 @@ function App() {
     setPhotos([newPhoto, ...photos]);
   };
 
+  const NotFoundPage = () => {
+    useEffect(() => {
+      setIsNotFoundPage(true);
+      return () => setIsNotFoundPage(false);
+    }, []);
+
+    return <NotFound />;
+  }
+
   const isLoginPage = location.pathname === '/';
 
   return (
@@ -141,11 +151,11 @@ function App() {
             <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn} /> : null} />
             <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
             <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFoundPage />} />
           </>
         )}
       </Routes>
-      {!isLoginPage && <Footer />}
+      {!isLoginPage && !isNotFoundPage && <Footer />}
     </div>
   );
 }
