@@ -158,34 +158,36 @@ function Results({ city, state }) {
       <div className="card-body">
       <h2 className="card-title">Hourly Weather</h2>
           <div className="flex overflow-x-auto">
-            {weatherData.hourlyForecast.slice(0, 12).map((hourlyData, index) => (
-              <div key={index} className="m-2 flex-none bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-md text-white p-4 w-64">
-                <h3 className="text-lg font-bold">{new Date(hourlyData.startTime).toLocaleTimeString()}</h3>
-                <div className="flex items-center mt-2">
-                  {hourlyData.shortForecast === 'Sunny' && <TiWeatherSunny size={24} />}
-                  {hourlyData.shortForecast === 'Mostly Sunny' && <TiWeatherPartlySunny size={24} />}
-                  {hourlyData.shortForecast === 'Partly Cloudy' && <TiWeatherPartlySunny size={24} />}
-                  {hourlyData.shortForecast === 'Mostly Cloudy' && <TiWeatherCloudy size={24} />}
-                  {hourlyData.shortForecast === 'Cloudy' && <TiWeatherCloudy size={24} />}
-                  {hourlyData.shortForecast === 'Stormy' && <TiWeatherStormy size={24} />}
-                  {hourlyData.shortForecast === 'Snow' && <TiWeatherSnow size={24} />}
-                  {hourlyData.shortForecast === 'Windy' && <TiWeatherWindy size={24} />}
-                </div>
-                <p className="mt-2">{hourlyData.shortForecast}</p>
-                <p className="mt-1"><i className="fas fa-wind"></i> {hourlyData.windSpeed} {hourlyData.windDirection}</p>
+          {weatherData.hourlyForecast.slice(0, 12).map((hourlyData, index) => (
+            <div key={index} className="m-2 flex-none bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg shadow-md text-white p-4 w-64">
+              <h3 className="text-lg font-bold">
+                {new Date(hourlyData.startTime).toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}
+              </h3>
+              <div className="flex items-center mt-2">
+                {hourlyData.shortForecast === 'Sunny' && <TiWeatherSunny size={24} />}
+                {hourlyData.shortForecast === 'Mostly Sunny' && <TiWeatherPartlySunny size={24} />}
+                {hourlyData.shortForecast === 'Partly Cloudy' && <TiWeatherPartlySunny size={24} />}
+                {hourlyData.shortForecast === 'Mostly Cloudy' && <TiWeatherCloudy size={24} />}
+                {hourlyData.shortForecast === 'Cloudy' && <TiWeatherCloudy size={24} />}
+                {hourlyData.shortForecast === 'Stormy' && <TiWeatherStormy size={24} />}
+                {hourlyData.shortForecast === 'Snow' && <TiWeatherSnow size={24} />}
+                {hourlyData.shortForecast === 'Windy' && <TiWeatherWindy size={24} />}
               </div>
-            ))}
-          </div>
-      </div>
+              <p className="mt-2">{hourlyData.shortForecast}</p>
+              <p className="mt-1"><i className="fas fa-wind"></i> {hourlyData.windSpeed} {hourlyData.windDirection}</p>
+            </div>
+          ))}
+        </div>
     </div>
   </div>
+</div>
 </>
 ) : (
-  <p>Loading weather data...</p>
+<p>Loading weather data...</p>
 )}
-    </div>
-  );
-            }
+  </div>
+);
+  }
 
 const mapStateToProps = (state) => ({
   city: state.locationData.city,
