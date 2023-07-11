@@ -125,6 +125,23 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
               </div>
               {signUp && (
                 <>
+                <div className="form-control">
+                    <label className="label">
+                      <span className="label-text text-secondary">Confirm Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                      className="input input-bordered"
+                    />
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                      <div id="feedback">{formik.errors.confirmPassword}</div>
+                    )}
+                  </div>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text text-secondary">First Name</span>
@@ -144,7 +161,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Last Name</span>
+                      <span className="label-text text-secondary">Last Name</span>
                     </label>
                     <input
                       type="text"
@@ -157,23 +174,6 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
                     />
                     {formik.touched.lastName && formik.errors.lastName && (
                       <div id="feedback">{formik.errors.lastName}</div>
-                    )}
-                  </div>
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Confirm Password</span>
-                    </label>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.confirmPassword}
-                      className="input input-bordered"
-                    />
-                    {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-                      <div id="feedback">{formik.errors.confirmPassword}</div>
                     )}
                   </div>
                 </>
