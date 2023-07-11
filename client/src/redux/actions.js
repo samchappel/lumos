@@ -1,6 +1,6 @@
-export const setLocationData = (locationId, locationData) => ({
+export const setLocationData = (city, state) => ({
   type: 'SET_LOCATION_DATA',
-  payload: { locationId, locationData },
+  payload: { city, state },
 });
 
 export const setUserLoggedIn = (isLoggedIn) => ({

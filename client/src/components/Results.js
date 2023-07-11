@@ -189,9 +189,9 @@ function Results({ city, state }) {
 );
   }
 
-const mapStateToProps = (state) => ({
-  city: state.locationData.city,
-  state: state.locationData.state
-});
+  const mapStateToProps = (state) => ({
+    city: state.locationData.city,
+    state: state.locationData.state,
+  });
 
 export default connect(mapStateToProps)(Results);

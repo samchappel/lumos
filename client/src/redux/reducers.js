@@ -3,7 +3,10 @@ import { persistReducer } from 'redux-persist';
 import persistConfig from './persistConfig';
 
 const initialState = {
-  locationData: {},
+  locationData: {
+    city: '',
+    state: ''
+  },
   isLoggedIn: false,
   favorites: [],
   user: {
@@ -14,7 +17,11 @@ const initialState = {
 const locationReducer = (state = initialState.locationData, action) => {
   switch (action.type) {
     case 'SET_LOCATION_DATA':
-      return action.payload;
+      return {
+        ...state,
+        city: action.payload.city,
+        state: action.payload.state
+      };
     default:
       return state;
   }
