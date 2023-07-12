@@ -55,7 +55,7 @@ function Home({ setLocationData, firstName }) {
         <h2 className="text-4xl font-bold mb-4 text-primary">Welcome, {firstName}!</h2>
           <p className="text-lg mb-8 text-accent">Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.</p>
           <p className="text-lg mb-4">
-            Lumos is your companion for capturing the beauty and wonder of sunrise and sunset moments. Whether you're a professional photographer, an outdoor enthusiast, or simply appreciate the serene beauty of the sun, Lumos provides you with the information you need to make the most of these magical moments.
+            We're your companion for capturing the beauty and wonder of sunrise and sunset moments. Whether you're a professional photographer, an outdoor enthusiast, or simply appreciate the serene beauty of the sun, Lumos provides you with the information you need to make the most of these magical moments.
           </p>
           <p className="text-lg mb-4">
             With Lumos, you can explore sunrise, sunset, and golden hour times, sun event quality predictions, and weather forecasts for any location. Simply enter your location information in the search bar above to get started. Don't forget, this critical information is ALWAYS up-to-date.
