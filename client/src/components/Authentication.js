@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserLoggedIn, setUserData } from '../redux/actions';
 import { useFormik } from 'formik';
-import logo from '../assets/Lumos (2).png';
+import lumos from '../assets/lumos-auth.png';
 import * as Yup from 'yup';
 
 const Authentication = ({ updateUser, setIsLoggedIn }) => {
@@ -196,12 +196,8 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
             </div>
           </form>
         </div>
-        <div className="text-center lg:text-left text-secondary w-1/3 mx-16">
-          <img src={logo} alt="Logo" className="logoc h-39 w-45 mx-auto" />
-          {/* <p className="py-6">
-            It’s all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and
-            set where it matters most, so you're never left in the dark.
-          </p> */}
+        <div className="text-center lg:text-left text-secondary w-2/3 mx-16">
+          <img src={lumos} alt="Logo" className="w-full" />
         </div>
       </div>
     </div>

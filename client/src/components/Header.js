@@ -1,14 +1,14 @@
 import React from "react";
 import Search from './Search';
+import lumosheader from '../assets/chase-the-light.png';
 
 function Header({ handleSearch }) {
   return (
     <div className="hero min-h-screen" style={{ backgroundImage: `url("/header9.jpeg")` }}>
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
-        <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold text-secondary">LUMOS</h1>
-          <p className="mb-5 text-secondary">CHASE THE LIGHT</p>
+        <div className="max-w-md flex flex-col items-center">
+          <img src={lumosheader} alt="lumosheader" className="w-2/3" />
           <Search handleSearch={handleSearch} />
         </div>
       </div>
@@ -17,3 +17,8 @@ function Header({ handleSearch }) {
 }
 
 export default Header;
+
+
+
+
+
