@@ -2,7 +2,12 @@
 
 It's all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.
 
-## Getting Started
+## Installation
+
+Clone the repository to your local machine:
+```
+  $ git clone https://github.com/your-username/lumos.git
+  ```
   
 Set up the Python/Flask backend:
 
