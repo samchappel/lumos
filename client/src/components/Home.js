@@ -27,7 +27,7 @@ function Home({ setLocationData, firstName }) {
           const stateComponent = addressComponents.find(component => component.types.includes('administrative_area_level_1'));
           const city = cityComponent?.long_name;
           const state = stateComponent?.short_name;
-          dispatch(setLocationData({ city, state }));
+          dispatch(setLocationData(city, state));
           console.log('city:', city)
           console.log('state:', state)
           navigate({
