@@ -10,6 +10,7 @@ import {
   TiWeatherWindy,
   TiWeatherSunny,
   TiWeatherPartlySunny,
+  TiWeatherShower,
 } from 'react-icons/ti';
 
 
@@ -139,11 +140,14 @@ function Results({ city, state }) {
                   {weatherData.forecast[0].shortForecast === 'Sunny' && <TiWeatherSunny size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Mostly Sunny' && <TiWeatherPartlySunny size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Partly Cloudy' && <TiWeatherPartlySunny size={64} />}
+                  {weatherData.forecast[0].shortForecast === 'Partly Sunny' && <TiWeatherPartlySunny size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Mostly Cloudy' && <TiWeatherCloudy size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Cloudy' && <TiWeatherCloudy size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Stormy' && <TiWeatherStormy size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Snow' && <TiWeatherSnow size={64} />}
                   {weatherData.forecast[0].shortForecast === 'Windy' && <TiWeatherWindy size={64} />}
+                  {weatherData.forecast[0].shortForecast === 'Showers' && <TiWeatherShower size={64} />}
+
                 </div>
                 <div>
                   <p className="text-xl font-semibold">{weatherData.forecast[0].shortForecast}</p>
@@ -164,14 +168,16 @@ function Results({ city, state }) {
                 {new Date(hourlyData.startTime).toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}
               </h3>
               <div className="flex items-center mt-2">
-                {hourlyData.shortForecast === 'Sunny' && <TiWeatherSunny size={24} />}
-                {hourlyData.shortForecast === 'Mostly Sunny' && <TiWeatherPartlySunny size={24} />}
-                {hourlyData.shortForecast === 'Partly Cloudy' && <TiWeatherPartlySunny size={24} />}
-                {hourlyData.shortForecast === 'Mostly Cloudy' && <TiWeatherCloudy size={24} />}
-                {hourlyData.shortForecast === 'Cloudy' && <TiWeatherCloudy size={24} />}
-                {hourlyData.shortForecast === 'Stormy' && <TiWeatherStormy size={24} />}
-                {hourlyData.shortForecast === 'Snow' && <TiWeatherSnow size={24} />}
-                {hourlyData.shortForecast === 'Windy' && <TiWeatherWindy size={24} />}
+              {weatherData.forecast[0].shortForecast === 'Sunny' && <TiWeatherSunny size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Mostly Sunny' && <TiWeatherPartlySunny size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Partly Cloudy' && <TiWeatherPartlySunny size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Partly Sunny' && <TiWeatherPartlySunny size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Mostly Cloudy' && <TiWeatherCloudy size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Cloudy' && <TiWeatherCloudy size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Stormy' && <TiWeatherStormy size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Snow' && <TiWeatherSnow size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Windy' && <TiWeatherWindy size={24} />}
+                  {weatherData.forecast[0].shortForecast === 'Showers' && <TiWeatherShower size={24} />}
               </div>
               <p className="mt-2">{hourlyData.shortForecast}</p>
               <p className="mt-1"><i className="fas fa-wind"></i> {hourlyData.windSpeed} {hourlyData.windDirection}</p>
