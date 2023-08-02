@@ -15,17 +15,17 @@ export const setLocations = (locations) => {
   };
 };
 
-export const updateFavoriteStatus = (locationId, isFavorite) => {
-  return {
-    type: 'UPDATE_FAVORITE_STATUS',
-    payload: { locationId, isFavorite },
-  };
-};
-
 export const setFavorites = (favorites) => {
   return {
     type: 'SET_FAVORITES',
     payload: favorites,
+  };
+};
+
+export const updateFavoriteStatus = (locationId, isFavorite) => {
+  return {
+    type: 'UPDATE_FAVORITE_STATUS',
+    payload: { locationId, isFavorite },
   };
 };
 

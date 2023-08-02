@@ -28,10 +28,10 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    user_favorites = db.relationship('UserFavorite', back_populates='user')
+    user_favorites = db.relationship('UserFavorite', back_populates='user', cascade='all, delete-orphan')
     photos = db.relationship('Photo', back_populates='user', cascade='all, delete-orphan')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
-    likes = db.relationship('Like', back_populates='user')
+    likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     serialize_rules = ('-user_favorites', '-photos', '-comments', '-likes')
 
@@ -120,7 +120,7 @@ class UserFavorite(db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='user_favorites')
     location = db.relationship('Location', back_populates='user_favorites')
 
-    serialize_rules = ('-user', '-location')
+    serialize_rules = ('user', 'location')
 
 class Like(db.Model):
     __tablename__ = 'likes'

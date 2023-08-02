@@ -8,7 +8,7 @@ import NewPhotoForm from './components/NewPhotoForm';
 import Profile from './components/Profile';
 import Authentication from './components/Authentication';
 import NotFound from './components/NotFound';
-import Favorites from './components/Favorites';
+// import Favorites from './components/Favorites';
 import Gallery from './components/Gallery';
 import PhotoDetail from './components/PhotoDetail';
 import Footer from './components/Footer';
@@ -147,7 +147,7 @@ function App() {
             />
             <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/favorites" element={<Favorites user={user} />} />
+            {/* <Route path="/favorites" element={<Favorites user={user} />} /> */}
             <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn} /> : null} />
             <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
             <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />

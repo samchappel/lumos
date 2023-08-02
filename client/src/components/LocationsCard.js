@@ -4,7 +4,7 @@ import { setLocationData, updateFavoriteStatus } from '../redux/actions';
 import pinIcon from '../assets/pin_icon.jpg';
 import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
-function LocationsCard({ location, favorites }) {
+function LocationsCard({ location, favorites, updateFavoriteStatus, removeFavorite }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
   const [sunriseData, setSunriseData] = useState(null);
   const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
@@ -37,6 +37,11 @@ function LocationsCard({ location, favorites }) {
 
         updateFavoriteStatus(id, updatedIsFavorite);
         setIsFavorite(updatedIsFavorite);
+
+        if (!updatedIsFavorite) {
+          // Call removeFavorite when the favorite is deselected
+          removeFavorite(id);
+        }
 
         localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite));
       })

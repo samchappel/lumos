@@ -8,7 +8,7 @@ const initialState = {
     state: ''
   },
   isLoggedIn: false,
-  favorites: [],
+  favorites: [], // Initialize favorites to an empty array
   user: {
     first_name: '',
   },
@@ -42,15 +42,13 @@ const isLoggedInReducer = (state = initialState.isLoggedIn, action) => {
 
 const favoritesReducer = (state = initialState.favorites, action) => {
   switch (action.type) {
-    case 'UPDATE_FAVORITE_STATUS':
-      const { locationId, isFavorite } = action.payload;
-      if (isFavorite) {
-        return [...state, { id: locationId, isFavorite }];
-      } else {
-        return state.filter(location => location.id !== locationId);
-      }
-    case 'SET_FAVORITES':
+    case 'SET_FAVORITES': // Handle SET_FAVORITES action separately
       return action.payload;
+    case 'UPDATE_FAVORITE_STATUS': // Handle UPDATE_FAVORITE_STATUS action separately
+      const { locationId, isFavorite } = action.payload;
+      return state.map(location =>
+        location.id === locationId ? { ...location, isFavorite } : location
+      );
     default:
       return state;
   }

@@ -8,8 +8,11 @@ import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } fro
 function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
+  const [view, setView] = useState("all");
+  const [loading, setLoading] = useState(false); // Added loading state
 
   useEffect(() => {
+    setLoading(true); // Start loading before fetch operation
     fetch(`/userfavorites`)
       .then(response => {
         if (!response.ok) {
@@ -18,11 +21,15 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
         return response.json();
       })
       .then(favorites => {
-        setFavorites(favorites);
+        console.log('Fetched favorites:', favorites); // Add a console log here
+        console.log('Locations at the moment of fetching favorites:', locations); // Add a console log here
+        setFavorites(favorites); // Dispatch the action to update the favorites state
+        setLoading(false); // End loading after updating favorites
       })
       .catch(error => {
         console.error('Error fetching data:', error);
         setError(error.message);
+        setLoading(false); // End loading in case of error
       });
   }, [setFavorites]);
 
@@ -30,7 +37,7 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
     setSearchTerm(event.target.value);
   };
 
-  const filteredLocations = locations.filter((location) => {
+  const allLocations = locations.filter((location) => {
     const name = location.name.toLowerCase();
     const city = location.city.toLowerCase();
     const state = location.state.toLowerCase();
@@ -38,6 +45,33 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
   
     return name.includes(search) || city.includes(search) || state.includes(search);
   });
+  
+  let filteredLocations;
+
+  if (view === 'favorites') {
+    filteredLocations = allLocations.filter(location =>
+      favorites ? favorites.some(favorite => favorite.location_id === location.id) : false
+    );
+  } else {
+      filteredLocations = allLocations;
+  }
+
+  const handleRemoveFavorite = (favoriteId) => {
+    fetch(`/userfavorites/${favoriteId}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error removing favorite: ${response.status}`);
+        }
+        setFavorites(prevFavorites =>
+          prevFavorites.filter(favorite => favorite.location_id !== favoriteId)
+        );
+      })
+      .catch(error => {
+        console.error('Error removing favorite:', error);
+      });
+  };
 
   const locationCards = filteredLocations.map(location => (
     <LocationsCard
@@ -45,7 +79,8 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
       location={location}
       setLocations={setLocations}
       favorites={favorites}
-      updateFavoriteStatus={updateFavoriteStatus} // Pass the updateFavoriteStatus prop
+      updateFavoriteStatus={updateFavoriteStatus}
+      removeFavorite={handleRemoveFavorite}
     />
   ));
 
@@ -66,19 +101,28 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
           </ul>
         </div>
       </div>
+      <button onClick={() => setView('all')}>All</button>
+      <button onClick={() => setView('favorites')}>Favorites</button>
       <ExploreSearch searchTerm={searchTerm} updateSearchTerm={handleSearch} />
       <div className="flex flex-wrap justify-center p-5 mb-5 pb-8">
-        {locationCards}
+        {filteredLocations.length === 0
+          ? <p>You haven't select any favorites. Start exploring!</p>
+          : locationCards}
       </div>
     </>
   )
 }
 
+function mapStateToProps(state) {
+  return {
+    favorites: state.favorites
+  };
+}
+
 const mapDispatchToProps = {
-  setLocationData,
   setLocations,
   updateFavoriteStatus,
   setFavorites,
 };
 
-export default connect(null, mapDispatchToProps)(Explore);
+export default connect(mapStateToProps, mapDispatchToProps)(Explore);
