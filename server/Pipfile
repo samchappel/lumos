@@ -14,6 +14,9 @@ flask-bcrypt = "*"
 python-dotenv = "*"
 werkzeug = "*"
 pytest = "*"
+gunicorn = "*"
+psycopg2 = "*"
+honcho = "*"
 
 [dev-packages]
 
