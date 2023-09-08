@@ -39,7 +39,6 @@ function LocationsCard({ location, favorites, updateFavoriteStatus, removeFavori
         setIsFavorite(updatedIsFavorite);
 
         if (!updatedIsFavorite) {
-          // Call removeFavorite when the favorite is deselected
           removeFavorite(id);
         }
 

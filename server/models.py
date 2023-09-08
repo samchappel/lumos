@@ -51,12 +51,8 @@ class User(db.Model, SerializerMixin):
 
     @validates('email')
     def validate_email(self, key, email):
-        users = User.query.all()
-        emails = [user.email for user in users]
         if not email:
             raise ValueError('Email must be provided')
-        elif email in emails:
-            raise ValueError('This email is already registered to an account - please log in.')
         elif not re.search('@', email):
             raise ValueError('Must be a valid email')
         return email
@@ -77,7 +73,7 @@ class User(db.Model, SerializerMixin):
     
 
     def __repr__(self):
-        return f'USER: ID: {self.id}, Name {self.name}, Email: {self.email}, Admin: {self.admin}'
+        return f'USER: ID: {self.id}, Name {self.first_name} {self.last_name}, Email: {self.email}, Admin: {self.admin}'
 
 # class Tmz(PyEnum):
 #     EST = 'est'
