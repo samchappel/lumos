@@ -39,6 +39,7 @@ print('users created')
 def make_users():
 
     User.query.delete()
+    db.session.commit()
 
     users = []
 

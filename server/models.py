@@ -123,7 +123,7 @@ class Like(db.Model):
     __tablename__ = 'likes'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
@@ -137,7 +137,7 @@ class Photo(db.Model, SerializerMixin):
     __tablename__ = 'photos'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     image = db.Column(db.String)
     location = db.Column(db.String)
     city = db.Column(db.String)
@@ -161,7 +161,7 @@ class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
     comment = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
