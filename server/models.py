@@ -28,7 +28,7 @@ class User(db.Model, SerializerMixin):
     user_favorites = db.relationship('UserFavorite', back_populates='user')
     photos = db.relationship('Photo', back_populates='user', cascade='all, delete-orphan')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
-    likes = db.relationship('Like', back_populates='user')
+    likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     serialize_rules = ('-user_favorites', '-photos', '-comments', '-likes')
 
@@ -48,15 +48,9 @@ class User(db.Model, SerializerMixin):
 
     @validates('email')
     def validate_email(self, key, email):
-        users = User.query.all()
-        emails = [user.email for user in users]
-        if not email:
-            raise ValueError('Email must be provided')
-        elif email in emails:
+        exists = User.query.filter_by(email=email).first()
+        if exists:
             raise ValueError('This email is already registered to an account - please log in.')
-        elif not re.search('@', email):
-            raise ValueError('Must be a valid email')
-        return email
 
     @validates('password')
     def validate_password(self, key, password):
