@@ -147,7 +147,7 @@ class Photo(db.Model, SerializerMixin):
     # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
-    comments = db.relationship('Comment', back_populates='photos', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='photo', cascade='all, delete-orphan')
     likes = db.relationship('Like', back_populates='photo', cascade='all, delete-orphan')
 
     @property
