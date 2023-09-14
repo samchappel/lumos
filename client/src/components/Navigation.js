@@ -27,7 +27,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
                 <li><Link to="/explore">Explore</Link></li>
                 <li><Link to="/favorites">Favorites</Link></li>
                 <li><Link to="/gallery">Gallery</Link></li>
-                <li><Link to="/premium">Premium</Link></li>
+                {/* <li><Link to="/premium">Premium</Link></li> */}
                 <li><Link to="/logout" onClick={handleLogout}>Log Out</Link></li>
               </>
             )}
