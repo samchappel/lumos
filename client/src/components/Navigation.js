@@ -15,7 +15,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
     <div className="nav-container">
       <div className="navbar">
         <div className="flex-1">
-          <Link to="/">
+          <Link to="/home">
             <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />
           </Link>
         </div>
