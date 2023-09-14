@@ -34,6 +34,9 @@ function Comments({ photoId, userId }) {
     fetch(`/comments/${commentId}`, { method: 'DELETE' })
       .then(() => {
         setComments(comments.filter(comment => comment.id !== commentId));
+        if (commentToEdit && commentToEdit.id === commentId) {
+          setCommentToEdit(null);
+        }
       })
       .catch(error => console.error('Error deleting comment:', error));
   }
