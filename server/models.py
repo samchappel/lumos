@@ -48,14 +48,14 @@ class User(db.Model, SerializerMixin):
 
     @validates('email')
     def validate_email(self, key, email):
-        users = User.query.all()
-        emails = [user.email for user in users]
-        if not email:
-            raise ValueError('Email must be provided')
-        elif email in emails:
+        user_with_email = User.query.filter_by(email=email).first()
+
+        if user_with_email:
             raise ValueError('This email is already registered to an account - please log in.')
-        elif not re.search('@', email):
+
+        if not re.search('@', email):
             raise ValueError('Must be a valid email')
+
         return email
 
     @validates('password')
