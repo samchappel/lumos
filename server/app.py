@@ -4,7 +4,6 @@ from flask_login import current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Like, Photo, db
-from config import db, api, app, CORS, migrate, bcrypt, load_user
 from enum import Enum
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -12,7 +11,7 @@ import os
 
 from flask_login import LoginManager
 
-from config import app, api, db, migrate, bcrypt, CORS, login_manager
+from config import app, api, db, migrate, bcrypt, CORS, login_manager, load_user
 
 login_manager.init_app(app)
 
@@ -483,6 +482,7 @@ class Login(Resource):
             user = User.query.filter_by(email=request.get_json()['email']).first()
             if user.authenticate(request.get_json()['password']):
                 session['user_id'] = user.id
+                print(session)
                 response = make_response(
                     user.to_dict(),
                     200
@@ -512,7 +512,9 @@ api.add_resource(AuthorizedSession, '/authorized')
 
 class Logout(Resource):
     def delete(self):
-        session['user_id'] = None
+        # session['user_id'] = None
+        session.pop('user_id', None)
+        print(session)
         response = make_response('',204,)
         return response
 

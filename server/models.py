@@ -28,7 +28,7 @@ class User(db.Model, SerializerMixin):
     user_favorites = db.relationship('UserFavorite', back_populates='user')
     photos = db.relationship('Photo', back_populates='user', cascade='all, delete-orphan')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
-    likes = db.relationship('Like', back_populates='user')
+    likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     serialize_rules = ('-user_favorites', '-photos', '-comments', '-likes')
 
@@ -48,14 +48,9 @@ class User(db.Model, SerializerMixin):
 
     @validates('email')
     def validate_email(self, key, email):
-        user_with_email = User.query.filter_by(email=email).first()
-
-        if user_with_email:
+        exists = User.query.filter_by(email=email).first()
+        if exists:
             raise ValueError('This email is already registered to an account - please log in.')
-
-        if not re.search('@', email):
-            raise ValueError('Must be a valid email')
-
         return email
 
     @validates('password')
@@ -74,7 +69,7 @@ class User(db.Model, SerializerMixin):
     
 
     def __repr__(self):
-        return f'USER: ID: {self.id}, Name {self.name}, Email: {self.email}, Admin: {self.admin}'
+        return f'USER: ID: {self.id}, Name {self.first_name} {self.last_name}, Email: {self.email}, Admin: {self.admin}'
 
 # class Tmz(PyEnum):
 #     EST = 'est'
@@ -123,8 +118,8 @@ class Like(db.Model):
     __tablename__ = 'likes'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id', ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     user = db.relationship('User', back_populates='likes')
@@ -137,7 +132,7 @@ class Photo(db.Model, SerializerMixin):
     __tablename__ = 'photos'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     image = db.Column(db.String)
     location = db.Column(db.String)
     city = db.Column(db.String)
@@ -147,8 +142,8 @@ class Photo(db.Model, SerializerMixin):
     # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
-    comments = db.relationship('Comment', back_populates='photos', cascade='all, delete-orphan')
-    likes = db.relationship('Like', back_populates='photo')
+    comments = db.relationship('Comment', back_populates='photo', cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='photo', cascade='all, delete-orphan')
 
     @property
     def like_count(self):
@@ -161,15 +156,15 @@ class Comment(db.Model, SerializerMixin):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    photo_id = db.Column(db.Integer, db.ForeignKey('photos.id', ondelete='CASCADE'))
     comment = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     user = db.relationship('User', back_populates='comments')
-    photos = db.relationship('Photo', back_populates='comments')
+    photo = db.relationship('Photo', back_populates='comments')
 
-    serialize_rules = ('-photos',)
+    serialize_rules = ('-photo',)
 
 

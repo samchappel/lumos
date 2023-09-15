@@ -39,6 +39,7 @@ print('users created')
 def make_users():
 
     User.query.delete()
+    db.session.commit()
 
     users = []
 
@@ -53,6 +54,8 @@ def make_users():
 
     db.session.add_all(users)
     db.session.commit()
+
+    return users
 print('users committed')
 
 print('creating locations')
@@ -415,7 +418,9 @@ def make_likes():
 
 if __name__ == '__main__':
     with app.app_context():
-        make_users()
+        db.drop_all()
+        db.create_all()
+        created_users = make_users()
         make_locations()
         # make_user_favorites()
         make_photos()
