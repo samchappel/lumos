@@ -51,6 +51,8 @@ class User(db.Model, SerializerMixin):
         exists = User.query.filter_by(email=email).first()
         if exists:
             raise ValueError('This email is already registered to an account - please log in.')
+            
+        return email
 
     @validates('password')
     def validate_password(self, key, password):
