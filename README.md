@@ -27,9 +27,8 @@ Set up the required environment variables in the server directory:
   $ export FLASK_RUN_PORT=5555
   ```
   
-Run the Flask migration commands to create the database:
+Apply migrations and set up initial database schema:
 ```
-  $ flask db init
   $ flask db upgrade head
   ```
 
@@ -62,7 +61,7 @@ Start the React frontend server:
 
 ## Credentials
 
-Your unique versions of the following Google Geocode and Sunburst Quality Prediction credentials should be stored in a ```.env``` file in the client directory. The ```.env``` file should look like this, with your credentials appended after each ```=```.
+Your unique versions of the following Google Geocode and Sunburst Quality Prediction credentials should be stored in a ```.env``` file in the client directory. The ```.env``` file should look like this, with your credentials appended after each ```=```:
 
 ```
 REACT_APP_GEOCODE_API_KEY=

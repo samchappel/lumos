@@ -15,7 +15,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
     <div className="nav-container">
       <div className="navbar">
         <div className="flex-1">
-          <Link to="/">
+          <Link to="/home">
             <img src="/lumos_logo.png" alt="Logo" style={{ width: "100px", height: "50px" }} />
           </Link>
         </div>
@@ -27,7 +27,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
                 <li><Link to="/explore">Explore</Link></li>
                 <li><Link to="/favorites">Favorites</Link></li>
                 <li><Link to="/gallery">Gallery</Link></li>
-                <li><Link to="/premium">Premium</Link></li>
+                {/* <li><Link to="/premium">Premium</Link></li> */}
                 <li><Link to="/logout" onClick={handleLogout}>Log Out</Link></li>
               </>
             )}

@@ -25,8 +25,8 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
         .email('Invalid email')
         .required('Required'),
       password: Yup.string()
-        .min(8, 'Must be at least 8 characters')
-        .matches(/[!@#$%^&*]/, 'Must contain a special character')
+        .min(8, 'Password must be at least 8 characters long')
+        .matches(/[!@#$%^&*]/, 'Password must contain a special character: !@#$%^&*')
         .required('Required'),
       firstName: Yup.string().when('signUp', {
         is: true,
@@ -119,6 +119,11 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
                   value={formik.values.password}
                   className="input input-bordered"
                 />
+                {signUp && (
+                  <div className="text-xs text-gray-500">
+                    Password must be at least 8 characters long and contain one of the following special characters: !@#$%^&*
+                  </div>
+                )}
                 {formik.touched.password && formik.errors.password && (
                   <div id="feedback">{formik.errors.password}</div>
                 )}
