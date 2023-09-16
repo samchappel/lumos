@@ -9,7 +9,7 @@ Clone the repository to your local machine:
   $ git clone https://github.com/your-username/lumos.git
   ```
   
-Set up the Python/Flask backend:
+**Set up the Python/Flask backend:**
 
 Navigate to the server directory:
 ```
@@ -41,8 +41,17 @@ You can run the app and explore the APIs in the browser by using the Flask comma
 ```
   $ flask run --debug
   ```
+Environment Variables:
 
-Set up the React frontend:
+For connecting the app to the external database and any other backend configurations, a .env file is required in the server directory. This file should contain the following (`your_postgres_database_url` should be replaced your actual PostgreSQL URL):
+```
+  $ DATABASE_URI=your_postgres_database_url
+  ```
+
+> **⚠️ Note:** Never commit the .env file to version control. It contains sensitive information and should be kept private. If you're cloning or forking this repository, make sure to create your own .env file with your personal configurations.
+
+
+**Set up the React frontend:**
 
 In a new terminal window, navigate to the client directory:
 ```
