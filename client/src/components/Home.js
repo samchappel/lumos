@@ -58,11 +58,11 @@ function Home({ setLocationData, firstName }) {
             We're your companion for capturing the beauty and wonder of sunrise and sunset moments. Whether you're a professional photographer, an outdoor enthusiast, or simply appreciate the serene beauty of the sun, Lumos provides you with the information you need to make the most of these magical moments.
           </p>
           <p className="text-lg mb-4">
-            With Lumos, you can explore sunrise, sunset, and golden hour times, sun event quality predictions, and weather forecasts for any location. Simply enter your location information in the search bar above to get started. Don't forget, this critical information is ALWAYS up-to-date.
+          With Lumos, you can explore sunrise, sunset, and golden hour times, sun event quality predictions, and weather forecasts for any location. Simply enter your location information in the search bar above to get started, or check out the Explore page for at-a-glance viewing for all national parks across the country. Don't forget, this critical information is ALWAYS up-to-date.
           </p>
-          <p className="text-lg mb-8">
+          {/* <p className="text-lg mb-8">
             Our Explore page allows you to discover sunrise and sunset data for national parks. Add your favorite parks to your personal collection for at-a-glance reference, and plan your next adventure to witness unforgettable sunrises and sunsets in these breathtaking landscapes.
-          </p>
+          </p> */}
           <p className="text-lg mb-4">
             Join our vibrant community of sun enthusiasts in the Lumos Gallery. Share your own stunning photos of sunrises and sunsets, explore and comment on other community members' photos, and get inspired by the breathtaking beauty captured around the world.
           </p>

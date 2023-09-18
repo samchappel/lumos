@@ -51,7 +51,7 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
 
   return (
     <>
-      <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in National Parks</h2>
+      <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in U.S. National Parks</h2>
       <FormattedDate />
       <div className="collapse bg-background text-center mb-4">
         <input type="checkbox" />

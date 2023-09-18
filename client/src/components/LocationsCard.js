@@ -52,7 +52,7 @@ function LocationsCard({ location, favorites }) {
         <div className="card-body flex flex-col items-center">
           <div className="flex justify-center items-center">
             <h2 className="card-title text-center">{name}</h2>
-            <div className="relative group">
+            {/* <div className="relative group">
               <img
                 src={isFavorite ? pinIconActive : pinIcon}
                 alt="Favorite"
@@ -63,7 +63,7 @@ function LocationsCard({ location, favorites }) {
               <div className="absolute top-12 right-700 bg-primary text-white text-xs invisible group-hover:visible p-2 rounded w-24 h-22 flex items-center justify-center">
                 {isFavorite ? "Click me to remove this spot from your favorites" : "Click me to add this spot to your favorites"}
               </div>
-            </div>
+            </div> */}
           </div>
           <h3>{city}, {state}</h3>
           {sunriseData && (
