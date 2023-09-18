@@ -7,22 +7,23 @@ import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } fro
 
 function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(`/userfavorites`)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.status}`);
+          console.error(`Error fetching data: ${response.status}`);
+          return;
         }
         return response.json();
       })
       .then(favorites => {
-        setFavorites(favorites);
+        if (favorites) {
+          setFavorites(favorites);
+        }
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        setError(error.message);
       });
   }, [setFavorites]);
 
@@ -51,7 +52,6 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
 
   return (
     <>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
       <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in U.S. National Parks</h2>
       <FormattedDate />
       <div className="collapse bg-background text-center mb-4">
