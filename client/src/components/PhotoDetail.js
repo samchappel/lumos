@@ -5,11 +5,11 @@ import AddComment from './AddComment';
 import DeletePhoto from './DeletePhoto';
 
 function PhotoDetail() {
-  const { state: { photo, userId, handleDeletePhoto, handleAddComment, selectedPhoto, handleCloseAddComment, photos } } = useLocation();
+  const { state: { userId, handleDeletePhoto, handleAddComment, selectedPhoto, handleCloseAddComment } } = useLocation();
   const location = useLocation();
 
-  const [photoData, setPhoto] = useState(null); // define state variable for photo
-  const [comments, setComments] = useState([]); // define state variable for comments
+  const [photoData, setPhoto] = useState(null);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const photoId = location.pathname.split('/').pop();
@@ -26,9 +26,9 @@ function PhotoDetail() {
       });
   }, [location.pathname]);
 
-  const handleDeleteComment = (commentId) => {
-    setComments(comments.filter(comment => comment.id !== commentId));
-  };
+  // const handleDeleteComment = (commentId) => {
+  //   setComments(comments.filter(comment => comment.id !== commentId));
+  // };
 
   return (
     <div>

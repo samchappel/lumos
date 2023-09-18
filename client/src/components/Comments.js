@@ -12,23 +12,23 @@ function Comments({ photoId, userId }) {
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   useEffect(() => {
+    const fetchComments = () => {
+      fetch(`/photos/${photoId}/comments`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.status}`);
+          }
+          return response.json()
+        })
+        .then(setComments)
+        .catch(error => {
+          console.error('Error fetching data:', error)
+          setError(error.message)
+        });
+    };
+
     fetchComments();
   }, [photoId]);
-
-  const fetchComments = () => {
-    fetch(`/photos/${photoId}/comments`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.status}`);
-        }
-        return response.json()
-      })
-      .then(setComments)
-      .catch(error => {
-        console.error('Error fetching data:', error)
-        setError(error.message)
-      });
-  }
 
   const handleDelete = (commentId) => {
     fetch(`/comments/${commentId}`, { method: 'DELETE' })
@@ -82,9 +82,9 @@ function Comments({ photoId, userId }) {
     setShowCommentForm(false);
   };
 
-  const handleCancel = () => {
-    setCommentToEdit(null);
-  };
+  // const handleCancel = () => {
+  //   setCommentToEdit(null);
+  // };
 
   return (
     <div>

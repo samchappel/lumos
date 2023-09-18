@@ -46,12 +46,12 @@ function GalleryModal({ photo, photosProp, userId, closeModal, handleDeletePhoto
           <div className="carousel w-full relative">
             <img src={selectedPhoto.image} className="object-contain h-full mx-auto" alt={selectedPhoto.caption} />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-              <a href="#" className="btn btn-circle" onClick={handlePrev}>
+              <button className="btn btn-circle" onClick={handlePrev}>
                 ❮
-              </a>
-              <a href="#" className="btn btn-circle" onClick={handleNext}>
+              </button>
+              <button className="btn btn-circle" onClick={handleNext}>
                 ❯
-              </a>
+              </button>
             </div>
           </div>
           <div className="modal-details">

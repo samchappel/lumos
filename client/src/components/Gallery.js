@@ -12,32 +12,31 @@ function Gallery({ userId, isLoggedIn }) {
 
   const navigate = useNavigate();
 
-  const addPhotoToGallery = (newPhoto) => {
-    setPhotosProp(prevPhotos => [newPhoto, ...prevPhotos]);
-  };
+  // const addPhotoToGallery = (newPhoto) => {
+  //   setPhotosProp(prevPhotos => [newPhoto, ...prevPhotos]);
+  // };
 
   const handleAddPhoto = () => {
     navigate('/add');
   };
 
-  const fetchPhotos = () => {
-    fetch(`/photos?user_id=${userId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.status}`);
-        }
-        return response.json()
-      })
-      .then(data => {
-        setPhotosProp(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-        setError(error.message)
-      });
-  }
-
   useEffect(() => {
+    const fetchPhotos = () => {
+      fetch(`/photos?user_id=${userId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.status}`);
+          }
+          return response.json()
+        })
+        .then(data => {
+          setPhotosProp(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error)
+          setError(error.message)
+        });
+    };
     fetchPhotos();
   }, []);
 

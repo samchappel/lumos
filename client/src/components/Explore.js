@@ -45,12 +45,13 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
       location={location}
       setLocations={setLocations}
       favorites={favorites}
-      updateFavoriteStatus={updateFavoriteStatus} // Pass the updateFavoriteStatus prop
+      updateFavoriteStatus={updateFavoriteStatus}
     />
   ));
 
   return (
     <>
+      {error && <p className="text-red-500 mt-4">{error}</p>}
       <h2 className="text-center text-2xl my-4">Explore Sunrise & Sunset Times in U.S. National Parks</h2>
       <FormattedDate />
       <div className="collapse bg-background text-center mb-4">

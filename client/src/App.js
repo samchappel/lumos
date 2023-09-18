@@ -8,24 +8,24 @@ import NewPhotoForm from './components/NewPhotoForm';
 import Profile from './components/Profile';
 import Authentication from './components/Authentication';
 import NotFound from './components/NotFound';
-import Favorites from './components/Favorites';
+// import Favorites from './components/Favorites';
 import Gallery from './components/Gallery';
 import PhotoDetail from './components/PhotoDetail';
 import Footer from './components/Footer';
-import { useDispatch, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { setLocationData } from './redux/actions';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import './index.css';
 
 function App() {
-  const [page, setPage] = useState("/");
+  // const [page, setPage] = useState("/");
   const [locations, setLocations] = useState([]);
   const [error, setError] = useState(null);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isUserFetched, setIsUserFetched] = useState(false);
+  // const [isUserFetched, setIsUserFetched] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -33,6 +33,26 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUser = () => {
+      fetch('/authorized')
+        .then(response => {
+          if (response.ok) {
+            response.json()
+              .then(data => {
+                setUser(data);
+                fetchLocations();
+                sessionStorage.setItem('isLoggedIn', 'true');
+                setIsLoggedIn(true);
+                // setIsUserFetched(true); 
+              });
+          } else {
+            setIsLoggedIn(false);
+            setUser(null);
+            // setIsUserFetched(true); 
+          }
+        });
+    };
+
     fetchUser()
   }, []);
 
@@ -58,26 +78,6 @@ function App() {
     });
   }
 
-  const fetchUser = () => {
-    fetch('/authorized')
-      .then(response => {
-        if (response.ok) {
-          response.json()
-            .then(data => {
-              setUser(data);
-              fetchLocations();
-              sessionStorage.setItem('isLoggedIn', 'true');
-              setIsLoggedIn(true);
-              setIsUserFetched(true); 
-            });
-        } else {
-          setIsLoggedIn(false);
-          setUser(null);
-          setIsUserFetched(true); 
-        }
-      });
-  };
-
   const updateUser = (user) => setUser(user)
 
   const handleLogout = () => {
@@ -89,8 +89,6 @@ function App() {
       })
       .catch(error => console.error('Error logging out:', error));
   };
-
-  const dispatch = useDispatch();
 
   const addPhotoToGallery = (newPhoto) => {
     setPhotos([newPhoto, ...photos]);

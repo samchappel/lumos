@@ -50,6 +50,7 @@ function Home({ setLocationData, firstName }) {
   return (
     <>
       <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
+      {error && <p className="error-message">{error}</p>}
       <section className="py-12 px-4">
         <div className="max-w-2xl mx-auto text-center text-secondary">
         <h2 className="text-4xl font-bold mb-4 text-primary">Welcome, {firstName}!</h2>

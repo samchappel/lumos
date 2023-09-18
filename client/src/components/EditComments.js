@@ -31,33 +31,6 @@ function EditComments({ comment, setCommentToEdit, setComments, comments, onSave
       });
   }
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    fetch(`/comments/${comment.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        comment: editedComment,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error updating comment: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        onSave(data); 
-        setEditedComment('');
-      })
-      .catch(error => {
-        console.error('Error updating comment:', error);
-        setError(error.message);
-      });
-  };
-
   const handleCancel = () => {
     setCommentToEdit(null);
   };
