@@ -21,7 +21,7 @@ import './index.css';
 function App() {
   // const [page, setPage] = useState("/");
   const [locations, setLocations] = useState([]);
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -107,6 +107,7 @@ function App() {
 
   return (
     <div className="App">
+      {error && <div className="error-message">{error}</div>}
       {!isLoginPage && (
         <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
       )}
