@@ -38,7 +38,7 @@ function Gallery({ userId, isLoggedIn }) {
         });
     };
     fetchPhotos();
-  }, []);
+  }, [userId]);
 
   const openModal = (photo) => {
     setSelectedPhoto(photo);

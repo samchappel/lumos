@@ -41,6 +41,7 @@ function PhotoDetail() {
             {photoData.user.id === userId && (
                 <DeletePhoto photo={photoData} onDelete={handleDeletePhoto} />
               )}
+              <p>Total Comments: {comments.length}</p>
               <Comments photoId={photoData.id} userId={userId} onAddComment={() => handleAddComment(photoData)} />
               {selectedPhoto && selectedPhoto.id === photoData.id && (
                 <AddComment

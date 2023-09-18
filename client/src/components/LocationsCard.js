@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { setLocationData, updateFavoriteStatus } from '../redux/actions';
-import pinIcon from '../assets/pin_icon.jpg';
-import pinIconActive from '../assets/pin_icon_clicked.jpg';
+// import { connect } from 'react-redux';
+// import { setLocationData, updateFavoriteStatus } from '../redux/actions';
+// import pinIcon from '../assets/pin_icon.jpg';
+// import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
 function LocationsCard({ location, favorites }) {
   const { id, name, city, state, image, latitude, longitude, timezone } = location;
   const [sunriseData, setSunriseData] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
+  // const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
 
   const baseUrl = "https://api.sunrisesunset.io/json?";
 
@@ -20,30 +20,30 @@ function LocationsCard({ location, favorites }) {
       .catch(error => console.error('Error fetching sunrise data:', error));
   }, [latitude, longitude]);
 
-  useEffect(() => {
-    const localFavorite = localStorage.getItem(`favorite_${id}`);
-    if (localFavorite !== undefined && localFavorite !== null && localFavorite !== "undefined" && JSON.parse(localFavorite) !== isFavorite) {
-      setIsFavorite(JSON.parse(localFavorite));
-    }
-  }, [id, isFavorite]);
+  // useEffect(() => {
+  //   const localFavorite = localStorage.getItem(`favorite_${id}`);
+  //   if (localFavorite !== undefined && localFavorite !== null && localFavorite !== "undefined" && JSON.parse(localFavorite) !== isFavorite) {
+  //     setIsFavorite(JSON.parse(localFavorite));
+  //   }
+  // }, [id, isFavorite]);
 
-  const handleFavoriteClick = () => {
-    fetch(`/userfavorites/toggle?location_id=${id}`, {
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(data => {
-        const updatedIsFavorite = data.is_favorite;
+  // const handleFavoriteClick = () => {
+  //   fetch(`/userfavorites/toggle?location_id=${id}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const updatedIsFavorite = data.is_favorite;
 
-        updateFavoriteStatus(id, updatedIsFavorite);
-        setIsFavorite(updatedIsFavorite);
+  //       updateFavoriteStatus(id, updatedIsFavorite);
+  //       setIsFavorite(updatedIsFavorite);
 
-        localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite));
-      })
-      .catch(error => {
-        console.error('Error toggling favorite status:', error);
-      });
-  };
+  //       localStorage.setItem(`favorite_${id}`, JSON.stringify(updatedIsFavorite));
+  //     })
+  //     .catch(error => {
+  //       console.error('Error toggling favorite status:', error);
+  //     });
+  // };
 
   return (
     <div className="location-card-wrapper" style={{ marginBottom: '30px' }}>
@@ -82,15 +82,17 @@ function LocationsCard({ location, favorites }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    favorites: state.favorites,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     favorites: state.favorites,
+//   };
+// };
 
-const mapDispatchToProps = {
-  setLocationData,
-  updateFavoriteStatus,
-};
+// const mapDispatchToProps = {
+//   setLocationData,
+//   updateFavoriteStatus,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LocationsCard);
+// export default connect(mapStateToProps, mapDispatchToProps)(LocationsCard);
+
+export default LocationsCard;
