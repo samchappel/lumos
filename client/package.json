@@ -12,7 +12,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.14",
-    "daisyui": "^2.51.5",
     "fetch-jsonp": "^1.2.3",
     "formik": "^2.2.9",
     "moment": "^2.29.4",
@@ -58,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "daisyui": "^3.7.5",
     "postcss-cli": "^10.1.0"
   }
 }
