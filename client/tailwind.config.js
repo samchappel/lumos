@@ -7,7 +7,7 @@ module.exports = {
     themes: [
       {
         dracula: {
-          ...require("daisyui/src/colors/themes")["[data-theme=dracula]"],
+          ...require('daisyui/src/theming/themes.js')['[data-theme=dracula]'],
           primary: '#d07e3d',
           secondary: '#a9988d',
           accent: '#fbd873',
