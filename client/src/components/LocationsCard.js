@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 // import pinIconActive from '../assets/pin_icon_clicked.jpg';
 
 function LocationsCard({ location, favorites }) {
-  const { id, name, city, state, image, latitude, longitude, timezone } = location;
+  const { name, city, state, image, latitude, longitude, timezone } = location;
   const [sunriseData, setSunriseData] = useState(null);
   // const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.id === id));
 

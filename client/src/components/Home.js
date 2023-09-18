@@ -64,7 +64,7 @@ function Home({ setLocationData, firstName }) {
           {/* <p className="text-lg mb-8">
             Our Explore page allows you to discover sunrise and sunset data for national parks. Add your favorite parks to your personal collection for at-a-glance reference, and plan your next adventure to witness unforgettable sunrises and sunsets in these breathtaking landscapes.
           </p> */}
-          <p className="text-lg mb-4">
+          <p className="text-lg mb-10">
             Join our vibrant community of sun enthusiasts in the Lumos Gallery. Share your own stunning photos of sunrises and sunsets, explore and comment on other community members' photos, and get inspired by the breathtaking beauty captured around the world.
           </p>
           <button className="bg-primary text-accent rounded-lg py-3 px-6 text-lg font-semibold hover:bg-yellow-500" onClick={handleExplore}>Start Exploring ✨</button>
