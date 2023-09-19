@@ -7,7 +7,7 @@ Experience Lumos for yourself! Visit the live application <a href="https://lumos
 
 ![home page](https://github.com/samchappel/lumos/blob/main/client/src/assets/lumos_home.png?raw=true)
 
-Lumos is designed to provide users with an intuitive and comprehensive guide to discover the sunrise, sunset, and other crucial info, such as the golden hour and total hours of daylight, for their favorite national parks and user-specific locations.
+Lumos is designed to provide users with an intuitive and comprehensive guide to discover sunrise, sunset, and golden hour times, along with other crucial info such as total hours of daylight and 12-hour hourly weather forecasts, for their favorite national parks and user-specific locations.
 
 ### Built With
 
@@ -18,7 +18,6 @@ Lumos is designed to provide users with an intuitive and comprehensive guide to 
 * [![SQLAlchemy][SQLAlchemy.com]][SQLalchemy-url]
 * ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
 * [![🌼 daisyUI][daisyUI.com]][daisyUI-url]
-* 
 
 ### API's Utilized
 * [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview)
