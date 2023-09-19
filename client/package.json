@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://127.0.0.1:5555",
+  "engines": {
+    "node": "16.9.0"
+  },
   "dotenv": {
     "path": "client/.env"
   },
@@ -34,7 +37,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && postcss src/index.css -o src/index.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
