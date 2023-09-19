@@ -49,6 +49,7 @@
 
 //   return (
 //     <div>
+//       {error && <p className="text-red-500">{error}</p>}
 //       {user ? (
 //         <>
 //           <h2 className="text-center text-2xl my-4">View Your Favorite Locations At-A-Glance</h2>

@@ -7,6 +7,10 @@ function Search({ handleSearch }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!query.trim()) {
+      setError('Please enter a valid search term.');
+      return;
+    }
     handleSearch(query);
     setQuery('');
   };

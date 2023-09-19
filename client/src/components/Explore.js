@@ -7,22 +7,23 @@ import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } fro
 
 function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(`/userfavorites`)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.status}`);
+          console.error(`Error fetching data: ${response.status}`);
+          return;
         }
         return response.json();
       })
       .then(favorites => {
-        setFavorites(favorites);
+        if (favorites) {
+          setFavorites(favorites);
+        }
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        setError(error.message);
       });
   }, [setFavorites]);
 
@@ -45,7 +46,7 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
       location={location}
       setLocations={setLocations}
       favorites={favorites}
-      updateFavoriteStatus={updateFavoriteStatus} // Pass the updateFavoriteStatus prop
+      updateFavoriteStatus={updateFavoriteStatus}
     />
   ));
 

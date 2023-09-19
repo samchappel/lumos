@@ -6,40 +6,34 @@ import GalleryModal from './GalleryModal';
 import GalleryHover from './GalleryHover';
 
 function Gallery({ userId, isLoggedIn }) {
-  const [error, setError] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosProp, setPhotosProp] = useState([]);
 
   const navigate = useNavigate();
 
-  const addPhotoToGallery = (newPhoto) => {
-    setPhotosProp(prevPhotos => [newPhoto, ...prevPhotos]);
-  };
-
   const handleAddPhoto = () => {
     navigate('/add');
   };
 
-  const fetchPhotos = () => {
-    fetch(`/photos?user_id=${userId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.status}`);
-        }
-        return response.json()
-      })
-      .then(data => {
-        setPhotosProp(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-        setError(error.message)
-      });
-  }
-
   useEffect(() => {
+    const fetchPhotos = () => {
+      fetch(`/photos?user_id=${userId}`)
+        .then(response => {
+          if (!response.ok) {
+            console.error(`Error fetching data: ${response.status}`);
+            return;
+          }
+          return response.json()
+        })
+        .then(data => {
+          setPhotosProp(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    };
     fetchPhotos();
-  }, []);
+  }, [userId]);
 
   const openModal = (photo) => {
     setSelectedPhoto(photo);
@@ -68,7 +62,6 @@ function Gallery({ userId, isLoggedIn }) {
     <div className="text-center mt-8">
       <h1 className="text-3xl font-bold mb-4">For the Glow Getters: Our Community's Sunrise and Sunset Hub</h1>
       <button className="btn btn-outline btn-primary mb-4" onClick={handleAddPhoto}>Add To Gallery</button>
-      {error && <p>{error}</p>}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {photosProp.map(photo => (
           <GalleryHover key={photo.id} photo={photo} openModal={openModal} />
