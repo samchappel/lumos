@@ -15,6 +15,9 @@ from config import app, api, db, migrate, bcrypt, CORS, login_manager, load_user
 
 login_manager.init_app(app)
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+build_directory = os.path.join(current_directory, '..', 'client', 'build')
+
 
 class Users(Resource):
     def get(self):
@@ -519,6 +522,14 @@ class Logout(Resource):
         return response
 
 api.add_resource(Logout, '/logout', endpoint='logout')
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists(os.path.join(build_directory, path)):
+        return send_from_directory(build_directory, path)
+    else:
+        return send_from_directory(build_directory, 'index.html')
 
 
 @app.errorhandler(NotFound)
