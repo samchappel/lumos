@@ -8,24 +8,24 @@ import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } fro
 function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  // useEffect(() => {
-  //   fetch(`/userfavorites`)
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         console.error(`Error fetching data: ${response.status}`);
-  //         return;
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(favorites => {
-  //       if (favorites) {
-  //         setFavorites(favorites);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, [setFavorites]);
+  useEffect(() => {
+    fetch(`/userfavorites`)
+      .then(response => {
+        if (!response.ok) {
+          console.error(`Error fetching data: ${response.status}`);
+          return;
+        }
+        return response.json();
+      })
+      .then(favorites => {
+        if (favorites) {
+          setFavorites(favorites);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, [setFavorites]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
