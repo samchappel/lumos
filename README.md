@@ -2,70 +2,69 @@
 
 It's all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.
 
+## Live Site
+Experience Lumos for yourself! Visit the live application <a href="https://lumos-v1.onrender.com">here</a>.
+
 ## Installation
 
 Clone the repository to your local machine:
 ```
-  $ git clone https://github.com/your-username/lumos.git
+$ git clone https://github.com/your-username/lumos.git
   ```
-  
-**Set up the Python/Flask backend:**
-
-Navigate to the server directory:
-```
-  $ cd server
-  ```
-  
-Install the required packages and dependencies using Pipenv:
-```
-  $ pipenv install && pipenv shell
-  ```
-  
-Set up the required environment variables in the server directory:
-```
-  $ export FLASK_APP=app.py
-  $ export FLASK_RUN_PORT=5555
-  ```
-  
-Apply migrations and set up initial database schema:
-```
-  $ flask db upgrade head
-  ```
-
-Seed the database with initial data:
-```
-  $ python seed.py
-  ```
-
-You can run the app and explore the APIs in the browser by using the Flask command:
-```
-  $ flask run --debug
-  ```
-Environment Variables:
-
-For connecting the app to the external database and any other backend configurations, a .env file is required in the server directory. This file should contain the following (`your_postgres_database_url` should be replaced your actual PostgreSQL URL):
-```
-  $ DATABASE_URI=your_postgres_database_url
-  ```
-
-> **⚠️ Note:** Never commit the .env file to version control. It contains sensitive information and should be kept private. If you're cloning or forking this repository, make sure to create your own .env file with your personal configurations.
-
 
 **Set up the React frontend:**
 
-In a new terminal window, navigate to the client directory:
+Navigate to the client directory:
 ```
-  $ cd ../client
+$ cd client
   ```
 
 Install the required packages and dependencies using npm:
 ```
-  $  npm install
+$  npm install
+  ```
+  
+**Set up the Python/Flask backend:**
+
+In a new terminal window, navigate to the server directory:
+```
+$ cd server
+  ```
+  
+Install the required packages and dependencies using Pipenv:
+```
+$ pipenv install && pipenv shell
+  ```
+  
+Set up the required environment variables in the server directory:
+```
+$ export FLASK_APP=app.py
+$ export FLASK_RUN_PORT=5555
   ```
 
-Start the React frontend server:
+For connecting the app to the external database, a .env file is required in the server directory. This file should contain the following and `your_postgres_database_url` should be replaced your actual PostgreSQL URL:
 ```
-  $  npm start
+DATABASE_URI=your_postgres_database_url
+  ```
+  
+Apply migrations and set up initial database schema:
+```
+$ flask db upgrade head
+  ```
+
+Seed the database with initial data:
+```
+$ python seed.py
+  ```
+
+Navigate back to the main project directory:
+```
+$ cd ..
+  ```
+
+Start both the backend and frontend:
+```
+$ honcho start
   ```
 
 ## Credentials
@@ -92,7 +91,7 @@ REACT_APP_QUALITY_ACCESS_TOKEN=
 Lumos was born out of a deep appreciation for the great outdoors and a desire to capture and celebrate the beauty of natural events. The project is driven by a passion for preserving the fleeting moments of sunrise, sunset, and the golden hour while inviting a community of like-minded individuals to embark on a collective journey of discovery, connection, and appreciation. But let's be honest - sunrise and sunset data is readily available just about everywhere. So what makes Lumos special? I wanted to create a platform that not only helps users track and plan their outdoor activities but also offers predictions and forecasts to enhance their experience and provides a community space to connect and share with others. Insightful quality predictions and hourly weather updates take planning a step further so Lumos users know what to expect, not just when to expect it. Lumos aims to be the go-to app for hikers, photographers, sun enthusiasts, and travelers seeking to put themselves in the way of beauty.
 
 
-## Author
+## Contact
   
 ### Sam Chappel
 Github: <a href="https://github.com/samchappel">samchappel</a><br>
