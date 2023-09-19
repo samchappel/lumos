@@ -2,8 +2,29 @@
 
 It's all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.
 
-## Live Site
+## About The Project
 Experience Lumos for yourself! Visit the live application <a href="https://lumos-v1.onrender.com">here</a>.
+
+![home page](https://github.com/samchappel/lumos/blob/main/client/src/assets/lumos_home.png?raw=true)
+
+Lumos is designed to provide users with an intuitive and comprehensive guide to discover the sunrise, sunset, and other crucial info, such as the golden hour and total hours of daylight, for their favorite national parks and user-specific locations.
+
+### Built With
+
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) 
+* ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+* ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) 
+* ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+* [![SQLAlchemy][SQLAlchemy.com]][SQLalchemy-url]
+* ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
+* [![🌼 daisyUI][daisyUI.com]][daisyUI-url]
+* 
+
+### API's Utilized
+* [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview)
+* [SunriseSunset.io API](https://sunrisesunset.io/api/)
+* [Suburst Quality API](https://sunsetwx.com/sunburst/)
+* [National Weather Service (NWS) API](https://www.weather.gov/documentation/services-web-api)
 
 ## Installation
 
@@ -96,3 +117,10 @@ Lumos was born out of a deep appreciation for the great outdoors and a desire to
 ### Sam Chappel
 Github: <a href="https://github.com/samchappel">samchappel</a><br>
 Email: <a href="mailto:hello@samchappel.com">hello@samchappel.com</a>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[SQLAlchemy.com]: https://img.shields.io/badge/-SQLAlchemy-black?style=for-the-badge&logo=serverfault
+[SQLalchemy-url]: https://www.sqlalchemy.org/
+[daisyUI.com]: https://img.shields.io/badge/-🌼%20daisyUI-19d1a5?style=for-the-badge
+[daisyUI-url]: https://daisyui.com/
