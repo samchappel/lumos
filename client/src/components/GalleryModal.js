@@ -48,7 +48,7 @@ function GalleryModal({ photo, photosProp, userId, closeModal, handleDeletePhoto
               src={selectedPhoto.image}
               className="object-contain h-full mx-auto" 
               alt={selectedPhoto.caption}
-              onError={(e) => e.target.src = 'client/public/Lumos (2).png'}
+              onError={(e) => e.target.src = '/Lumos (2).png'}
             />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
               <button className="btn btn-circle" onClick={handlePrev}>
