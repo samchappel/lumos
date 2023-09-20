@@ -3,7 +3,7 @@ import FormattedDate from './FormattedDate';
 import LocationsCard from './LocationsCard';
 import ExploreSearch from './ExploreSearch';
 
-function Explore({}) {
+function Explore() {
   const [ locations, setLocations ] = useState([]);
   const [ searchTerm, setSearchTerm ] = useState("");
 
