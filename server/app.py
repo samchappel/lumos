@@ -7,6 +7,7 @@ from models import User, UserFavorite, Location, Comment, Like, Photo, db
 from enum import Enum
 from datetime import datetime
 from werkzeug.utils import secure_filename
+import cloudinary.uploader
 import os
 
 from flask_login import LoginManager
@@ -252,13 +253,13 @@ class UserFavoritesDelete(Resource):
 api.add_resource(UserFavoritesDelete, '/userfavorites/delete')
 
 
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# UPLOAD_FOLDER = 'uploads'
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# def allowed_file(filename):
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 class Photos(Resource):
@@ -273,19 +274,18 @@ class Photos(Resource):
 
     def post(self):
         image = request.files.get('image')
-        if not image or not allowed_file(image.filename):
+        if not image:
             return make_response({'message': 'No file or unsupported file type'}, 400)
 
-        filename = secure_filename(image.filename)
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        image = f'/uploads/{filename}'
+        # Upload the image to Cloudinary
+        upload_result = cloudinary.uploader.upload(image)
+        image_url = upload_result["url"]  # This URL can be stored in the database
 
         form_data = request.form
         date_str = request.form.get('date')
         date = datetime.strptime(date_str, '%Y-%m-%d').date()
         new_photo = Photo(
-            image=image,
+            image=image_url,  # Store the secure URL in the database
             location=form_data['location'],
             city=form_data['city'],
             state=form_data['state'],

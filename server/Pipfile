@@ -40,6 +40,7 @@ sqlalchemy = "==2.0.20"
 tomli = "==2.0.1"
 typing-extensions = "==4.7.1"
 zipp = "==3.16.2"
+cloudinary = "*"
 
 [dev-packages]
 
