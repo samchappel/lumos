@@ -21,6 +21,7 @@ const GalleryHover = ({ photo, openModal }) => {
       <img
         src={photo.image}
         alt={photo.caption}
+        onError={(e) => e.target.src = '/Lumos (2).png'}
         className="w-full h-auto max-h-60 object-cover cursor-pointer"
       />
       {isHovered && (

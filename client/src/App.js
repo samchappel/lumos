@@ -8,7 +8,6 @@ import NewPhotoForm from './components/NewPhotoForm';
 import Profile from './components/Profile';
 import Authentication from './components/Authentication';
 import NotFound from './components/NotFound';
-// import Favorites from './components/Favorites';
 import Gallery from './components/Gallery';
 import PhotoDetail from './components/PhotoDetail';
 import Footer from './components/Footer';
@@ -19,13 +18,10 @@ import { store, persistor } from './redux/store';
 import './index.css';
 
 function App() {
-  // const [page, setPage] = useState("/");
-  const [locations, setLocations] = useState([]);
   const [error, setError] = useState(null);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [isUserFetched, setIsUserFetched] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [photos, setPhotos] = useState([]);
@@ -40,15 +36,12 @@ function App() {
             response.json()
               .then(data => {
                 setUser(data);
-                fetchLocations();
                 sessionStorage.setItem('isLoggedIn', 'true');
                 setIsLoggedIn(true);
-                // setIsUserFetched(true); 
               });
           } else {
             setIsLoggedIn(false);
             setUser(null);
-            // setIsUserFetched(true); 
           }
         });
     };
@@ -62,21 +55,6 @@ function App() {
       setIsLoggedIn(JSON.parse(storedIsLoggedIn));
     }
   }, []);
-
-  const fetchLocations = () => {
-    fetch('/locations')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error fetching data: ${response.status}`);
-      }
-      return response.json()
-    })
-    .then(setLocations)
-    .catch(error => {
-      console.error('Error fetching data:', error)
-      setError(error.message)
-    });
-  }
 
   const updateUser = (user) => setUser(user)
 
@@ -119,8 +97,6 @@ function App() {
               path="/home"
               element={
                 <Home
-                  locations={locations}
-                  setLocations={setLocations}
                   latitude={latitude}
                   longitude={longitude}
                   setError={setError}
@@ -134,8 +110,6 @@ function App() {
               path="/explore"
               element={
                 <Explore
-                  locations={locations}
-                  setLocations={setLocations}
                   latitude={latitude}
                   longitude={longitude}
                   setError={setError}
@@ -146,7 +120,6 @@ function App() {
             />
             <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
             <Route path="/profile" element={<Profile />} />
-            {/* <Route path="/favorites" element={<Favorites user={user} />} /> */}
             <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn} /> : null} />
             <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
             <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
