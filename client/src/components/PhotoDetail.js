@@ -26,15 +26,17 @@ function PhotoDetail() {
       });
   }, [location.pathname]);
 
-  // const handleDeleteComment = (commentId) => {
-  //   setComments(comments.filter(comment => comment.id !== commentId));
-  // };
-
   return (
     <div>
       {photoData && (
         <div className="card lg:card-side bg-base-100 shadow-xl">
-          <figure><img src={photoData.image} alt={photoData.caption} /></figure>
+          <figure>
+            <img 
+              src={photoData.image} 
+              alt={photoData.caption} 
+              onError={(e) => e.target.src = 'path_to_default_image.jpg'}
+            />
+          </figure>
           <div className="card-body">
             <h2 className="card-title">{photoData.caption}</h2>
             <p><strong>Photo by: {photoData.user.first_name} {photoData.user.last_name}</strong></p>

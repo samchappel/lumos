@@ -7,7 +7,6 @@ import { BsPencilSquare } from "react-icons/bs";
 
 function Comments({ photoId, userId }) {
   const [comments, setComments] = useState([]);
-  const [error, setError] = useState(null);
   const [commentToEdit, setCommentToEdit] = useState(null);
   const [showCommentForm, setShowCommentForm] = useState(false);
 
@@ -22,8 +21,7 @@ function Comments({ photoId, userId }) {
         })
         .then(setComments)
         .catch(error => {
-          console.error('Error fetching data:', error)
-          setError(error.message)
+          console.error('Error fetching data:', error);
         });
     };
 
@@ -72,7 +70,6 @@ function Comments({ photoId, userId }) {
       })
       .catch(error => {
         console.error('Error updating comment:', error);
-        setError(error.message);
       });
   };
 
@@ -82,13 +79,8 @@ function Comments({ photoId, userId }) {
     setShowCommentForm(false);
   };
 
-  // const handleCancel = () => {
-  //   setCommentToEdit(null);
-  // };
-
   return (
     <div>
-      {error && <p>{error}</p>}
       {comments.map(comment => (
         <div key={comment.id} className="flex justify-center space-x-2 mb-2">
           <p>

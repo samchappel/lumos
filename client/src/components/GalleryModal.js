@@ -44,7 +44,12 @@ function GalleryModal({ photo, photosProp, userId, closeModal, handleDeletePhoto
       <div className="modal-container bg-base-200 p-8 w-full md:w-3/4 lg:w-1/2 max-h-full overflow-y-auto rounded-lg shadow-lg relative">
         <div className="modal-content">
           <div className="carousel w-full relative">
-            <img src={selectedPhoto.image} className="object-contain h-full mx-auto" alt={selectedPhoto.caption} />
+            <img 
+              src={selectedPhoto.image}
+              className="object-contain h-full mx-auto" 
+              alt={selectedPhoto.caption}
+              onError={(e) => e.target.src = 'client/public/Lumos (2).png'}
+            />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
               <button className="btn btn-circle" onClick={handlePrev}>
                 ❮
