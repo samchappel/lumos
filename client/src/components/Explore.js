@@ -2,30 +2,27 @@ import React, { useState, useEffect } from "react";
 import FormattedDate from './FormattedDate';
 import LocationsCard from './LocationsCard';
 import ExploreSearch from './ExploreSearch';
-import { connect } from 'react-redux';
-import { setLocationData, setLocations, updateFavoriteStatus, setFavorites } from '../redux/actions';
 
-function Explore({ locations, setLocations, favorites, setFavorites, updateFavoriteStatus }) {
-  const [searchTerm, setSearchTerm] = useState("");
+function Explore({}) {
+  const [ locations, setLocations ] = useState([]);
+  const [ searchTerm, setSearchTerm ] = useState("");
 
   useEffect(() => {
-    fetch(`/userfavorites`)
+    const fetchLocations = () => {
+      fetch('/locations')
       .then(response => {
         if (!response.ok) {
-          console.error(`Error fetching data: ${response.status}`);
-          return;
+          throw new Error(`Error fetching data: ${response.status}`);
         }
-        return response.json();
+        return response.json()
       })
-      .then(favorites => {
-        if (favorites) {
-          setFavorites(favorites);
-        }
-      })
+      .then(setLocations)
       .catch(error => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
       });
-  }, [setFavorites]);
+    };
+    fetchLocations();
+  }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -45,8 +42,6 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
       key={location.id}
       location={location}
       setLocations={setLocations}
-      favorites={favorites}
-      updateFavoriteStatus={updateFavoriteStatus}
     />
   ));
 
@@ -75,11 +70,4 @@ function Explore({ locations, setLocations, favorites, setFavorites, updateFavor
   )
 }
 
-const mapDispatchToProps = {
-  setLocationData,
-  setLocations,
-  updateFavoriteStatus,
-  setFavorites,
-};
-
-export default connect(null, mapDispatchToProps)(Explore);
+export default Explore;
