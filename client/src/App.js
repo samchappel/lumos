@@ -109,13 +109,7 @@ function App() {
             <Route
               path="/explore"
               element={
-                <Explore
-                  latitude={latitude}
-                  longitude={longitude}
-                  setError={setError}
-                  setLatitude={setLatitude}
-                  setLongitude={setLongitude}
-                />
+                <Explore />
               }
             />
             <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
