@@ -261,19 +261,13 @@ class Photos(Resource):
         )
 
         return response
-        
-    @staticmethod
-    def ensure_https(photo):
-        if photo.image and photo.image.startswith('http://res.cloudinary.com'):
-            photo.image = photo.image.replace('http://', 'https://')
-        return photo
 
     def post(self):
         image = request.files.get('image')
         if not image:
             return make_response({'message': 'No file or unsupported file type'}, 400)
 
-        upload_result = cloudinary.uploader.upload(image, format="jpg", secure=True)
+        upload_result = cloudinary.uploader.upload(image, format="jpg")
         image_url = upload_result["url"]
 
         form_data = request.form
