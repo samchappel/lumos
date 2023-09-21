@@ -18,7 +18,7 @@ app = Flask(__name__, static_folder='uploads')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
-app.secret_key = os.environ.get('BAD_SECRET_KEY')
+app.secret_key = 'BAD_SECRET_KEY'
 
 cloudinary.config( 
     cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'), 
