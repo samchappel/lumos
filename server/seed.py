@@ -229,7 +229,7 @@ print('creating photos')
 photos_list = [
     {"user_id": 1, "image": "./uploads/1.jpeg", "location": "Turkey Burn", "city": "Moab", "state": "Utah", "caption": "Full moon at sunset, nothing could make this better", "date": "2015-11-03"},
     {"user_id": 1, "image": "./uploads/2.jpeg", "location": "College of the Atlantic", "city": "Bar Harbor", "state": "Maine", "caption": "Sunset at my old college pier", "date": "2014-08-12"},
-    {"user_id": 2, "image": "./uploads/3.jpg", "location": "Roy", "city": "Roy", "state": "New Mexico", "caption": "Light show after a little bouldering!", "date": "2015-11-03"},
+    {"user_id": 2, "image": "./uploads/3.JPG", "location": "Roy", "city": "Roy", "state": "New Mexico", "caption": "Light show after a little bouldering!", "date": "2015-11-03"},
     {"user_id": 2, "image": "./uploads/4.jpeg", "location": "Jurassic Park - Rocky Mountain Natioal Park", "city": "Estes Park", "state": "Colorado", "caption": "Sun blip on The Edge of Time with a view on Longs Peak in the back!", "date": "2017-09-16"},
     {"user_id": 2, "image": "./uploads/5.jpeg", "location": "Snoqualmie Pass", "city": "North Bend", "state": "Washington", "caption": "Visting Sam in Washington! Might have to move here!!!", "date": "2015-11-03"},
     {"user_id": 3, "image": "./uploads/6.jpg", "location": "Eastern Sierras", "city": "Crestview", "state": "California", "caption": "Check out more of my film photos on Instagram! (@filmpotato_)", "date": "2017-09-16"},
