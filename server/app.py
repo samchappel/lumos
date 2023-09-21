@@ -252,16 +252,6 @@ class UserFavoritesDelete(Resource):
 
 api.add_resource(UserFavoritesDelete, '/userfavorites/delete')
 
-
-# UPLOAD_FOLDER = 'uploads'
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# def allowed_file(filename):
-#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 class Photos(Resource):
     def get(self):
         photo_list = [photo.to_dict() for photo in Photo.query.all()]
@@ -277,15 +267,14 @@ class Photos(Resource):
         if not image:
             return make_response({'message': 'No file or unsupported file type'}, 400)
 
-        # Upload the image to Cloudinary
-        upload_result = cloudinary.uploader.upload(image)
-        image_url = upload_result["url"]  # This URL can be stored in the database
+        upload_result = cloudinary.uploader.upload(image, format="jpg")
+        image_url = upload_result["url"]
 
         form_data = request.form
         date_str = request.form.get('date')
         date = datetime.strptime(date_str, '%Y-%m-%d').date()
         new_photo = Photo(
-            image=image_url,  # Store the secure URL in the database
+            image=image_url,
             location=form_data['location'],
             city=form_data['city'],
             state=form_data['state'],
