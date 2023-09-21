@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_login import LoginManager
 import cloudinary
+import cloudinary.api
 import cloudinary.uploader
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,12 +18,13 @@ app = Flask(__name__, static_folder='uploads')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
-app.secret_key = 'BAD_SECRET_KEY'
+app.secret_key = os.environ.get('BAD_SECRET_KEY')
 
 cloudinary.config( 
     cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'), 
     api_key = os.environ.get('CLOUDINARY_API_KEY'), 
-    api_secret = os.environ.get('CLOUDINARY_API_SECRET') 
+    api_secret = os.environ.get('CLOUDINARY_API_SECRET') ,
+    secure=True,
 )
 
 metadata = MetaData(naming_convention={
