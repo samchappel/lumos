@@ -3,7 +3,7 @@
 It's all sun and games until you run out of light. Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.
 
 ## About The Project
-Experience Lumos for yourself! Visit the live application <a href="https://lumos-v1.onrender.com">here</a>.
+Experience Lumos for yourself! Visit the live application <a href="https://www.lumos.samchappel.com/">here</a>.
 
 ![home page](https://github.com/samchappel/lumos/blob/main/client/src/assets/lumos_home.png?raw=true)
 
@@ -96,6 +96,13 @@ REACT_APP_GEOCODE_API_KEY=
 REACT_APP_QUALITY_ACCESS_TOKEN=
 ```
 
+Your Cloudinary credentials should also be stored in a `.env` file in the server directory. Add the following lines and replace with your actual credentials:
+```
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
 ## Features
 
 - Solar Event Timings: Lumos provides accurate and up-to-date timings for sunrise, sunset, and the golden hour based on user-selected locations. This information helps users plan their activities and capture stunning moments with the best lighting conditions.
@@ -105,6 +112,7 @@ REACT_APP_QUALITY_ACCESS_TOKEN=
 - CRUD Operations and Data Validation: The application allows users to upload images and leave comments, with full CRUD (Create, Read, Update, Delete) operations supported. User inputs are validated using Formik forms, ensuring data integrity and security.
 - Authentication and Resource Ownership: Lumos implements authentication, enabling users to edit and delete only the resources they created. This enhances security and ensures a personalized experience for each user.
 - Efficient Data Transfer: Complex many-to-many relationships between data models are efficiently handled using SQLAlchemy and SQLAlchemy-Serializer, optimizing data transfer and retrieval.
+- Image Operations: Lumos uses Cloudinary for seamless image uploading, transformations, and optimizations, ensuring users can share their experiences with high-quality imagery.
 
 ## Motivation
 
