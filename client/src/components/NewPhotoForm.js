@@ -82,7 +82,6 @@ function NewPhotoForm({ addPhotoToGallery }) {
               ref={imageInputRef}
               className="block mt-1 w-full"
             />
-            <div className="text-white text-xs">Accepted file types: png, jpg, jpeg, gif.</div>
             <ErrorMessage name="image" component="div" className="text-red-500 mt-1" />
           </label>
           <label className="block mb-2">
