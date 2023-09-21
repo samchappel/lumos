@@ -30,24 +30,29 @@ function App() {
 
   useEffect(() => {
     const fetchUser = () => {
-      fetch('/authorized')
-        .then(response => {
-          if (response.ok) {
-            response.json()
-              .then(data => {
-                setUser(data);
-                sessionStorage.setItem('isLoggedIn', 'true');
-                setIsLoggedIn(true);
-              });
-          } else {
+      if (location.pathname !== '/') {
+        fetch('/authorized')
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Not authorized');
+            }
+          })
+          .then(data => {
+            setUser(data);
+            sessionStorage.setItem('isLoggedIn', 'true');
+            setIsLoggedIn(true);
+          })
+          .catch(() => {
             setIsLoggedIn(false);
             setUser(null);
-          }
-        });
+          });
+      }
     };
-
-    fetchUser()
-  }, []);
+  
+    fetchUser();
+  }, [location.pathname]);
 
   useEffect(() => {
     const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
