@@ -5,7 +5,7 @@ It's all sun and games until you run out of light. Lumos is your go-to guide for
 ## About The Project
 Experience Lumos for yourself! Visit the live application <a href="https://www.lumos.samchappel.com/">here</a>.
 
-![home page](https://github.com/samchappel/lumos/blob/main/client/src/assets/lumos_home.png?raw=true)
+![home page](https://github.com/samchappel/lumos/blob/deploy/client/src/assets/lumos_home.png?raw=true)
 
 Lumos is designed to provide users with an intuitive and comprehensive guide to discover sunrise, sunset, and golden hour times, along with other crucial info such as total hours of daylight and 12-hour hourly weather forecasts, for their favorite national parks and user-specific locations.
 
