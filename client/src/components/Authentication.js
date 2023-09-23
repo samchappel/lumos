@@ -70,7 +70,7 @@ const Authentication = ({ updateUser, setIsLoggedIn }) => {
       dispatch(setUserData({ first_name: user.first_name }));
     } else {
       setSubmitting(false);
-      setFieldError('general', 'Login failed');
+      setFieldError('general', 'Login failed. Please try again.');
     }
   } catch (error) {
     setSubmitting(false);
