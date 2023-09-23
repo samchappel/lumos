@@ -134,12 +134,7 @@ class Photo(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     image = db.Column(db.String)
-    location = db.Column(db.String)
-    city = db.Column(db.String)
-    state = db.Column(db.String)
     caption = db.Column(db.String)
-    date = db.Column(Date)
-    # timezone = db.Column(Enum(Tmz), default=Tmz.EST)
 
     user = db.relationship('User', back_populates='photos')
     comments = db.relationship('Comment', back_populates='photo', cascade='all, delete-orphan')

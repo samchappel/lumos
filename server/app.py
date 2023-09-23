@@ -259,7 +259,6 @@ class Photos(Resource):
             photo_list,
             200
         )
-
         return response
 
     def post(self):
@@ -271,15 +270,11 @@ class Photos(Resource):
         image_url = upload_result["url"]
 
         form_data = request.form
-        date_str = request.form.get('date')
-        date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        # date_str = request.form.get('date')
+        # date = datetime.strptime(date_str, '%Y-%m-%d').date()
         new_photo = Photo(
             image=image_url,
-            location=form_data['location'],
-            city=form_data['city'],
-            state=form_data['state'],
             caption=form_data['caption'],
-            date=date,
             user_id=session['user_id']
         )
 

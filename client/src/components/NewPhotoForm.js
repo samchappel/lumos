@@ -5,19 +5,15 @@ import * as Yup from 'yup';
 
 const photoSchema = Yup.object().shape({
   image: Yup.mixed().required('Required'),
-  location: Yup.string().required('Required'),
-  city: Yup.string().required('Required'),
-  state: Yup.string().required('Required'),
   caption: Yup.string().required('Required'),
-  date: Yup.date().required('Required'),
 });
 
 function NewPhotoForm({ addPhotoToGallery }) {
   const navigate = useNavigate();
-  const imageInputRef = useRef(); 
+  const imageInputRef = useRef();
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const imageFile = imageInputRef.current.files[0]; 
+    const imageFile = imageInputRef.current.files[0];
     if (!imageFile) {
       console.error('No image file selected');
       return;
@@ -25,18 +21,14 @@ function NewPhotoForm({ addPhotoToGallery }) {
 
     const formData = new FormData();
     formData.append('image', imageFile);
-    formData.append('location', values.location);
-    formData.append('city', values.city);
-    formData.append('state', values.state);
     formData.append('caption', values.caption);
-    formData.append('date', values.date);
 
     try {
       const response = await fetch('/photos', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
-      
+
       if (response.ok) {
         const newPhoto = await response.json();
         console.log(newPhoto);
@@ -60,11 +52,7 @@ function NewPhotoForm({ addPhotoToGallery }) {
     <Formik
       initialValues={{
         image: null,
-        location: '',
-        city: '',
-        state: '',
         caption: '',
-        date: '',
       }}
       validationSchema={photoSchema}
       onSubmit={handleSubmit}
@@ -85,29 +73,9 @@ function NewPhotoForm({ addPhotoToGallery }) {
             <ErrorMessage name="image" component="div" className="text-red-500 mt-1" />
           </label>
           <label className="block mb-2">
-            <span className="text-secondary">Location:</span>
-            <Field type="text" name="location" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="location" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">City:</span>
-            <Field type="text" name="city" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="city" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">State:</span>
-            <Field type="text" name="state" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="state" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
             <span className="text-secondary">Caption:</span>
             <Field type="text" name="caption" className="form-input mt-1 block w-full" />
             <ErrorMessage name="caption" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">Date:</span>
-            <Field type="date" name="date" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="date" component="div" className="text-red-500 mt-1" />
           </label>
           <div className="flex justify-end mt-4">
             <button
