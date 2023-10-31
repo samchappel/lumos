@@ -5,7 +5,6 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 from sqlalchemy import CheckConstraint, Date, Enum, func, literal_column
 from sqlalchemy.sql import select
-from flask_login import LoginManager
 from enum import Enum as PyEnum
 import re
 

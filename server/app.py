@@ -1,6 +1,6 @@
 from flask import  request, make_response, session, abort, jsonify, Flask, send_from_directory
 from flask_restful import Api, Resource
-from flask_login import current_user, login_required
+from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import NotFound, Unauthorized
 from models import User, UserFavorite, Location, Comment, Like, Photo, db
@@ -10,11 +10,11 @@ from werkzeug.utils import secure_filename
 import cloudinary.uploader
 import os
 
-from flask_login import LoginManager
+from flask_login import login_required
 
 from config import app, api, db, migrate, bcrypt, CORS, login_manager, load_user
 
-login_manager.init_app(app)
+# login_manager.init_app(app)
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 build_directory = os.path.join(current_directory, '..', 'client', 'build')
@@ -262,6 +262,7 @@ class Photos(Resource):
 
         return response
 
+    @login_required
     def post(self):
         image = request.files.get('image')
         if not image:
@@ -295,7 +296,7 @@ class Photos(Resource):
 
         return response
 
-api.add_resource(Photos, '/photos')
+api.add_resource(Photos, '/login-required/photos')
 
 
 class PhotoByID(Resource):
@@ -353,7 +354,7 @@ class PhotoByID(Resource):
 
         return response
 
-api.add_resource(PhotoByID, '/photos/<int:id>')
+api.add_resource(PhotoByID, '/login-required/photos/<int:id>')
 
 
 class Comments(Resource):
@@ -366,6 +367,7 @@ class Comments(Resource):
 
         return response
 
+    @login_required
     def post(self, photo_id):
         form_json = request.get_json()
         new_comment = Comment(
@@ -385,10 +387,11 @@ class Comments(Resource):
         )
         return response
 
-api.add_resource(Comments, '/photos/<int:photo_id>/comments')
+api.add_resource(Comments, '/login-required/photos/<int:photo_id>/comments')
 
 
 class CommentByID(Resource):
+    @login_required
     def patch(self, id):
         comment = Comment.query.filter_by(id=id).first()
         if not comment:
@@ -419,7 +422,7 @@ class CommentByID(Resource):
 
         return response
 
-api.add_resource(CommentByID, '/comments/<int:id>')
+api.add_resource(CommentByID, '/login-required/comments/<int:id>')
 
 class Likes(Resource):
     def get(self, photo_id):
@@ -520,6 +523,13 @@ def serve(path):
     else:
         return send_from_directory(build_directory, 'index.html')
 
+@app.route('/login-required/<path:path>')
+@login_required
+def gallery(path):
+    if path != "" and os.path.exists(os.path.join(build_directory, path)):
+        return send_from_directory(build_directory, path)
+    else:
+        return send_from_directory(build_directory, 'index.html')
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):

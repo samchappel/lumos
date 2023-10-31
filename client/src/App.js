@@ -11,6 +11,7 @@ import NotFound from './components/NotFound';
 import Gallery from './components/Gallery';
 import PhotoDetail from './components/PhotoDetail';
 import Footer from './components/Footer';
+import { Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { setLocationData } from './redux/actions';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -90,36 +91,40 @@ function App() {
         <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
       )}
       <Routes>
-        <Route path="/" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
-        {!isLoginPage && (
-          <>
-            <Route
-              path="/home"
-              element={
-                <Home
-                  latitude={latitude}
-                  longitude={longitude}
-                  setError={setError}
-                  setLatitude={setLatitude}
-                  setLongitude={setLongitude}
-                  setLocationData={setLocationData}
-                />
-              }
+        {/* Redirect / to /home */}
+        <Route path="/" element={<Navigate to="/home" />} />
+
+        <Route
+          path="/home"
+          element={
+            <Home
+              latitude={latitude}
+              longitude={longitude}
+              setError={setError}
+              setLatitude={setLatitude}
+              setLongitude={setLongitude}
+              setLocationData={setLocationData}
             />
-            <Route
-              path="/explore"
-              element={
-                <Explore />
-              }
-            />
-            <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/gallery" element={user ? <Gallery userId={user.id} isLoggedIn={isLoggedIn} /> : null} />
-            <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
-            <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <Explore />
+          }
+        />
+        <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
+        <Route path="/profile" element={<Profile />} />
+        {/* Only allow logged-in users to access the gallery */}
+        {user && (
+          <Route path="/gallery" element={<Gallery userId={user.id} isLoggedIn={isLoggedIn} />} />
         )}
+        <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
+        {/* Only allow logged-in users to add photos */}
+        {user && (
+          <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
+        )}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {!isLoginPage && !isNotFoundPage && <Footer />}
     </div>
