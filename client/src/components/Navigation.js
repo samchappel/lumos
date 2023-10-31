@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
+  const location = useLocation();
+
   useEffect(() => {
     console.log('Navigation re-rendered. isLoggedIn:', isLoggedIn);
     if (isLoggedIn) {
       setIsLoggedIn(true);
     }
   }, [isLoggedIn, setIsLoggedIn]);
+
+  const isLoginPage = location.pathname === '/login';
+
+  if (isLoginPage) {
+    return null;
+  }
 
   return (
     <div className="nav-container">

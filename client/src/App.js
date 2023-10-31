@@ -29,35 +29,35 @@ function App() {
   const [isNotFoundPage, setIsNotFoundPage] = useState(false);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchUser = () => {
-  //     fetch('/authorized')
-  //       .then(response => {
-  //         if (response.ok) {
-  //           response.json()
-  //             .then(data => {
-  //               setUser(data);
-  //               sessionStorage.setItem('isLoggedIn', 'true');
-  //               setIsLoggedIn(true);
-  //             });
-  //         } else {
-  //           setIsLoggedIn(false);
-  //           setUser(null);
-  //         }
-  //       });
-  //   };
+  useEffect(() => {
+    const fetchUser = () => {
+      fetch('/authorized')
+        .then(response => {
+          if (response.ok) {
+            response.json()
+              .then(data => {
+                setUser(data);
+                sessionStorage.setItem('isLoggedIn', 'true');
+                setIsLoggedIn(true);
+              });
+          } else {
+            setIsLoggedIn(false);
+            setUser(null);
+          }
+        });
+    };
 
-  //   fetchUser()
-  // }, []);
+    fetchUser()
+  }, []);
 
-  // useEffect(() => {
-  //   const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
-  //   if (storedIsLoggedIn) {
-  //     setIsLoggedIn(JSON.parse(storedIsLoggedIn));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (storedIsLoggedIn) {
+      setIsLoggedIn(JSON.parse(storedIsLoggedIn));
+    }
+  }, []);
 
-  // const updateUser = (user) => setUser(user)
+  const updateUser = (user) => setUser(user)
 
   const handleLogout = () => {
     fetch('/logout', { method: 'DELETE' })
@@ -110,6 +110,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/gallery" element={<Gallery userId={user?.id} isLoggedIn={isLoggedIn} />} />
         <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
+        <Route path="/login" element={<Authentication updateUser={updateUser} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
