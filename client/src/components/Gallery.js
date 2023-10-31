@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import GalleryModal from './GalleryModal';
 import GalleryHover from './GalleryHover';
 
-function Gallery({ userId, isLoggedIn }) {
+function Gallery() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosProp, setPhotosProp] = useState([]);
 
@@ -15,25 +13,26 @@ function Gallery({ userId, isLoggedIn }) {
     navigate('/add');
   };
 
+  const fetchPhotos = () => {
+    fetch('/photos')
+      .then((response) => {
+        if (!response.ok) {
+          console.error(`Error fetching data: ${response.status}`);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPhotosProp(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
   useEffect(() => {
-    const fetchPhotos = () => {
-      fetch(`/photos?user_id=${userId}`)
-        .then(response => {
-          if (!response.ok) {
-            console.error(`Error fetching data: ${response.status}`);
-            return;
-          }
-          return response.json()
-        })
-        .then(data => {
-          setPhotosProp(data);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    };
     fetchPhotos();
-  }, [userId]);
+  }, []);
 
   const openModal = (photo) => {
     setSelectedPhoto(photo);
@@ -47,17 +46,6 @@ function Gallery({ userId, isLoggedIn }) {
     setPhotosProp(photosProp.filter(photo => photo.id !== photoId));
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div>
-        <p>Please log in to interact with the Lumos Community!</p>
-        <Link to="/login">
-          <button className="btn btn-outline btn-accent">Log In or Sign Up!</button>
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <div className="text-center mt-8">
       <h1 className="text-3xl font-bold mb-4">For the Glow Getters: Our Community's Sunrise and Sunset Hub</h1>
@@ -68,10 +56,9 @@ function Gallery({ userId, isLoggedIn }) {
         ))}
       </div>
       {selectedPhoto && (
-        <GalleryModal 
-          photo={selectedPhoto} 
-          photosProp={photosProp} 
-          userId={userId} 
+        <GalleryModal
+          photo={selectedPhoto}
+          photosProp={photosProp}
           closeModal={closeModal}
           handleDeletePhoto={handleDeletePhoto}
         />
@@ -80,10 +67,4 @@ function Gallery({ userId, isLoggedIn }) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoggedIn: state.isLoggedIn,
-  };
-};
-
-export default connect(mapStateToProps)(Gallery);
+export default Gallery;

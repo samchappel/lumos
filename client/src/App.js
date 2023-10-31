@@ -29,35 +29,35 @@ function App() {
   const [isNotFoundPage, setIsNotFoundPage] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUser = () => {
-      fetch('/authorized')
-        .then(response => {
-          if (response.ok) {
-            response.json()
-              .then(data => {
-                setUser(data);
-                sessionStorage.setItem('isLoggedIn', 'true');
-                setIsLoggedIn(true);
-              });
-          } else {
-            setIsLoggedIn(false);
-            setUser(null);
-          }
-        });
-    };
+  // useEffect(() => {
+  //   const fetchUser = () => {
+  //     fetch('/authorized')
+  //       .then(response => {
+  //         if (response.ok) {
+  //           response.json()
+  //             .then(data => {
+  //               setUser(data);
+  //               sessionStorage.setItem('isLoggedIn', 'true');
+  //               setIsLoggedIn(true);
+  //             });
+  //         } else {
+  //           setIsLoggedIn(false);
+  //           setUser(null);
+  //         }
+  //       });
+  //   };
 
-    fetchUser()
-  }, []);
+  //   fetchUser()
+  // }, []);
 
-  useEffect(() => {
-    const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (storedIsLoggedIn) {
-      setIsLoggedIn(JSON.parse(storedIsLoggedIn));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
+  //   if (storedIsLoggedIn) {
+  //     setIsLoggedIn(JSON.parse(storedIsLoggedIn));
+  //   }
+  // }, []);
 
-  const updateUser = (user) => setUser(user)
+  // const updateUser = (user) => setUser(user)
 
   const handleLogout = () => {
     fetch('/logout', { method: 'DELETE' })
@@ -91,9 +91,7 @@ function App() {
         <Navigation isLoggedIn={isLoggedIn} handleLogout={handleLogout} setIsLoggedIn={setIsLoggedIn} />
       )}
       <Routes>
-        {/* Redirect / to /home */}
         <Route path="/" element={<Navigate to="/home" />} />
-
         <Route
           path="/home"
           element={
@@ -107,23 +105,12 @@ function App() {
             />
           }
         />
-        <Route
-          path="/explore"
-          element={
-            <Explore />
-          }
-        />
+        <Route path="/explore" element={<Explore />} />
         <Route path="/results/:latitude/:longitude" element={<Results setLocationData={setLocationData} />} />
         <Route path="/profile" element={<Profile />} />
-        {/* Only allow logged-in users to access the gallery */}
-        {user && (
-          <Route path="/gallery" element={<Gallery userId={user.id} isLoggedIn={isLoggedIn} />} />
-        )}
+        <Route path="/gallery" element={<Gallery userId={user?.id} isLoggedIn={isLoggedIn} />} />
         <Route path="/photos/:id" element={<PhotoDetail userId={user?.id} />} />
-        {/* Only allow logged-in users to add photos */}
-        {user && (
-          <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
-        )}
+        <Route path="/add" element={<NewPhotoForm addPhotoToGallery={addPhotoToGallery} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {!isLoginPage && !isNotFoundPage && <Footer />}

@@ -49,11 +49,13 @@ function Home({ setLocationData, firstName }) {
 
   return (
     <>
-      <Header handleSearch={handleSearch} setLocationData={setLocationData}/>
+      <Header handleSearch={handleSearch} setLocationData={setLocationData} />
       {error && <p className="error-message">{error}</p>}
       <section className="py-12 px-4">
         <div className="max-w-2xl mx-auto text-center text-secondary">
-        <h2 className="text-4xl font-bold mb-4 text-primary">Welcome, {firstName}!</h2>
+          <h2 className="text-4xl font-bold mb-4 text-primary">
+            Welcome{firstName ? `, ${firstName}!` : '!'}
+          </h2>
           <p className="text-lg mb-8 text-accent">Lumos is your go-to guide for when the sun will rise and set where it matters most, so you're never left in the dark.</p>
           <p className="text-lg mb-4">
             We're your companion for capturing the beauty and wonder of sunrise and sunset moments. Whether you're a professional photographer, an outdoor enthusiast, or simply appreciate the serene beauty of the sun, Lumos provides you with the information you need to make the most of these magical moments.

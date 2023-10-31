@@ -296,6 +296,15 @@ class Photos(Resource):
 
         return response
 
+@app.route('/photos', methods=['GET'])
+def get_photos():
+    photo_list = [photo.to_dict() for photo in Photo.query.all()]
+    response = make_response(
+        photo_list,
+        200
+    )
+    return response
+
 api.add_resource(Photos, '/login-required/photos')
 
 
@@ -386,6 +395,12 @@ class Comments(Resource):
             201
         )
         return response
+
+@app.route('/photos/<int:photo_id>/comments', methods=['GET'])
+def get_comments(photo_id):
+    comment_list = [comment.to_dict() for comment in Comment.query.filter_by(photo_id=photo_id).all()]
+    response = make_response(comment_list, 200)
+    return response
 
 api.add_resource(Comments, '/login-required/photos/<int:photo_id>/comments')
 
