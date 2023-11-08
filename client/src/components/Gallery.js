@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GalleryModal from './GalleryModal';
 import GalleryHover from './GalleryHover';
+import { useSelector } from 'react-redux';
 
 function Gallery() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -9,8 +10,14 @@ function Gallery() {
 
   const navigate = useNavigate();
 
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   const handleAddPhoto = () => {
-    navigate('/add');
+    if (isLoggedIn) {
+      navigate('/add');
+    } else {
+      navigate('/login');
+    }
   };
 
   const fetchPhotos = () => {
@@ -48,20 +55,32 @@ function Gallery() {
 
   return (
     <div className="text-center mt-8">
-      <h1 className="text-3xl font-bold mb-4">For the Glow Getters: Our Community's Sunrise and Sunset Hub</h1>
-      <button className="btn btn-outline btn-primary mb-4" onClick={handleAddPhoto}>Add To Gallery</button>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {photosProp.map(photo => (
-          <GalleryHover key={photo.id} photo={photo} openModal={openModal} />
-        ))}
-      </div>
-      {selectedPhoto && (
-        <GalleryModal
-          photo={selectedPhoto}
-          photosProp={photosProp}
-          closeModal={closeModal}
-          handleDeletePhoto={handleDeletePhoto}
-        />
+      {isLoggedIn ? (
+        <>
+          <h1 className="text-3xl font-bold mb-4">
+            For the Glow Getters: Our Community's Sunrise and Sunset Hub
+          </h1>
+          <button className="btn btn-outline btn-primary mb-4" onClick={handleAddPhoto}>
+            Add To Gallery
+          </button>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {photosProp.map((photo) => (
+              <GalleryHover key={photo.id} photo={photo} openModal={openModal} />
+            ))}
+          </div>
+          {selectedPhoto && (
+            <GalleryModal
+              photo={selectedPhoto}
+              photosProp={photosProp}
+              closeModal={closeModal}
+              handleDeletePhoto={handleDeletePhoto}
+            />
+          )}
+        </>
+      ) : (
+        <p className="text-xl">
+          Please log in to view and engage with the Lumos Gallery Community.
+        </p>
       )}
     </div>
   );

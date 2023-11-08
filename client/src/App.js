@@ -12,8 +12,8 @@ import Gallery from './components/Gallery';
 import PhotoDetail from './components/PhotoDetail';
 import Footer from './components/Footer';
 import { Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { setLocationData } from './redux/actions';
+import { Provider, useDispatch } from 'react-redux';
+import { setLocationData, setUserLoggedIn } from './redux/actions';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import './index.css';
@@ -28,6 +28,7 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [isNotFoundPage, setIsNotFoundPage] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUser = () => {
@@ -37,12 +38,12 @@ function App() {
             response.json()
               .then(data => {
                 setUser(data);
-                sessionStorage.setItem('isLoggedIn', 'true');
-                setIsLoggedIn(true);
+                dispatch(setUserLoggedIn(true));
               });
           } else {
             setIsLoggedIn(false);
             setUser(null);
+            dispatch(setUserLoggedIn(false));
           }
         });
     };
@@ -54,6 +55,8 @@ function App() {
     const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (storedIsLoggedIn) {
       setIsLoggedIn(JSON.parse(storedIsLoggedIn));
+  
+      dispatch(setUserLoggedIn(isLoggedIn));
     }
   }, []);
 

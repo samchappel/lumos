@@ -85,29 +85,9 @@ function NewPhotoForm({ addPhotoToGallery }) {
             <ErrorMessage name="image" component="div" className="text-red-500 mt-1" />
           </label>
           <label className="block mb-2">
-            <span className="text-secondary">Location:</span>
-            <Field type="text" name="location" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="location" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">City:</span>
-            <Field type="text" name="city" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="city" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">State:</span>
-            <Field type="text" name="state" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="state" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
             <span className="text-secondary">Caption:</span>
             <Field type="text" name="caption" className="form-input mt-1 block w-full" />
             <ErrorMessage name="caption" component="div" className="text-red-500 mt-1" />
-          </label>
-          <label className="block mb-2">
-            <span className="text-secondary">Date:</span>
-            <Field type="date" name="date" className="form-input mt-1 block w-full" />
-            <ErrorMessage name="date" component="div" className="text-red-500 mt-1" />
           </label>
           <div className="flex justify-end mt-4">
             <button

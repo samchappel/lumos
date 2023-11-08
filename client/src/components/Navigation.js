@@ -36,7 +36,7 @@ function Navigation({ isLoggedIn, handleLogout, setIsLoggedIn }) {
               </>
             ) : (
               <>
-                <li><Link to="/">Log In/Sign Up</Link></li>
+                <li><Link to="/login">Log In/Sign Up</Link></li>
               </>
             )}
           </ul>

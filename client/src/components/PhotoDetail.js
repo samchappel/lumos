@@ -18,11 +18,11 @@ function PhotoDetail() {
         if (!response.ok) {
           throw new Error(`Error fetching data: ${response.status}`);
         }
-        return response.json()
+        return response.json();
       })
       .then(setPhoto)
       .catch(error => {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching data:', error);
       });
   }, [location.pathname]);
 
@@ -41,18 +41,25 @@ function PhotoDetail() {
             <h2 className="card-title">{photoData.caption}</h2>
             <p><strong>Photo by: {photoData.user.first_name} {photoData.user.last_name}</strong></p>
             {photoData.user.id === userId && (
-                <DeletePhoto photo={photoData} onDelete={handleDeletePhoto} />
-              )}
-              <p>Total Comments: {comments.length}</p>
-              <Comments photoId={photoData.id} userId={userId} onAddComment={() => handleAddComment(photoData)} />
-              {selectedPhoto && selectedPhoto.id === photoData.id && (
-                <AddComment
-                  photoId={selectedPhoto.id}
-                  userId={userId}
-                  setComments={setComments}
-                  onCancel={handleCloseAddComment}
-                />
-              )}
+              <DeletePhoto photo={photoData} onDelete={handleDeletePhoto} />
+            )}
+            <p>Total Comments: {comments.length}</p>
+            <Comments photoId={photoData.id} userId={userId} onAddComment={() => handleAddComment(photoData)} />
+
+            {userId && ( // Check if the user is logged in
+              <button className="btn" onClick={() => handleAddComment(photoData)}>
+                Add Comment
+              </button>
+            )}
+
+            {selectedPhoto && selectedPhoto.id === photoData.id && (
+              <AddComment
+                photoId={selectedPhoto.id}
+                userId={userId}
+                setComments={setComments}
+                onCancel={handleCloseAddComment}
+              />
+            )}
           </div>
         </div>
       )}
